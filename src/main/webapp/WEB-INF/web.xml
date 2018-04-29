@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="GBK"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<!-- 指定配置文件路径 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:ccmz-context.xml</param-value>
+	</context-param>
+	<!-- 配置Ioc容器监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- 配置默认servlet映射,将静态资源不交给SpringMVC -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.jpg</url-pattern>
+		<url-pattern>*.png</url-pattern>
+		<url-pattern>/bower_components/*"</url-pattern>
+	</servlet-mapping>
+	<!-- 配置servlet,这里通过spring的契约，要求在web-inf中，要有ccmz-servlet.xml文件 或者也可以配置 <init-param> 
+		<param-name>contextConfigLocation</param-name> <param-value>/WEB-INF/ccmz-servlet.xml</param-value> 
+		</init-param> -->
+	<servlet>
+		<servlet-name>ccmz</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+
+	<!-- 配置映射，使用上面的servlet，处理所有的html请求。对于静态文件，使用htm以避免被MVC处理 -->
+	<servlet-mapping>
+		<servlet-name>ccmz</servlet-name>
+		<url-pattern>/</url-pattern>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+</web-app>
+

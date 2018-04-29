@@ -1,0 +1,17 @@
+ {
+"name": "ccmz",
+"version": "1.0.0",
+"private": true,
+"dependencies": {
+    "angular": "1.6.4",
+    "jquery": "3.3.1",
+    "bootstrap":"3.3.7",
+    "fontAwesome":"4.7.0",
+    "ionicons":"2.0.1",
+    "adminLTE":"2.4.3",
+    "html5shiv":"",
+    "respond":"",
+    "jquery-cookie":"",
+    "css":""
+}
+}
