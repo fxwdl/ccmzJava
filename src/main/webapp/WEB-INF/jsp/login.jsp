@@ -37,8 +37,37 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">请输入用户名和密码登录系统</p>
-            <form:form action="" method="post" class = "form-horizontal" role = "form" onsubmit= "onSubmit()">
-            	
+            <form:form action="" method="post" class = "form-horizontal" role = "form" onsubmit= "onSubmit()" modelAttribute="user">
+            	<c:if test="${not empty modelState }">            	
+                    <div class="alert alert-danger" role="alert">
+                        <a class="close" data-dismiss="alert">×</a>
+	            		<c:forEach items="${modelState}" var="state">
+	            			<p>${state}</p>
+	            		</c:forEach>
+                    </div>                                
+            	</c:if>
+                <div class="form-group has-feedback">
+                	<form:input path="userName" class="form-control" placeholder="用户名"/>               
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                	<form:input path="password" class="form-control" placeholder="密码" type="password"/>   
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>                                
+                                <input type="checkbox" id="RememberMe">记住我
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+                    </div>
+                    <!-- /.col -->
+                </div>            	
             </form:form>
             
         </div>

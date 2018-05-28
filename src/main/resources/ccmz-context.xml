@@ -16,13 +16,20 @@
     <context:component-scan base-package="com.yixun.ccmz.dao"/>
     <context:component-scan base-package="com.yixun.ccmz.service"/>
     
+	<!-- 基于@AspectJ切面的驱动器 -->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+    
+
+    <!-- 指定配置文件的位置，貌似不指定也好使 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/> 
+    
     <!-- 配置数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" 
-		p:driverClassName="com.mysql.jdbc.Driver"
-		p:url="jdbc:mysql://localhost:3306/yixunccmz"
-		p:username="root"
-		p:password="abc#1234" />
+		p:driverClassName="${jdbc.driverClassName}"
+		p:url="${jdbc.url}"
+		p:username="${jdbc.username}"
+		p:password="${jdbc.password}" />
 		
 <!-- 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close"
@@ -44,7 +51,11 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
 		
-	<!-- 通过AOP配置提供事务增强，让service包下所有Bean的所有方法拥有事务 -->
+    <!-- 对标识@Transactional注解的Bean进行加工处理，以织入事务管理切面 proxy-target-class="true" 使用CGLib动态代理  false是接口代理-->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    
+		
+	<!-- 通过XML AOP配置提供事务增强，让service包下所有Bean的所有方法拥有事务 （基于schema的AOP配置方式 如果声明了tx:annotation-driven,则这段应该也可以省略了
 	<aop:config proxy-target-class="true">
 		<aop:pointcut id="serviceMethod"
 			expression="(execution(* com.yixun.ccmz.service..*(..))) and (@annotation(org.springframework.transaction.annotation.Transactional))" />
@@ -52,7 +63,8 @@
 	</aop:config>
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="*" />
+			<tx:method name="*"/>			
 		</tx:attributes>
 	</tx:advice>
+	-->
 </beans>

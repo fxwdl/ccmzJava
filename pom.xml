@@ -41,6 +41,11 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 		<!-- 连接池库依赖 -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -60,11 +65,7 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>${aspectj.version}</version>
-		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/c3p0/c3p0 -->
 		<dependency>
 			<groupId>c3p0</groupId>
@@ -80,6 +81,49 @@
 			<groupId>taglibs</groupId>
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
+		</dependency>
+
+		<!-- asm/cglib依赖（spring依赖） -->
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>${asm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-util</artifactId>
+			<version>${asm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>asm</artifactId>
+					<groupId>org.ow2.asm</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>aopalliance</groupId>
+			<artifactId>aopalliance</artifactId>
+			<version>${aopalliance.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${commons-codec.version}</version>
 		</dependency>
 
 
@@ -161,11 +205,15 @@
 
 	</build>
 	<properties>
+		<jdbc.driverClassName></jdbc.driverClassName>
+		<jdbc.url></jdbc.url>
+		<jdbc.username></jdbc.username>
+		<jdbc.password></jdbc.password>
+
 		<file.encoding>UTF-8</file.encoding>
 		<spring.version>4.2.9.RELEASE</spring.version>
 		<mysql.version>5.1.29</mysql.version>
 		<servlet.version>3.1.0</servlet.version>
-		<aspectj.version>1.8.1</aspectj.version>
 		<commons-codec.version>1.9</commons-codec.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<hibernate.validator.version>5.0.2.Final</hibernate.validator.version>
@@ -173,5 +221,11 @@
 		<slf4j.version>1.7.5</slf4j.version>
 		<testng.version>6.8.7</testng.version>
 		<c3p0.version>0.9.1.2</c3p0.version>
+
+		<cglib.version>3.2.6</cglib.version>
+		<asm.version>4.0</asm.version>
+		<aspectj.version>1.8.1</aspectj.version>
+		<aopalliance.version>1.0</aopalliance.version>
+		<commons-codec.version>1.9</commons-codec.version>
 	</properties>
 </project>
