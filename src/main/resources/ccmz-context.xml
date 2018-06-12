@@ -18,7 +18,6 @@
     
 	<!-- 基于@AspectJ切面的驱动器 -->
     <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-    
 
     <!-- 指定配置文件的位置，貌似不指定也好使 -->
     <context:property-placeholder location="classpath:jdbc.properties"/> 

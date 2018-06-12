@@ -20,7 +20,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>	
-	<!-- 配置默认servlet映射,将静态资源不交给SpringMVC -->
+	<!-- 配置默认servlet映射,将静态资源不交给SpringMVC 高版本的spring可以使用default-servlet-handler和mvc:resources来完成
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.js</url-pattern>
@@ -31,7 +31,8 @@
 		<url-pattern>*.woff</url-pattern>
 		<url-pattern>*.ttf</url-pattern>
 		<url-pattern>/bower_components/*"</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping>-->
+	
 	<!-- 配置servlet,这里通过spring的契约，要求在web-inf中，要有ccmz-servlet.xml文件 或者也可以配置 <init-param> 
 		<param-name>contextConfigLocation</param-name> <param-value>/WEB-INF/ccmz-servlet.xml</param-value> 
 		</init-param> -->

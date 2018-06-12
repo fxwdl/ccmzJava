@@ -51,7 +51,7 @@
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                	<form:input path="password" class="form-control" placeholder="密码" type="password"/>   
+                	<form:password path="password" class="form-control" placeholder="密码"/>   
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
@@ -78,6 +78,9 @@
     <script src="${pageContext.request.contextPath}/bower_components/jquery-cookie/jquery.cookie.js"></script>
     <script src="${pageContext.request.contextPath}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/bower_components/adminLTE/plugins/iCheck/icheck.min.js"></script>
+    
+    <script src="${resourceRoot}/my_app/test.js"></script>
+    
     <script>
           $(function () {
             $('input').iCheck({
