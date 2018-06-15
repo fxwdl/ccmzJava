@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yixun.ccmz.dao.*;
+import com.yixun.ccmz.dao.mybatis.mapper.UserMapper;
 import com.yixun.ccmz.domain.*;
 import java.util.*;
 
@@ -13,11 +14,7 @@ import java.util.*;
 public class AccountService
 {
 	@Autowired
-	private AspnetUserDao aspnetUserDao;
-	@Autowired
-	private UserMapper userMapper;
-	@Autowired
-	private MembershipMapper membershipMapper;
+	private UserDao userDao;
 
 	public boolean ValidateUser(String username, String password)
 	{
@@ -28,7 +25,7 @@ public class AccountService
 		 * if (l1.size() > 0) { User u = l1.get(0); }
 		 */
 		// AspnetUser user = aspnetUserDao.FindByName(username);
-		User u = userMapper.getByUserName(username);
+		User u = userDao.getByUserName(username);
 
 		if (u != null && u.getMembership().getPassword().equals(password))
 		{
