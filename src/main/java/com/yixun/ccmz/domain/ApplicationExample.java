@@ -105,282 +105,282 @@ public class ApplicationExample {
         }
 
         public Criteria andApplicationIdIsNull() {
-            addCriterion("\"ApplicationId\" is null");
+            addCriterion("ApplicationId is null");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdIsNotNull() {
-            addCriterion("\"ApplicationId\" is not null");
+            addCriterion("ApplicationId is not null");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdEqualTo(String value) {
-            addCriterion("\"ApplicationId\" =", value, "applicationId");
+            addCriterion("ApplicationId =", value, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdNotEqualTo(String value) {
-            addCriterion("\"ApplicationId\" <>", value, "applicationId");
+            addCriterion("ApplicationId <>", value, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdGreaterThan(String value) {
-            addCriterion("\"ApplicationId\" >", value, "applicationId");
+            addCriterion("ApplicationId >", value, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdGreaterThanOrEqualTo(String value) {
-            addCriterion("\"ApplicationId\" >=", value, "applicationId");
+            addCriterion("ApplicationId >=", value, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdLessThan(String value) {
-            addCriterion("\"ApplicationId\" <", value, "applicationId");
+            addCriterion("ApplicationId <", value, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdLessThanOrEqualTo(String value) {
-            addCriterion("\"ApplicationId\" <=", value, "applicationId");
+            addCriterion("ApplicationId <=", value, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdLike(String value) {
-            addCriterion("\"ApplicationId\" like", value, "applicationId");
+            addCriterion("ApplicationId like", value, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdNotLike(String value) {
-            addCriterion("\"ApplicationId\" not like", value, "applicationId");
+            addCriterion("ApplicationId not like", value, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdIn(List<String> values) {
-            addCriterion("\"ApplicationId\" in", values, "applicationId");
+            addCriterion("ApplicationId in", values, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdNotIn(List<String> values) {
-            addCriterion("\"ApplicationId\" not in", values, "applicationId");
+            addCriterion("ApplicationId not in", values, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdBetween(String value1, String value2) {
-            addCriterion("\"ApplicationId\" between", value1, value2, "applicationId");
+            addCriterion("ApplicationId between", value1, value2, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationIdNotBetween(String value1, String value2) {
-            addCriterion("\"ApplicationId\" not between", value1, value2, "applicationId");
+            addCriterion("ApplicationId not between", value1, value2, "applicationId");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameIsNull() {
-            addCriterion("\"ApplicationName\" is null");
+            addCriterion("ApplicationName is null");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameIsNotNull() {
-            addCriterion("\"ApplicationName\" is not null");
+            addCriterion("ApplicationName is not null");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameEqualTo(String value) {
-            addCriterion("\"ApplicationName\" =", value, "applicationName");
+            addCriterion("ApplicationName =", value, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameNotEqualTo(String value) {
-            addCriterion("\"ApplicationName\" <>", value, "applicationName");
+            addCriterion("ApplicationName <>", value, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameGreaterThan(String value) {
-            addCriterion("\"ApplicationName\" >", value, "applicationName");
+            addCriterion("ApplicationName >", value, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameGreaterThanOrEqualTo(String value) {
-            addCriterion("\"ApplicationName\" >=", value, "applicationName");
+            addCriterion("ApplicationName >=", value, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameLessThan(String value) {
-            addCriterion("\"ApplicationName\" <", value, "applicationName");
+            addCriterion("ApplicationName <", value, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameLessThanOrEqualTo(String value) {
-            addCriterion("\"ApplicationName\" <=", value, "applicationName");
+            addCriterion("ApplicationName <=", value, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameLike(String value) {
-            addCriterion("\"ApplicationName\" like", value, "applicationName");
+            addCriterion("ApplicationName like", value, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameNotLike(String value) {
-            addCriterion("\"ApplicationName\" not like", value, "applicationName");
+            addCriterion("ApplicationName not like", value, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameIn(List<String> values) {
-            addCriterion("\"ApplicationName\" in", values, "applicationName");
+            addCriterion("ApplicationName in", values, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameNotIn(List<String> values) {
-            addCriterion("\"ApplicationName\" not in", values, "applicationName");
+            addCriterion("ApplicationName not in", values, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameBetween(String value1, String value2) {
-            addCriterion("\"ApplicationName\" between", value1, value2, "applicationName");
+            addCriterion("ApplicationName between", value1, value2, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andApplicationNameNotBetween(String value1, String value2) {
-            addCriterion("\"ApplicationName\" not between", value1, value2, "applicationName");
+            addCriterion("ApplicationName not between", value1, value2, "applicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameIsNull() {
-            addCriterion("\"LoweredApplicationName\" is null");
+            addCriterion("LoweredApplicationName is null");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameIsNotNull() {
-            addCriterion("\"LoweredApplicationName\" is not null");
+            addCriterion("LoweredApplicationName is not null");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameEqualTo(String value) {
-            addCriterion("\"LoweredApplicationName\" =", value, "loweredApplicationName");
+            addCriterion("LoweredApplicationName =", value, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameNotEqualTo(String value) {
-            addCriterion("\"LoweredApplicationName\" <>", value, "loweredApplicationName");
+            addCriterion("LoweredApplicationName <>", value, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameGreaterThan(String value) {
-            addCriterion("\"LoweredApplicationName\" >", value, "loweredApplicationName");
+            addCriterion("LoweredApplicationName >", value, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameGreaterThanOrEqualTo(String value) {
-            addCriterion("\"LoweredApplicationName\" >=", value, "loweredApplicationName");
+            addCriterion("LoweredApplicationName >=", value, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameLessThan(String value) {
-            addCriterion("\"LoweredApplicationName\" <", value, "loweredApplicationName");
+            addCriterion("LoweredApplicationName <", value, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameLessThanOrEqualTo(String value) {
-            addCriterion("\"LoweredApplicationName\" <=", value, "loweredApplicationName");
+            addCriterion("LoweredApplicationName <=", value, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameLike(String value) {
-            addCriterion("\"LoweredApplicationName\" like", value, "loweredApplicationName");
+            addCriterion("LoweredApplicationName like", value, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameNotLike(String value) {
-            addCriterion("\"LoweredApplicationName\" not like", value, "loweredApplicationName");
+            addCriterion("LoweredApplicationName not like", value, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameIn(List<String> values) {
-            addCriterion("\"LoweredApplicationName\" in", values, "loweredApplicationName");
+            addCriterion("LoweredApplicationName in", values, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameNotIn(List<String> values) {
-            addCriterion("\"LoweredApplicationName\" not in", values, "loweredApplicationName");
+            addCriterion("LoweredApplicationName not in", values, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameBetween(String value1, String value2) {
-            addCriterion("\"LoweredApplicationName\" between", value1, value2, "loweredApplicationName");
+            addCriterion("LoweredApplicationName between", value1, value2, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andLoweredApplicationNameNotBetween(String value1, String value2) {
-            addCriterion("\"LoweredApplicationName\" not between", value1, value2, "loweredApplicationName");
+            addCriterion("LoweredApplicationName not between", value1, value2, "loweredApplicationName");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionIsNull() {
-            addCriterion("\"Description\" is null");
+            addCriterion("Description is null");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionIsNotNull() {
-            addCriterion("\"Description\" is not null");
+            addCriterion("Description is not null");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionEqualTo(String value) {
-            addCriterion("\"Description\" =", value, "description");
+            addCriterion("Description =", value, "description");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionNotEqualTo(String value) {
-            addCriterion("\"Description\" <>", value, "description");
+            addCriterion("Description <>", value, "description");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionGreaterThan(String value) {
-            addCriterion("\"Description\" >", value, "description");
+            addCriterion("Description >", value, "description");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
-            addCriterion("\"Description\" >=", value, "description");
+            addCriterion("Description >=", value, "description");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionLessThan(String value) {
-            addCriterion("\"Description\" <", value, "description");
+            addCriterion("Description <", value, "description");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionLessThanOrEqualTo(String value) {
-            addCriterion("\"Description\" <=", value, "description");
+            addCriterion("Description <=", value, "description");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionLike(String value) {
-            addCriterion("\"Description\" like", value, "description");
+            addCriterion("Description like", value, "description");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionNotLike(String value) {
-            addCriterion("\"Description\" not like", value, "description");
+            addCriterion("Description not like", value, "description");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionIn(List<String> values) {
-            addCriterion("\"Description\" in", values, "description");
+            addCriterion("Description in", values, "description");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionNotIn(List<String> values) {
-            addCriterion("\"Description\" not in", values, "description");
+            addCriterion("Description not in", values, "description");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionBetween(String value1, String value2) {
-            addCriterion("\"Description\" between", value1, value2, "description");
+            addCriterion("Description between", value1, value2, "description");
             return (Criteria) this;
         }
 
         public Criteria andDescriptionNotBetween(String value1, String value2) {
-            addCriterion("\"Description\" not between", value1, value2, "description");
+            addCriterion("Description not between", value1, value2, "description");
             return (Criteria) this;
         }
     }

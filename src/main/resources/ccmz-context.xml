@@ -45,6 +45,28 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
 		p:dataSource-ref="dataSource" />
 		
+    <!-- myBatis相关配置 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 自動掃描entity目錄, 省掉Configuration.xml裡的手工配置 -->
+        <property name="mapperLocations" value="classpath:com/yixun/ccmz/dao/*.xml"/>
+        <property name="configLocation" value="classpath:myBatisConfig.xml"></property>
+    </bean>
+    	<!-- 将mybatis的mapper接口类,动态生成Spring Bean。否则需要按以下方式手工逐条注册
+			<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+			  <property name="mapperInterface" value="org.mybatis.spring.sample.mapper.UserMapper" />
+			  <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+			</bean>    	
+    	-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.yixun.ccmz.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+    	<!-- 配置myBatis模板  -->
+    <bean class="org.mybatis.spring.SqlSessionTemplate">
+    	<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+    </bean>
+        
 	<!-- 配置事务管理器 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"

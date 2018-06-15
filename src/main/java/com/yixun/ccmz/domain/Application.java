@@ -9,17 +9,6 @@ public class Application extends BaseModel {
 
     private String description;
 
-    public Application(String applicationId, String applicationName, String loweredApplicationName, String description) {
-        this.applicationId = applicationId;
-        this.applicationName = applicationName;
-        this.loweredApplicationName = loweredApplicationName;
-        this.description = description;
-    }
-
-    public Application() {
-        super();
-    }
-
     public String getApplicationId() {
         return applicationId;
     }

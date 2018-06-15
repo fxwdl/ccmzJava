@@ -4,25 +4,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yixun.ccmz.dao.AspnetUserDao;
-import com.yixun.ccmz.domain.AspnetUser;
+import com.yixun.ccmz.dao.*;
+import com.yixun.ccmz.domain.*;
+import java.util.*;
 
 @Service
 @Transactional
 public class AccountService
 {
-	private AspnetUserDao aspnetUserDao;
-
 	@Autowired
-	public void setAspnetUserDao(AspnetUserDao aspnetUserDao)
-	{
-		this.aspnetUserDao = aspnetUserDao;
-	}
+	private AspnetUserDao aspnetUserDao;
+	@Autowired
+	private UserMapper userMapper;
+	@Autowired
+	private MembershipMapper membershipMapper;
 
 	public boolean ValidateUser(String username, String password)
 	{
+		/*
+		 * UserExample q1 = new UserExample(); q1.or().andUserNameEqualTo(username);
+		 * List<User> l1 = userMapper.selectByExample(q1);
+		 * 
+		 * if (l1.size() > 0) { User u = l1.get(0); }
+		 */
 		// AspnetUser user = aspnetUserDao.FindByName(username);
-		if (username.equals("admin") && password.equals("1"))
+		User u = userMapper.getByUserName(username);
+
+		if (u != null && u.getMembership().getPassword().equals(password))
 		{
 			return true;
 		}
