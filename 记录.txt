@@ -1,0 +1,18 @@
+一、关于Dao层：近期实现直接依赖于mybatis，远期实现将dao层抽象出来，包定义如下：
+
+com.yixun.dao：存放关于dao基接口或者基类
+
+com.yixun.ccmz.dao:存放项目相关的dao接口
+
+com.yixun.ccmz.mybatis:存放mybatis对com.yixun.ccmz.dao中接口的实现类（可以引用下层包的mapper）
+
+com.yixun.ccmz.hibernate:存放hibernate对com.yixun.ccmz.dao中接口的实现类（可以引用下层包的mapper）
+
+这其中的难点有以下：
+
+1、像.net那样将基类分项目存在。
+2、基于泛型实现基础的dao。
+3、像Autofac那样集中声明注册接口与Dao实现类的配对关系，然后在Service层直接通过@Autowired进行注入。目前看到的方法是使用在对Dao注解时加入名字（@Repository("UserDao") ）,
+然后在Service层用@Resource(name = "UserDao") ，即通过名称注册。这样虽可以实现，但是还是不利于集中切换Dao实现类。
+
+参考文章：https://blog.csdn.net/lj402159806/article/details/54410652

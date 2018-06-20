@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yixun.ccmz.dao.mybatis.mapper.ApplicationMapper" >
+  <resultMap id="BaseResultMap" type="com.yixun.ccmz.domain.Application" >
+    <id column="ApplicationId" property="applicationId" jdbcType="VARCHAR" />
+    <result column="ApplicationName" property="applicationName" jdbcType="VARCHAR" />
+    <result column="LoweredApplicationName" property="loweredApplicationName" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ApplicationId, ApplicationName, LoweredApplicationName, Description
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixun.ccmz.domain.ApplicationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aspnet_applications
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from aspnet_applications
+    where ApplicationId = #{applicationId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from aspnet_applications
+    where ApplicationId = #{applicationId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yixun.ccmz.domain.ApplicationExample" >
+    delete from aspnet_applications
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yixun.ccmz.domain.Application" >
+    insert into aspnet_applications (ApplicationId, ApplicationName, LoweredApplicationName, 
+      Description)
+    values (#{applicationId,jdbcType=VARCHAR}, #{applicationName,jdbcType=VARCHAR}, #{loweredApplicationName,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixun.ccmz.domain.Application" >
+    insert into aspnet_applications
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applicationId != null" >
+        ApplicationId,
+      </if>
+      <if test="applicationName != null" >
+        ApplicationName,
+      </if>
+      <if test="loweredApplicationName != null" >
+        LoweredApplicationName,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applicationId != null" >
+        #{applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationName != null" >
+        #{applicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="loweredApplicationName != null" >
+        #{loweredApplicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yixun.ccmz.domain.ApplicationExample" resultType="java.lang.Integer" >
+    select count(*) from aspnet_applications
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aspnet_applications
+    <set >
+      <if test="record.applicationId != null" >
+        ApplicationId = #{record.applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicationName != null" >
+        ApplicationName = #{record.applicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loweredApplicationName != null" >
+        LoweredApplicationName = #{record.loweredApplicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        Description = #{record.description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aspnet_applications
+    set ApplicationId = #{record.applicationId,jdbcType=VARCHAR},
+      ApplicationName = #{record.applicationName,jdbcType=VARCHAR},
+      LoweredApplicationName = #{record.loweredApplicationName,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixun.ccmz.domain.Application" >
+    update aspnet_applications
+    <set >
+      <if test="applicationName != null" >
+        ApplicationName = #{applicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="loweredApplicationName != null" >
+        LoweredApplicationName = #{loweredApplicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ApplicationId = #{applicationId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixun.ccmz.domain.Application" >
+    update aspnet_applications
+    set ApplicationName = #{applicationName,jdbcType=VARCHAR},
+      LoweredApplicationName = #{loweredApplicationName,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR}
+    where ApplicationId = #{applicationId,jdbcType=VARCHAR}
+  </update>
+</mapper>

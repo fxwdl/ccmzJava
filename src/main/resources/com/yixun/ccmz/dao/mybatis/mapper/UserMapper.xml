@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yixun.ccmz.dao.mybatis.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.yixun.ccmz.domain.User">
+    <constructor>
+      <idArg column="UserId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ApplicationId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="UserName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="LoweredUserName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="MobileAlias" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="IsAnonymous" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="LastActivityDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="GovDeptFullCode" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="HospitalID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CNName" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    UserId, ApplicationId, UserName, LoweredUserName, MobileAlias, IsAnonymous, LastActivityDate, 
+    GovDeptFullCode, HospitalID, CNName
+  </sql>
+  <select id="selectByExample" parameterType="com.yixun.ccmz.domain.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aspnet_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from aspnet_users
+    where UserId = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from aspnet_users
+    where UserId = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yixun.ccmz.domain.UserExample">
+    delete from aspnet_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yixun.ccmz.domain.User">
+    insert into aspnet_users (UserId, ApplicationId, UserName, 
+      LoweredUserName, MobileAlias, IsAnonymous, 
+      LastActivityDate, GovDeptFullCode, HospitalID, 
+      CNName)
+    values (#{userId,jdbcType=VARCHAR}, #{applicationId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{loweredUserName,jdbcType=VARCHAR}, #{mobileAlias,jdbcType=VARCHAR}, #{isAnonymous,jdbcType=BIT}, 
+      #{lastActivityDate,jdbcType=TIMESTAMP}, #{govDeptFullCode,jdbcType=VARCHAR}, #{hospitalID,jdbcType=VARCHAR}, 
+      #{CNName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixun.ccmz.domain.User">
+    insert into aspnet_users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        UserId,
+      </if>
+      <if test="applicationId != null">
+        ApplicationId,
+      </if>
+      <if test="userName != null">
+        UserName,
+      </if>
+      <if test="loweredUserName != null">
+        LoweredUserName,
+      </if>
+      <if test="mobileAlias != null">
+        MobileAlias,
+      </if>
+      <if test="isAnonymous != null">
+        IsAnonymous,
+      </if>
+      <if test="lastActivityDate != null">
+        LastActivityDate,
+      </if>
+      <if test="govDeptFullCode != null">
+        GovDeptFullCode,
+      </if>
+      <if test="hospitalID != null">
+        HospitalID,
+      </if>
+      <if test="CNName != null">
+        CNName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationId != null">
+        #{applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="loweredUserName != null">
+        #{loweredUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileAlias != null">
+        #{mobileAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="isAnonymous != null">
+        #{isAnonymous,jdbcType=BIT},
+      </if>
+      <if test="lastActivityDate != null">
+        #{lastActivityDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="govDeptFullCode != null">
+        #{govDeptFullCode,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalID != null">
+        #{hospitalID,jdbcType=VARCHAR},
+      </if>
+      <if test="CNName != null">
+        #{CNName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yixun.ccmz.domain.UserExample" resultType="java.lang.Integer">
+    select count(*) from aspnet_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update aspnet_users
+    <set>
+      <if test="record.userId != null">
+        UserId = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicationId != null">
+        ApplicationId = #{record.applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        UserName = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loweredUserName != null">
+        LoweredUserName = #{record.loweredUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobileAlias != null">
+        MobileAlias = #{record.mobileAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAnonymous != null">
+        IsAnonymous = #{record.isAnonymous,jdbcType=BIT},
+      </if>
+      <if test="record.lastActivityDate != null">
+        LastActivityDate = #{record.lastActivityDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.govDeptFullCode != null">
+        GovDeptFullCode = #{record.govDeptFullCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hospitalID != null">
+        HospitalID = #{record.hospitalID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.CNName != null">
+        CNName = #{record.CNName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update aspnet_users
+    set UserId = #{record.userId,jdbcType=VARCHAR},
+      ApplicationId = #{record.applicationId,jdbcType=VARCHAR},
+      UserName = #{record.userName,jdbcType=VARCHAR},
+      LoweredUserName = #{record.loweredUserName,jdbcType=VARCHAR},
+      MobileAlias = #{record.mobileAlias,jdbcType=VARCHAR},
+      IsAnonymous = #{record.isAnonymous,jdbcType=BIT},
+      LastActivityDate = #{record.lastActivityDate,jdbcType=TIMESTAMP},
+      GovDeptFullCode = #{record.govDeptFullCode,jdbcType=VARCHAR},
+      HospitalID = #{record.hospitalID,jdbcType=VARCHAR},
+      CNName = #{record.CNName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixun.ccmz.domain.User">
+    update aspnet_users
+    <set>
+      <if test="applicationId != null">
+        ApplicationId = #{applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        UserName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="loweredUserName != null">
+        LoweredUserName = #{loweredUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileAlias != null">
+        MobileAlias = #{mobileAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="isAnonymous != null">
+        IsAnonymous = #{isAnonymous,jdbcType=BIT},
+      </if>
+      <if test="lastActivityDate != null">
+        LastActivityDate = #{lastActivityDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="govDeptFullCode != null">
+        GovDeptFullCode = #{govDeptFullCode,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalID != null">
+        HospitalID = #{hospitalID,jdbcType=VARCHAR},
+      </if>
+      <if test="CNName != null">
+        CNName = #{CNName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UserId = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixun.ccmz.domain.User">
+    update aspnet_users
+    set ApplicationId = #{applicationId,jdbcType=VARCHAR},
+      UserName = #{userName,jdbcType=VARCHAR},
+      LoweredUserName = #{loweredUserName,jdbcType=VARCHAR},
+      MobileAlias = #{mobileAlias,jdbcType=VARCHAR},
+      IsAnonymous = #{isAnonymous,jdbcType=BIT},
+      LastActivityDate = #{lastActivityDate,jdbcType=TIMESTAMP},
+      GovDeptFullCode = #{govDeptFullCode,jdbcType=VARCHAR},
+      HospitalID = #{hospitalID,jdbcType=VARCHAR},
+      CNName = #{CNName,jdbcType=VARCHAR}
+    where UserId = #{userId,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 以下为自定义 -->
+<cache></cache>
+<select id="getByUserName" parameterType="String" resultMap="UserWithMemberResultMap" flushCache="false" useCache="true">
+	SELECT
+		u.ApplicationId,
+		u.UserId,
+		u.UserName,
+		u.LoweredUserName,
+		u.MobileAlias,
+		u.IsAnonymous,
+		u.LastActivityDate,
+		u.GovDeptFullCode,
+		u.HospitalID,
+		u.CNName,
+		m.Password,
+		m.PasswordFormat,
+		m.PasswordSalt,
+		m.MobilePIN,
+		m.Email,
+		m.LoweredEmail,
+		m.PasswordQuestion,
+		m.PasswordAnswer,
+		m.IsApproved,
+		m.IsLockedOut,
+		m.CreateDate,
+		m.LastLoginDate,
+		m.LastPasswordChangedDate,
+		m.LastLockoutDate,
+		m.FailedPasswordAttemptCount,
+		m.FailedPasswordAttemptWindowStart,
+		m.FailedPasswordAnswerAttemptCount,
+		m.FailedPasswordAnswerAttemptWindowStart,
+		m.Comment
+	FROM
+		aspnet_users u
+		INNER JOIN aspnet_membership m
+		 ON u.UserId = m.UserId  	
+	where u.UserName = #{userName,jdbcType=VARCHAR}
+  </select>
+  
+  <resultMap type="User" id="UserWithMemberResultMap">
+    <constructor>
+      <idArg column="UserId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ApplicationId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="UserName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="LoweredUserName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="MobileAlias" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="IsAnonymous" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="LastActivityDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="GovDeptFullCode" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="HospitalID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CNName" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+    <association property="membership" javaType="Membership" resultMap="com.yixun.ccmz.dao.mybatis.mapper.MembershipMapper.BaseResultMap">
+
+    </association>  	
+  </resultMap>  
+</mapper>
