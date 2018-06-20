@@ -1,6 +1,10 @@
 package com.yixun.ccmz.domain;
 
-public class BaseModel
+import java.io.Serializable;
+
+import org.apache.ibatis.jdbc.SQL;
+
+public class BaseModel implements Serializable
 {
 
 }

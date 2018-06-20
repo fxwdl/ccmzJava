@@ -12,8 +12,9 @@ import org.springframework.stereotype.Repository;
 
 import com.yixun.ccmz.domain.AspnetUser;
 import com.yixun.ccmz.domain.User;
+import com.yixun.dao.BaseDao;
 
-public interface UserDao
+public interface UserDao extends BaseDao<User>
 {
 	User getByUserName(String userName);
 }

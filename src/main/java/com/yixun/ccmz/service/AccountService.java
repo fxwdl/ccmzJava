@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yixun.ccmz.dao.*;
+import com.yixun.ccmz.dao.mybatis.BaseDaoImpl;
 import com.yixun.ccmz.dao.mybatis.mapper.UserMapper;
 import com.yixun.ccmz.domain.*;
 import java.util.*;
@@ -15,6 +16,9 @@ public class AccountService
 {
 	@Autowired
 	private UserDao userDao;
+
+	@Autowired
+	private BaseDaoImpl<Application> test;
 
 	public boolean ValidateUser(String username, String password)
 	{
