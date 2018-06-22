@@ -12,6 +12,8 @@
     "html5shiv":"",
     "respond":"",
     "jquery-cookie":"",
-    "css":""
-}
+    "css":"",
+    "vue":"",
+    "axios":""	
+	}
 }
