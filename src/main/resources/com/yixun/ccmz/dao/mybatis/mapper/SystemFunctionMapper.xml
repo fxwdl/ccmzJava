@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yixun.ccmz.dao.mybatis.mapper.SystemFunctionMapper" >
+  <resultMap id="BaseResultMap" type="com.yixun.ccmz.domain.SystemFunction" >
+    <id column="PermissionId" property="permissionId" jdbcType="VARCHAR" />
+    <result column="PermissionName" property="permissionName" jdbcType="VARCHAR" />
+    <result column="PermissionDisplayName" property="permissionDisplayName" jdbcType="VARCHAR" />
+    <result column="FunType" property="funType" jdbcType="INTEGER" />
+    <result column="ParentPermissionId" property="parentPermissionId" jdbcType="VARCHAR" />
+    <result column="Seq" property="seq" jdbcType="VARCHAR" />
+    <result column="Page" property="page" jdbcType="VARCHAR" />
+    <result column="CssClass" property="cssClass" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PermissionId, PermissionName, PermissionDisplayName, FunType, ParentPermissionId, 
+    Seq, Page, CssClass
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixun.ccmz.domain.SystemFunctionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dict_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dict_function
+    where PermissionId = #{permissionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dict_function
+    where PermissionId = #{permissionId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yixun.ccmz.domain.SystemFunctionExample" >
+    delete from dict_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yixun.ccmz.domain.SystemFunction" >
+    insert into dict_function (PermissionId, PermissionName, PermissionDisplayName, 
+      FunType, ParentPermissionId, Seq, 
+      Page, CssClass)
+    values (#{permissionId,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}, #{permissionDisplayName,jdbcType=VARCHAR}, 
+      #{funType,jdbcType=INTEGER}, #{parentPermissionId,jdbcType=VARCHAR}, #{seq,jdbcType=VARCHAR}, 
+      #{page,jdbcType=VARCHAR}, #{cssClass,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixun.ccmz.domain.SystemFunction" >
+    insert into dict_function
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permissionId != null" >
+        PermissionId,
+      </if>
+      <if test="permissionName != null" >
+        PermissionName,
+      </if>
+      <if test="permissionDisplayName != null" >
+        PermissionDisplayName,
+      </if>
+      <if test="funType != null" >
+        FunType,
+      </if>
+      <if test="parentPermissionId != null" >
+        ParentPermissionId,
+      </if>
+      <if test="seq != null" >
+        Seq,
+      </if>
+      <if test="page != null" >
+        Page,
+      </if>
+      <if test="cssClass != null" >
+        CssClass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permissionId != null" >
+        #{permissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionName != null" >
+        #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionDisplayName != null" >
+        #{permissionDisplayName,jdbcType=VARCHAR},
+      </if>
+      <if test="funType != null" >
+        #{funType,jdbcType=INTEGER},
+      </if>
+      <if test="parentPermissionId != null" >
+        #{parentPermissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null" >
+        #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="cssClass != null" >
+        #{cssClass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yixun.ccmz.domain.SystemFunctionExample" resultType="java.lang.Integer" >
+    select count(*) from dict_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dict_function
+    <set >
+      <if test="record.permissionId != null" >
+        PermissionId = #{record.permissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionName != null" >
+        PermissionName = #{record.permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionDisplayName != null" >
+        PermissionDisplayName = #{record.permissionDisplayName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.funType != null" >
+        FunType = #{record.funType,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentPermissionId != null" >
+        ParentPermissionId = #{record.parentPermissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seq != null" >
+        Seq = #{record.seq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.page != null" >
+        Page = #{record.page,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cssClass != null" >
+        CssClass = #{record.cssClass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dict_function
+    set PermissionId = #{record.permissionId,jdbcType=VARCHAR},
+      PermissionName = #{record.permissionName,jdbcType=VARCHAR},
+      PermissionDisplayName = #{record.permissionDisplayName,jdbcType=VARCHAR},
+      FunType = #{record.funType,jdbcType=INTEGER},
+      ParentPermissionId = #{record.parentPermissionId,jdbcType=VARCHAR},
+      Seq = #{record.seq,jdbcType=VARCHAR},
+      Page = #{record.page,jdbcType=VARCHAR},
+      CssClass = #{record.cssClass,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixun.ccmz.domain.SystemFunction" >
+    update dict_function
+    <set >
+      <if test="permissionName != null" >
+        PermissionName = #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionDisplayName != null" >
+        PermissionDisplayName = #{permissionDisplayName,jdbcType=VARCHAR},
+      </if>
+      <if test="funType != null" >
+        FunType = #{funType,jdbcType=INTEGER},
+      </if>
+      <if test="parentPermissionId != null" >
+        ParentPermissionId = #{parentPermissionId,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        Seq = #{seq,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null" >
+        Page = #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="cssClass != null" >
+        CssClass = #{cssClass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PermissionId = #{permissionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixun.ccmz.domain.SystemFunction" >
+    update dict_function
+    set PermissionName = #{permissionName,jdbcType=VARCHAR},
+      PermissionDisplayName = #{permissionDisplayName,jdbcType=VARCHAR},
+      FunType = #{funType,jdbcType=INTEGER},
+      ParentPermissionId = #{parentPermissionId,jdbcType=VARCHAR},
+      Seq = #{seq,jdbcType=VARCHAR},
+      Page = #{page,jdbcType=VARCHAR},
+      CssClass = #{cssClass,jdbcType=VARCHAR}
+    where PermissionId = #{permissionId,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 以下为自定义 -->
+
+  <select id="getByUserName" parameterType="String" resultMap="BaseResultMap">
+	SELECT DISTINCT
+		dict_function.PermissionId,
+		dict_function.PermissionName,
+		dict_function.PermissionDisplayName,
+		dict_function.FunType,
+		dict_function.ParentPermissionId,
+		dict_function.Seq,
+		dict_function.Page,
+		dict_function.CssClass
+	FROM
+		aspnet_roles
+		INNER JOIN rolepermissions
+		 ON aspnet_roles.RoleId = rolepermissions.RoleId
+		INNER JOIN dict_function
+		 ON rolepermissions.PermissionId = dict_function.PermissionId
+		INNER JOIN aspnet_usersinroles
+		 ON aspnet_roles.RoleId = aspnet_usersinroles.RoleId
+		INNER JOIN aspnet_users
+		 ON aspnet_usersinroles.UserId = aspnet_users.UserId
+	WHERE
+		dict_function.FunType=1 and aspnet_users.UserName =  #{userName,jdbcType=VARCHAR}  
+	ORDER BY  dict_function.Seq
+  </select>  
+</mapper>

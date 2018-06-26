@@ -17,7 +17,7 @@ import com.yixun.ccmz.dao.*;
 import com.yixun.ccmz.dto.LoginModel;
 
 @Controller
-public class HomeController
+public class HomeController extends BaseController
 {
 	@RequestMapping(value = { "/", "/index.html" })
 	public String Index(HttpServletRequest request, HttpServletResponse response)
@@ -29,6 +29,7 @@ public class HomeController
 		}
 		else
 		{
+			this.initSystemMenu();
 			return "index";
 		}
 	}

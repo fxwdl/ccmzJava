@@ -20,14 +20,6 @@ import com.yixun.ccmz.service.AccountService;
 @RequestMapping(value = "/account")
 public class AccountController extends BaseController
 {
-	private AccountService accountService;
-
-	@Autowired
-	public void setAccountService(AccountService accountService)
-	{
-		this.accountService = accountService;
-	}
-
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login(Model model)
 	{
@@ -40,7 +32,7 @@ public class AccountController extends BaseController
 			@ModelAttribute("user") LoginModel user)
 	{
 		ModelAndView m = new ModelAndView();
-		if (accountService.ValidateUser(user.getUserName(), user.getPassword()))
+		if (this.getAccountService().ValidateUser(user.getUserName(), user.getPassword()))
 		{
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user", user.getUserName());

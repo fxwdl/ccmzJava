@@ -113,6 +113,12 @@
         <table tableName="aspnet_membership" domainObjectName="Membership" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
          	 <property name="useActualColumnNames" value="true"/>         	 
          	 <property name="constructorBased" value="false"/>
+        </table>   
+        <!--    
+        <table tableName="dict_function" domainObjectName="SystemFunction" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
+         	 <property name="useActualColumnNames" value="true"/>         	 
+         	 <property name="constructorBased" value="false"/>
         </table>        
+         -->    
     </context>
 </generatorConfiguration>

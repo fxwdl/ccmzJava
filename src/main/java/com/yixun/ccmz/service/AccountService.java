@@ -1,5 +1,8 @@
 package com.yixun.ccmz.service;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yixun.ccmz.dao.*;
 
 import com.yixun.ccmz.domain.*;
+import com.yixun.ccmz.dto.SystemMenuModel;
 
 @Service
 @Transactional
@@ -14,6 +18,9 @@ public class AccountService
 {
 	@Autowired
 	private UserDao userDao;
+
+	@Autowired
+	private SystemFunctionDao systemFunctionDao;
 
 	public boolean ValidateUser(String username, String password)
 	{
@@ -34,5 +41,42 @@ public class AccountService
 		{
 			return false;
 		}
+	}
+
+	public List<SystemMenuModel> GetSystemMenu(String userName)
+	{
+		List<SystemMenuModel> result = new ArrayList<SystemMenuModel>();
+		List<SystemFunction> list = systemFunctionDao.getByUserName(userName);
+
+		Map<String, SystemMenuModel> m = new HashMap<String, SystemMenuModel>();
+
+		list.forEach((p) ->
+		{
+			if (!m.containsKey(p.getParentPermissionId()))
+			{
+				SystemFunction s1 = systemFunctionDao.getById(p.getParentPermissionId());
+
+				if (s1 != null)
+				{
+					SystemMenuModel sm = new SystemMenuModel();
+					sm.setCssClass(s1.getCssClass());
+					sm.setTitle(s1.getPermissionDisplayName());
+
+					m.put(p.getParentPermissionId(), sm);
+				}
+			}
+			SystemMenuModel smm = m.get(p.getParentPermissionId());
+			if (smm != null)
+			{
+				smm.getSystemFunctions().add(p);
+			}
+		});
+
+		m.forEach((k, p) ->
+		{
+			result.add(p);
+		});
+
+		return result;
 	}
 }

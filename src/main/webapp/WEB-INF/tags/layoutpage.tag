@@ -1,5 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@attribute name="title" required="true"%>
 <%@attribute name="module" required="false"%>
@@ -101,8 +102,37 @@
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
                 <!-- sidebar menu: : style can be found in sidebar.less -->
-                <ul class="sidebar-menu">
-
+                <ul class="sidebar-menu"  data-widget="tree">
+            	<c:if test="${not empty menu }">                 		            	
+	           		<c:forEach items="${menu}" var="m">
+	           			<c:set var="cssClass" value="fa fa-dashboard"/>
+	           			<c:set var="isMActive" value="treeview"/>
+	           			<c:if test="${not empty m.cssClass }">
+	           				<c:set var="cssClass" value="${m.cssClass}"/>    
+	           			</c:if>
+	           			<c:if test="${m.title == moudle}">
+	           				<c:set var="isMActive" value="active treeview"/>
+	           			</c:if>
+	           			<li class="${isMActive}">
+					        <a href="#">
+					            <i class="${cssClass}"></i> <span>${m.title}</span>
+					            <span class="pull-right-container">
+					                <i class="fa fa-angle-left pull-right"></i>
+					            </span>
+					        </a>
+					        <ul class="treeview-menu">
+					        	<c:forEach items="${m.systemFunctions}" var="i">
+					        		<c:set var="isFActive" value=""/>
+				           			<c:if test="${i.permissionDisplayName == functionName}">
+				           				<c:set var="isFActive" value="active"/>
+				           			</c:if>
+				           			<li class="${isFActive }"><a href="${i.page }" data-href="${i.page }" data-title="${i.permissionDisplayName }" data-my-type="menu" data-my-menu-id="${i.permissionName }"><i class="fa fa-circle-o"></i>${i.permissionDisplayName }</a></li>
+					        	</c:forEach>
+					        </ul>
+				        </li>   			
+	           		</c:forEach>	
+	           		
+            	</c:if>
                 </ul>
             </section>
             <!-- /.sidebar -->

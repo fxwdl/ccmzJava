@@ -197,9 +197,12 @@
 					<configuration>
 						<httpConnector>
 							<!--host>localhost</host -->
-							<port>9000</port>
+							<port>8080</port>
 						</httpConnector>
-
+						<jettyProperties>
+							<jettyProperty>jetty.server.dumpAfterStart=true</jettyProperty>
+						</jettyProperties>
+						<jvmArgs>-Dorg.eclipse.jetty.webapp.LEVEL=DEBUG</jvmArgs>
 						<webApp>
 							<contextPath>/ccmz</contextPath>
 						</webApp>
