@@ -14,6 +14,8 @@
     "jquery-cookie":"",
     "css":"",
     "vue":"",
-    "axios":""	
+    "axios":"",
+    "bootstrap-table":"1.12.1",
+    "bootstrap-dialog":""
 	}
 }

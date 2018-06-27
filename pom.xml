@@ -73,15 +73,27 @@
 			<version>${c3p0.version}</version>
 		</dependency>
 		<dependency>
+		  <groupId>org.apache.taglibs</groupId>
+		  <artifactId>taglibs-standard-spec</artifactId>
+		  <version>1.2.5</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.taglibs</groupId>
+		  <artifactId>taglibs-standard-impl</artifactId>
+		  <version>1.2.5</version>
+		</dependency>		
+		<!--
+		<dependency>
 			<groupId>org.jboss.spec.javax.servlet.jstl</groupId>
 			<artifactId>jboss-jstl-api_1.2_spec</artifactId>
 			<version>1.1.4.Final</version>
-		</dependency>
+		</dependency> 
+		
 		<dependency>
 			<groupId>taglibs</groupId>
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
-		</dependency>
+		</dependency>-->
 
 		<!-- asm/cglib依赖（spring依赖） -->
 		<dependency>

@@ -50,7 +50,7 @@ public class AccountService
 
 		Map<String, SystemMenuModel> m = new HashMap<String, SystemMenuModel>();
 
-		list.forEach((p) ->
+		for (SystemFunction p : list)
 		{
 			if (!m.containsKey(p.getParentPermissionId()))
 			{
@@ -70,7 +70,12 @@ public class AccountService
 			{
 				smm.getSystemFunctions().add(p);
 			}
-		});
+		}
+		// 使用lambda表达式也可以.java的lambda表达式是通过匿名类实现接口这种方式。
+		// list.forEach((p) ->
+		// {
+		//
+		// });
 
 		m.forEach((k, p) ->
 		{

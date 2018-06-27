@@ -3,14 +3,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@attribute name="title" required="true"%>
-<%@attribute name="module" required="false"%>
-<%@attribute name="functionName" required="false"%>
+<%@attribute name="module" required="true"%>
+<%@attribute name="functionName" required="true"%>
 <%@attribute name="smallTitle" required="false"%>
 
 <%@attribute name="header" fragment="true" %>
 <%@attribute name="footer" fragment="true" %>
 <!DOCTYPE html>
-<html style="height: auto;" ng-app="myApp">
+<html style="height: auto;">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,7 +22,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/fontAwesome/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/ionicons/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/adminLTE/dist/css/AdminLTE.min.css">
 
@@ -100,7 +100,7 @@
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
+            <section class="sidebar">                    
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu"  data-widget="tree">
             	<c:if test="${not empty menu }">                 		            	
@@ -110,9 +110,10 @@
 	           			<c:if test="${not empty m.cssClass }">
 	           				<c:set var="cssClass" value="${m.cssClass}"/>    
 	           			</c:if>
-	           			<c:if test="${m.title == moudle}">
+	           			<c:if test="${m.title == module}">
 	           				<c:set var="isMActive" value="active treeview"/>
 	           			</c:if>
+	           			
 	           			<li class="${isMActive}">
 					        <a href="#">
 					            <i class="${cssClass}"></i> <span>${m.title}</span>
@@ -126,7 +127,7 @@
 				           			<c:if test="${i.permissionDisplayName == functionName}">
 				           				<c:set var="isFActive" value="active"/>
 				           			</c:if>
-				           			<li class="${isFActive }"><a href="${i.page }" data-href="${i.page }" data-title="${i.permissionDisplayName }" data-my-type="menu" data-my-menu-id="${i.permissionName }"><i class="fa fa-circle-o"></i>${i.permissionDisplayName }</a></li>
+				           			<li class="${isFActive }"><a href="${pageContext.request.contextPath }${i.page }" data-href="${pageContext.request.contextPath }${i.page }" data-title="${i.permissionDisplayName }" data-my-type="menu" data-my-menu-id="${i.permissionName }"><i class="fa fa-circle-o"></i>${i.permissionDisplayName }</a></li>
 					        	</c:forEach>
 					        </ul>
 				        </li>   			

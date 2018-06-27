@@ -15,7 +15,9 @@
        
 	<!-- 扫描web包，应用Spring的注解 -->
 	<context:component-scan base-package="com.yixun.ccmz.web"/>
-	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+		<mvc:path-matching path-matcher="pathMatcher"/>
+	</mvc:annotation-driven>
 	
 	<!-- 使用Web容器处理静态资源(实际使用下面的mvc:resources也可以处理) -->
 	<mvc:default-servlet-handler/>
@@ -33,7 +35,7 @@
 		
 	<!-- 配置Request请求解的Message转换成Controller入参 -->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" p:messageConverters-ref="messageConverters">
-
+		
     </bean>
     <util:list id="messageConverters">
     	<!-- 默认的4个 -->
@@ -45,5 +47,10 @@
         <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>    
     </util:list>
     
-    
+    <!--设置spring对url mapping忽略大小写，默认是大小写敏感的
+    	https://stackoverflow.com/questions/4150039/how-can-i-have-case-insensitive-urls-in-spring-mvc-with-annotated-mappings/5438158
+    -->
+	<bean id="pathMatcher" class="org.springframework.util.AntPathMatcher">
+	  <property name="caseSensitive" value="false" />
+	</bean>
 </beans>

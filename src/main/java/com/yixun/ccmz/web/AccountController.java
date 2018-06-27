@@ -2,10 +2,10 @@ package com.yixun.ccmz.web;
 
 import java.util.HashSet;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.apache.bcel.generic.NEW;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yixun.ccmz.dto.LoginModel;
-import com.yixun.ccmz.service.AccountService;
 
 @Controller
 @RequestMapping(value = "/account")
