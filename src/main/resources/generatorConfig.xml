@@ -55,7 +55,9 @@
             <property name="useActualColumnNames" value="true" />
             <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
         </table>-->
-        <table tableName="aspnet_applications" domainObjectName="Application" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
+        <table tableName="aspnet_applications" domainObjectName="Application" schema="public" delimitIdentifiers="false" delimitAllColumns="false" 
+        	enableCountByExample="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableSelectByExample="false"
+        	enableSelectByPrimaryKey="false" enableUpdateByExample="false" enableUpdateByPrimaryKey="false" selectByExampleQueryId="false" selectByPrimaryKeyQueryId="false">
          	<!-- 参考 javaModelGenerator 的 constructorBased属性-->
          	<property name="constructorBased" value="false"/>
          	
@@ -109,16 +111,26 @@
         <!-- 
         <table tableName="aspnet_users" domainObjectName="User" schema="public" delimitIdentifiers="false" delimitAllColumns="false" >
          	 <property name="useActualColumnNames" value="true"/>	 
-        </table> -->
+        </table> 
         <table tableName="aspnet_membership" domainObjectName="Membership" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
          	 <property name="useActualColumnNames" value="true"/>         	 
          	 <property name="constructorBased" value="false"/>
-        </table>   
-        <!--    
+        </table> 
+        
         <table tableName="dict_function" domainObjectName="SystemFunction" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
          	 <property name="useActualColumnNames" value="true"/>         	 
          	 <property name="constructorBased" value="false"/>
         </table>        
-         -->    
+            
+        <table tableName="dict_familymember1" domainObjectName="DictFamilymember" schema="public" delimitIdentifiers="false" delimitAllColumns="false" 
+        	enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false">
+         	 <property name="useActualColumnNames" value="true"/>         	 
+         	 <property name="constructorBased" value="false"/>
+        </table>
+              -->  
+        <table tableName="dict_stddisease" domainObjectName="DictStdDisease" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
+         	 <property name="useActualColumnNames" value="true"/>         	 
+         	 <property name="constructorBased" value="false"/>
+        </table>                
     </context>
 </generatorConfiguration>

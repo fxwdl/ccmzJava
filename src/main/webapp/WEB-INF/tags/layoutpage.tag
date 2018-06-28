@@ -35,6 +35,11 @@
     <script src="${pageContext.request.contextPath}/bower_components/respond/dest/respond.min.js"></script>
     <![endif]-->
 
+	<style type="text/css">
+		[v-cloak] {
+		  display: none;
+		}	
+	</style>
     <jsp:invoke fragment="header"/>
 
 </head>
@@ -176,6 +181,9 @@
     </div>
 
     <!-- ./wrapper -->
+    <script type="text/javascript">
+    	var ctx="${pageContext.request.contextPath}";
+    </script>
     <script src="${pageContext.request.contextPath}/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/bower_components/jquery-cookie/jquery.cookie.js"></script>
     <script src="${pageContext.request.contextPath}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
