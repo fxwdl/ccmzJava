@@ -1,5 +1,6 @@
 package com.yixun.ccmz.domain;
 
+import com.rosegun.plugin.Page;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ public class DictStdDiseaseExample {
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
+
+    protected Page page;
 
     public DictStdDiseaseExample() {
         oredCriteria = new ArrayList<Criteria>();
@@ -61,6 +64,14 @@ public class DictStdDiseaseExample {
         oredCriteria.clear();
         orderByClause = null;
         distinct = false;
+    }
+
+    public void setPage(Page page) {
+        this.page=page;
+    }
+
+    public Page getPage() {
+        return page;
     }
 
     protected abstract static class GeneratedCriteria {

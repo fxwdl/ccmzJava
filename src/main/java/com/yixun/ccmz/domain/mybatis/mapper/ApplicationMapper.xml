@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yixun.ccmz.dao.mybatis.mapper.ApplicationMapper" >
+  <resultMap id="BaseResultMap" type="com.yixun.ccmz.domain.Application" >
+    <id column="ApplicationId" property="applicationId" jdbcType="VARCHAR" />
+    <result column="ApplicationName" property="applicationName" jdbcType="VARCHAR" />
+    <result column="LoweredApplicationName" property="loweredApplicationName" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ApplicationId, ApplicationName, LoweredApplicationName, Description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from aspnet_applications
+    where ApplicationId = #{applicationId,jdbcType=VARCHAR}
+  </select>
+</mapper>

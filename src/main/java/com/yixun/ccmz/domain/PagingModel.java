@@ -1,4 +1,4 @@
-package com.yixun.ccmz.dto;
+package com.yixun.ccmz.domain;
 
 import java.util.*;
 

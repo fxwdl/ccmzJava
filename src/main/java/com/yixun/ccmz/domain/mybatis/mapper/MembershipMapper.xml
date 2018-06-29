@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yixun.ccmz.dao.mybatis.mapper.MembershipMapper" >
+  <resultMap id="BaseResultMap" type="com.yixun.ccmz.domain.Membership" >
+    <id column="UserId" property="userId" jdbcType="VARCHAR" />
+    <result column="ApplicationId" property="applicationId" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="PasswordFormat" property="passwordFormat" jdbcType="INTEGER" />
+    <result column="PasswordSalt" property="passwordSalt" jdbcType="VARCHAR" />
+    <result column="MobilePIN" property="mobilePIN" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="LoweredEmail" property="loweredEmail" jdbcType="VARCHAR" />
+    <result column="PasswordQuestion" property="passwordQuestion" jdbcType="VARCHAR" />
+    <result column="PasswordAnswer" property="passwordAnswer" jdbcType="VARCHAR" />
+    <result column="IsApproved" property="isApproved" jdbcType="BIT" />
+    <result column="IsLockedOut" property="isLockedOut" jdbcType="BIT" />
+    <result column="CreateDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="LastLoginDate" property="lastLoginDate" jdbcType="TIMESTAMP" />
+    <result column="LastPasswordChangedDate" property="lastPasswordChangedDate" jdbcType="TIMESTAMP" />
+    <result column="LastLockoutDate" property="lastLockoutDate" jdbcType="TIMESTAMP" />
+    <result column="FailedPasswordAttemptCount" property="failedPasswordAttemptCount" jdbcType="INTEGER" />
+    <result column="FailedPasswordAttemptWindowStart" property="failedPasswordAttemptWindowStart" jdbcType="TIMESTAMP" />
+    <result column="FailedPasswordAnswerAttemptCount" property="failedPasswordAnswerAttemptCount" jdbcType="INTEGER" />
+    <result column="FailedPasswordAnswerAttemptWindowStart" property="failedPasswordAnswerAttemptWindowStart" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yixun.ccmz.domain.Membership" extends="BaseResultMap" >
+    <result column="Comment" property="comment" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    UserId, ApplicationId, `Password`, PasswordFormat, PasswordSalt, MobilePIN, Email, 
+    LoweredEmail, PasswordQuestion, PasswordAnswer, IsApproved, IsLockedOut, CreateDate, 
+    LastLoginDate, LastPasswordChangedDate, LastLockoutDate, FailedPasswordAttemptCount, 
+    FailedPasswordAttemptWindowStart, FailedPasswordAnswerAttemptCount, FailedPasswordAnswerAttemptWindowStart
+  </sql>
+  <sql id="Blob_Column_List" >
+    `Comment`
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yixun.ccmz.domain.MembershipExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aspnet_membership
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixun.ccmz.domain.MembershipExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aspnet_membership
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aspnet_membership
+    where UserId = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from aspnet_membership
+    where UserId = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yixun.ccmz.domain.MembershipExample" >
+    delete from aspnet_membership
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yixun.ccmz.domain.Membership" >
+    insert into aspnet_membership (UserId, ApplicationId, `Password`, 
+      PasswordFormat, PasswordSalt, MobilePIN, 
+      Email, LoweredEmail, PasswordQuestion, 
+      PasswordAnswer, IsApproved, IsLockedOut, 
+      CreateDate, LastLoginDate, LastPasswordChangedDate, 
+      LastLockoutDate, FailedPasswordAttemptCount, 
+      FailedPasswordAttemptWindowStart, FailedPasswordAnswerAttemptCount, 
+      FailedPasswordAnswerAttemptWindowStart, `Comment`
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{applicationId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{passwordFormat,jdbcType=INTEGER}, #{passwordSalt,jdbcType=VARCHAR}, #{mobilePIN,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{loweredEmail,jdbcType=VARCHAR}, #{passwordQuestion,jdbcType=VARCHAR}, 
+      #{passwordAnswer,jdbcType=VARCHAR}, #{isApproved,jdbcType=BIT}, #{isLockedOut,jdbcType=BIT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{lastLoginDate,jdbcType=TIMESTAMP}, #{lastPasswordChangedDate,jdbcType=TIMESTAMP}, 
+      #{lastLockoutDate,jdbcType=TIMESTAMP}, #{failedPasswordAttemptCount,jdbcType=INTEGER}, 
+      #{failedPasswordAttemptWindowStart,jdbcType=TIMESTAMP}, #{failedPasswordAnswerAttemptCount,jdbcType=INTEGER}, 
+      #{failedPasswordAnswerAttemptWindowStart,jdbcType=TIMESTAMP}, #{comment,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixun.ccmz.domain.Membership" >
+    insert into aspnet_membership
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        UserId,
+      </if>
+      <if test="applicationId != null" >
+        ApplicationId,
+      </if>
+      <if test="password != null" >
+        `Password`,
+      </if>
+      <if test="passwordFormat != null" >
+        PasswordFormat,
+      </if>
+      <if test="passwordSalt != null" >
+        PasswordSalt,
+      </if>
+      <if test="mobilePIN != null" >
+        MobilePIN,
+      </if>
+      <if test="email != null" >
+        Email,
+      </if>
+      <if test="loweredEmail != null" >
+        LoweredEmail,
+      </if>
+      <if test="passwordQuestion != null" >
+        PasswordQuestion,
+      </if>
+      <if test="passwordAnswer != null" >
+        PasswordAnswer,
+      </if>
+      <if test="isApproved != null" >
+        IsApproved,
+      </if>
+      <if test="isLockedOut != null" >
+        IsLockedOut,
+      </if>
+      <if test="createDate != null" >
+        CreateDate,
+      </if>
+      <if test="lastLoginDate != null" >
+        LastLoginDate,
+      </if>
+      <if test="lastPasswordChangedDate != null" >
+        LastPasswordChangedDate,
+      </if>
+      <if test="lastLockoutDate != null" >
+        LastLockoutDate,
+      </if>
+      <if test="failedPasswordAttemptCount != null" >
+        FailedPasswordAttemptCount,
+      </if>
+      <if test="failedPasswordAttemptWindowStart != null" >
+        FailedPasswordAttemptWindowStart,
+      </if>
+      <if test="failedPasswordAnswerAttemptCount != null" >
+        FailedPasswordAnswerAttemptCount,
+      </if>
+      <if test="failedPasswordAnswerAttemptWindowStart != null" >
+        FailedPasswordAnswerAttemptWindowStart,
+      </if>
+      <if test="comment != null" >
+        `Comment`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationId != null" >
+        #{applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordFormat != null" >
+        #{passwordFormat,jdbcType=INTEGER},
+      </if>
+      <if test="passwordSalt != null" >
+        #{passwordSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePIN != null" >
+        #{mobilePIN,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="loweredEmail != null" >
+        #{loweredEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordQuestion != null" >
+        #{passwordQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordAnswer != null" >
+        #{passwordAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="isApproved != null" >
+        #{isApproved,jdbcType=BIT},
+      </if>
+      <if test="isLockedOut != null" >
+        #{isLockedOut,jdbcType=BIT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginDate != null" >
+        #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastPasswordChangedDate != null" >
+        #{lastPasswordChangedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLockoutDate != null" >
+        #{lastLockoutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="failedPasswordAttemptCount != null" >
+        #{failedPasswordAttemptCount,jdbcType=INTEGER},
+      </if>
+      <if test="failedPasswordAttemptWindowStart != null" >
+        #{failedPasswordAttemptWindowStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="failedPasswordAnswerAttemptCount != null" >
+        #{failedPasswordAnswerAttemptCount,jdbcType=INTEGER},
+      </if>
+      <if test="failedPasswordAnswerAttemptWindowStart != null" >
+        #{failedPasswordAnswerAttemptWindowStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yixun.ccmz.domain.MembershipExample" resultType="java.lang.Integer" >
+    select count(*) from aspnet_membership
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aspnet_membership
+    <set >
+      <if test="record.userId != null" >
+        UserId = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicationId != null" >
+        ApplicationId = #{record.applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        `Password` = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwordFormat != null" >
+        PasswordFormat = #{record.passwordFormat,jdbcType=INTEGER},
+      </if>
+      <if test="record.passwordSalt != null" >
+        PasswordSalt = #{record.passwordSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilePIN != null" >
+        MobilePIN = #{record.mobilePIN,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loweredEmail != null" >
+        LoweredEmail = #{record.loweredEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwordQuestion != null" >
+        PasswordQuestion = #{record.passwordQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwordAnswer != null" >
+        PasswordAnswer = #{record.passwordAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isApproved != null" >
+        IsApproved = #{record.isApproved,jdbcType=BIT},
+      </if>
+      <if test="record.isLockedOut != null" >
+        IsLockedOut = #{record.isLockedOut,jdbcType=BIT},
+      </if>
+      <if test="record.createDate != null" >
+        CreateDate = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginDate != null" >
+        LastLoginDate = #{record.lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastPasswordChangedDate != null" >
+        LastPasswordChangedDate = #{record.lastPasswordChangedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLockoutDate != null" >
+        LastLockoutDate = #{record.lastLockoutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.failedPasswordAttemptCount != null" >
+        FailedPasswordAttemptCount = #{record.failedPasswordAttemptCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.failedPasswordAttemptWindowStart != null" >
+        FailedPasswordAttemptWindowStart = #{record.failedPasswordAttemptWindowStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.failedPasswordAnswerAttemptCount != null" >
+        FailedPasswordAnswerAttemptCount = #{record.failedPasswordAnswerAttemptCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.failedPasswordAnswerAttemptWindowStart != null" >
+        FailedPasswordAnswerAttemptWindowStart = #{record.failedPasswordAnswerAttemptWindowStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.comment != null" >
+        `Comment` = #{record.comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update aspnet_membership
+    set UserId = #{record.userId,jdbcType=VARCHAR},
+      ApplicationId = #{record.applicationId,jdbcType=VARCHAR},
+      `Password` = #{record.password,jdbcType=VARCHAR},
+      PasswordFormat = #{record.passwordFormat,jdbcType=INTEGER},
+      PasswordSalt = #{record.passwordSalt,jdbcType=VARCHAR},
+      MobilePIN = #{record.mobilePIN,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      LoweredEmail = #{record.loweredEmail,jdbcType=VARCHAR},
+      PasswordQuestion = #{record.passwordQuestion,jdbcType=VARCHAR},
+      PasswordAnswer = #{record.passwordAnswer,jdbcType=VARCHAR},
+      IsApproved = #{record.isApproved,jdbcType=BIT},
+      IsLockedOut = #{record.isLockedOut,jdbcType=BIT},
+      CreateDate = #{record.createDate,jdbcType=TIMESTAMP},
+      LastLoginDate = #{record.lastLoginDate,jdbcType=TIMESTAMP},
+      LastPasswordChangedDate = #{record.lastPasswordChangedDate,jdbcType=TIMESTAMP},
+      LastLockoutDate = #{record.lastLockoutDate,jdbcType=TIMESTAMP},
+      FailedPasswordAttemptCount = #{record.failedPasswordAttemptCount,jdbcType=INTEGER},
+      FailedPasswordAttemptWindowStart = #{record.failedPasswordAttemptWindowStart,jdbcType=TIMESTAMP},
+      FailedPasswordAnswerAttemptCount = #{record.failedPasswordAnswerAttemptCount,jdbcType=INTEGER},
+      FailedPasswordAnswerAttemptWindowStart = #{record.failedPasswordAnswerAttemptWindowStart,jdbcType=TIMESTAMP},
+      `Comment` = #{record.comment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aspnet_membership
+    set UserId = #{record.userId,jdbcType=VARCHAR},
+      ApplicationId = #{record.applicationId,jdbcType=VARCHAR},
+      `Password` = #{record.password,jdbcType=VARCHAR},
+      PasswordFormat = #{record.passwordFormat,jdbcType=INTEGER},
+      PasswordSalt = #{record.passwordSalt,jdbcType=VARCHAR},
+      MobilePIN = #{record.mobilePIN,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      LoweredEmail = #{record.loweredEmail,jdbcType=VARCHAR},
+      PasswordQuestion = #{record.passwordQuestion,jdbcType=VARCHAR},
+      PasswordAnswer = #{record.passwordAnswer,jdbcType=VARCHAR},
+      IsApproved = #{record.isApproved,jdbcType=BIT},
+      IsLockedOut = #{record.isLockedOut,jdbcType=BIT},
+      CreateDate = #{record.createDate,jdbcType=TIMESTAMP},
+      LastLoginDate = #{record.lastLoginDate,jdbcType=TIMESTAMP},
+      LastPasswordChangedDate = #{record.lastPasswordChangedDate,jdbcType=TIMESTAMP},
+      LastLockoutDate = #{record.lastLockoutDate,jdbcType=TIMESTAMP},
+      FailedPasswordAttemptCount = #{record.failedPasswordAttemptCount,jdbcType=INTEGER},
+      FailedPasswordAttemptWindowStart = #{record.failedPasswordAttemptWindowStart,jdbcType=TIMESTAMP},
+      FailedPasswordAnswerAttemptCount = #{record.failedPasswordAnswerAttemptCount,jdbcType=INTEGER},
+      FailedPasswordAnswerAttemptWindowStart = #{record.failedPasswordAnswerAttemptWindowStart,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixun.ccmz.domain.Membership" >
+    update aspnet_membership
+    <set >
+      <if test="applicationId != null" >
+        ApplicationId = #{applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        `Password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordFormat != null" >
+        PasswordFormat = #{passwordFormat,jdbcType=INTEGER},
+      </if>
+      <if test="passwordSalt != null" >
+        PasswordSalt = #{passwordSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePIN != null" >
+        MobilePIN = #{mobilePIN,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="loweredEmail != null" >
+        LoweredEmail = #{loweredEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordQuestion != null" >
+        PasswordQuestion = #{passwordQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordAnswer != null" >
+        PasswordAnswer = #{passwordAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="isApproved != null" >
+        IsApproved = #{isApproved,jdbcType=BIT},
+      </if>
+      <if test="isLockedOut != null" >
+        IsLockedOut = #{isLockedOut,jdbcType=BIT},
+      </if>
+      <if test="createDate != null" >
+        CreateDate = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginDate != null" >
+        LastLoginDate = #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastPasswordChangedDate != null" >
+        LastPasswordChangedDate = #{lastPasswordChangedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLockoutDate != null" >
+        LastLockoutDate = #{lastLockoutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="failedPasswordAttemptCount != null" >
+        FailedPasswordAttemptCount = #{failedPasswordAttemptCount,jdbcType=INTEGER},
+      </if>
+      <if test="failedPasswordAttemptWindowStart != null" >
+        FailedPasswordAttemptWindowStart = #{failedPasswordAttemptWindowStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="failedPasswordAnswerAttemptCount != null" >
+        FailedPasswordAnswerAttemptCount = #{failedPasswordAnswerAttemptCount,jdbcType=INTEGER},
+      </if>
+      <if test="failedPasswordAnswerAttemptWindowStart != null" >
+        FailedPasswordAnswerAttemptWindowStart = #{failedPasswordAnswerAttemptWindowStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        `Comment` = #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where UserId = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yixun.ccmz.domain.Membership" >
+    update aspnet_membership
+    set ApplicationId = #{applicationId,jdbcType=VARCHAR},
+      `Password` = #{password,jdbcType=VARCHAR},
+      PasswordFormat = #{passwordFormat,jdbcType=INTEGER},
+      PasswordSalt = #{passwordSalt,jdbcType=VARCHAR},
+      MobilePIN = #{mobilePIN,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      LoweredEmail = #{loweredEmail,jdbcType=VARCHAR},
+      PasswordQuestion = #{passwordQuestion,jdbcType=VARCHAR},
+      PasswordAnswer = #{passwordAnswer,jdbcType=VARCHAR},
+      IsApproved = #{isApproved,jdbcType=BIT},
+      IsLockedOut = #{isLockedOut,jdbcType=BIT},
+      CreateDate = #{createDate,jdbcType=TIMESTAMP},
+      LastLoginDate = #{lastLoginDate,jdbcType=TIMESTAMP},
+      LastPasswordChangedDate = #{lastPasswordChangedDate,jdbcType=TIMESTAMP},
+      LastLockoutDate = #{lastLockoutDate,jdbcType=TIMESTAMP},
+      FailedPasswordAttemptCount = #{failedPasswordAttemptCount,jdbcType=INTEGER},
+      FailedPasswordAttemptWindowStart = #{failedPasswordAttemptWindowStart,jdbcType=TIMESTAMP},
+      FailedPasswordAnswerAttemptCount = #{failedPasswordAnswerAttemptCount,jdbcType=INTEGER},
+      FailedPasswordAnswerAttemptWindowStart = #{failedPasswordAnswerAttemptWindowStart,jdbcType=TIMESTAMP},
+      `Comment` = #{comment,jdbcType=LONGVARCHAR}
+    where UserId = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixun.ccmz.domain.Membership" >
+    update aspnet_membership
+    set ApplicationId = #{applicationId,jdbcType=VARCHAR},
+      `Password` = #{password,jdbcType=VARCHAR},
+      PasswordFormat = #{passwordFormat,jdbcType=INTEGER},
+      PasswordSalt = #{passwordSalt,jdbcType=VARCHAR},
+      MobilePIN = #{mobilePIN,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      LoweredEmail = #{loweredEmail,jdbcType=VARCHAR},
+      PasswordQuestion = #{passwordQuestion,jdbcType=VARCHAR},
+      PasswordAnswer = #{passwordAnswer,jdbcType=VARCHAR},
+      IsApproved = #{isApproved,jdbcType=BIT},
+      IsLockedOut = #{isLockedOut,jdbcType=BIT},
+      CreateDate = #{createDate,jdbcType=TIMESTAMP},
+      LastLoginDate = #{lastLoginDate,jdbcType=TIMESTAMP},
+      LastPasswordChangedDate = #{lastPasswordChangedDate,jdbcType=TIMESTAMP},
+      LastLockoutDate = #{lastLockoutDate,jdbcType=TIMESTAMP},
+      FailedPasswordAttemptCount = #{failedPasswordAttemptCount,jdbcType=INTEGER},
+      FailedPasswordAttemptWindowStart = #{failedPasswordAttemptWindowStart,jdbcType=TIMESTAMP},
+      FailedPasswordAnswerAttemptCount = #{failedPasswordAnswerAttemptCount,jdbcType=INTEGER},
+      FailedPasswordAnswerAttemptWindowStart = #{failedPasswordAnswerAttemptWindowStart,jdbcType=TIMESTAMP}
+    where UserId = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

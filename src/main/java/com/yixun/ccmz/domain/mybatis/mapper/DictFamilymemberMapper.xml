@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yixun.ccmz.dao.mybatis.mapper.DictFamilymemberMapper" >
+  <resultMap id="BaseResultMap" type="com.yixun.ccmz.domain.DictFamilymember" >
+    <id column="Sfzh" property="sfzh" jdbcType="VARCHAR" />
+    <result column="Jtbh" property="jtbh" jdbcType="VARCHAR" />
+    <result column="Ry_Code" property="ry_Code" jdbcType="VARCHAR" />
+    <result column="Yhzgx" property="yhzgx" jdbcType="VARCHAR" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="HyZk" property="hyZk" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="Birth" property="birth" jdbcType="TIMESTAMP" />
+    <result column="HkXz" property="hkXz" jdbcType="VARCHAR" />
+    <result column="HkLx" property="hkLx" jdbcType="VARCHAR" />
+    <result column="HjAddress" property="hjAddress" jdbcType="VARCHAR" />
+    <result column="BxQk" property="bxQk" jdbcType="VARCHAR" />
+    <result column="JzAddress" property="jzAddress" jdbcType="VARCHAR" />
+    <result column="LxTel" property="lxTel" jdbcType="VARCHAR" />
+    <result column="Yb" property="yb" jdbcType="VARCHAR" />
+    <result column="SfLb" property="sfLb" jdbcType="VARCHAR" />
+    <result column="YfLx" property="yfLx" jdbcType="VARCHAR" />
+    <result column="Mz" property="mz" jdbcType="VARCHAR" />
+    <result column="BxLx" property="bxLx" jdbcType="VARCHAR" />
+    <result column="BxCode" property="bxCode" jdbcType="VARCHAR" />
+    <result column="CbZzMoney" property="cbZzMoney" jdbcType="DECIMAL" />
+    <result column="WhCd" property="whCd" jdbcType="VARCHAR" />
+    <result column="LdNl" property="ldNl" jdbcType="VARCHAR" />
+    <result column="Cj" property="cj" jdbcType="VARCHAR" />
+    <result column="CjLx" property="cjLx" jdbcType="VARCHAR" />
+    <result column="CjDj" property="cjDj" jdbcType="VARCHAR" />
+    <result column="Jkqk" property="jkqk" jdbcType="VARCHAR" />
+    <result column="HbCd" property="hbCd" jdbcType="VARCHAR" />
+    <result column="HbLx" property="hbLx" jdbcType="VARCHAR" />
+    <result column="JbMc" property="jbMc" jdbcType="VARCHAR" />
+    <result column="JtLx" property="jtLx" jdbcType="VARCHAR" />
+    <result column="ZpYy" property="zpYy" jdbcType="VARCHAR" />
+    <result column="GzQk" property="gzQk" jdbcType="VARCHAR" />
+    <result column="GzDw" property="gzDw" jdbcType="VARCHAR" />
+    <result column="Tel" property="tel" jdbcType="VARCHAR" />
+    <result column="ZyMc" property="zyMc" jdbcType="VARCHAR" />
+    <result column="TdLb" property="tdLb" jdbcType="VARCHAR" />
+    <result column="Llsf" property="llsf" jdbcType="VARCHAR" />
+    <result column="Sjgqqj" property="sjgqqj" jdbcType="VARCHAR" />
+    <result column="Zstxsj" property="zstxsj" jdbcType="TIMESTAMP" />
+    <result column="Flag" property="flag" jdbcType="INTEGER" />
+    <result column="jgbm" property="jgbm" jdbcType="VARCHAR" />
+    <result column="Dc_date" property="dc_date" jdbcType="TIMESTAMP" />
+    <result column="Lr_date" property="lr_date" jdbcType="TIMESTAMP" />
+    <result column="Ry_Zt" property="ry_Zt" jdbcType="VARCHAR" />
+    <result column="Ry_Jtbh" property="ry_Jtbh" jdbcType="VARCHAR" />
+    <result column="Hz_Sfzh" property="hz_Sfzh" jdbcType="VARCHAR" />
+    <result column="Hz_Name" property="hz_Name" jdbcType="VARCHAR" />
+    <result column="Hz_Sex" property="hz_Sex" jdbcType="VARCHAR" />
+    <result column="old_Sfzh" property="old_Sfzh" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Sfzh, Jtbh, Ry_Code, Yhzgx, `Name`, HyZk, Sex, Birth, HkXz, HkLx, HjAddress, BxQk, 
+    JzAddress, LxTel, Yb, SfLb, YfLx, Mz, BxLx, BxCode, CbZzMoney, WhCd, LdNl, Cj, CjLx, 
+    CjDj, Jkqk, HbCd, HbLx, JbMc, JtLx, ZpYy, GzQk, GzDw, Tel, ZyMc, TdLb, Llsf, Sjgqqj, 
+    Zstxsj, Flag, jgbm, Dc_date, Lr_date, Ry_Zt, Ry_Jtbh, Hz_Sfzh, Hz_Name, Hz_Sex, old_Sfzh
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dict_familymember1
+    where Sfzh = #{sfzh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dict_familymember1
+    where Sfzh = #{sfzh,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yixun.ccmz.domain.DictFamilymember" >
+    insert into dict_familymember1 (Sfzh, Jtbh, Ry_Code, 
+      Yhzgx, `Name`, HyZk, 
+      Sex, Birth, HkXz, 
+      HkLx, HjAddress, BxQk, 
+      JzAddress, LxTel, Yb, 
+      SfLb, YfLx, Mz, BxLx, 
+      BxCode, CbZzMoney, WhCd, 
+      LdNl, Cj, CjLx, CjDj, 
+      Jkqk, HbCd, HbLx, JbMc, 
+      JtLx, ZpYy, GzQk, GzDw, 
+      Tel, ZyMc, TdLb, Llsf, 
+      Sjgqqj, Zstxsj, Flag, 
+      jgbm, Dc_date, Lr_date, 
+      Ry_Zt, Ry_Jtbh, Hz_Sfzh, 
+      Hz_Name, Hz_Sex, old_Sfzh
+      )
+    values (#{sfzh,jdbcType=VARCHAR}, #{jtbh,jdbcType=VARCHAR}, #{ry_Code,jdbcType=VARCHAR}, 
+      #{yhzgx,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{hyZk,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{birth,jdbcType=TIMESTAMP}, #{hkXz,jdbcType=VARCHAR}, 
+      #{hkLx,jdbcType=VARCHAR}, #{hjAddress,jdbcType=VARCHAR}, #{bxQk,jdbcType=VARCHAR}, 
+      #{jzAddress,jdbcType=VARCHAR}, #{lxTel,jdbcType=VARCHAR}, #{yb,jdbcType=VARCHAR}, 
+      #{sfLb,jdbcType=VARCHAR}, #{yfLx,jdbcType=VARCHAR}, #{mz,jdbcType=VARCHAR}, #{bxLx,jdbcType=VARCHAR}, 
+      #{bxCode,jdbcType=VARCHAR}, #{cbZzMoney,jdbcType=DECIMAL}, #{whCd,jdbcType=VARCHAR}, 
+      #{ldNl,jdbcType=VARCHAR}, #{cj,jdbcType=VARCHAR}, #{cjLx,jdbcType=VARCHAR}, #{cjDj,jdbcType=VARCHAR}, 
+      #{jkqk,jdbcType=VARCHAR}, #{hbCd,jdbcType=VARCHAR}, #{hbLx,jdbcType=VARCHAR}, #{jbMc,jdbcType=VARCHAR}, 
+      #{jtLx,jdbcType=VARCHAR}, #{zpYy,jdbcType=VARCHAR}, #{gzQk,jdbcType=VARCHAR}, #{gzDw,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{zyMc,jdbcType=VARCHAR}, #{tdLb,jdbcType=VARCHAR}, #{llsf,jdbcType=VARCHAR}, 
+      #{sjgqqj,jdbcType=VARCHAR}, #{zstxsj,jdbcType=TIMESTAMP}, #{flag,jdbcType=INTEGER}, 
+      #{jgbm,jdbcType=VARCHAR}, #{dc_date,jdbcType=TIMESTAMP}, #{lr_date,jdbcType=TIMESTAMP}, 
+      #{ry_Zt,jdbcType=VARCHAR}, #{ry_Jtbh,jdbcType=VARCHAR}, #{hz_Sfzh,jdbcType=VARCHAR}, 
+      #{hz_Name,jdbcType=VARCHAR}, #{hz_Sex,jdbcType=VARCHAR}, #{old_Sfzh,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixun.ccmz.domain.DictFamilymember" >
+    insert into dict_familymember1
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sfzh != null" >
+        Sfzh,
+      </if>
+      <if test="jtbh != null" >
+        Jtbh,
+      </if>
+      <if test="ry_Code != null" >
+        Ry_Code,
+      </if>
+      <if test="yhzgx != null" >
+        Yhzgx,
+      </if>
+      <if test="name != null" >
+        `Name`,
+      </if>
+      <if test="hyZk != null" >
+        HyZk,
+      </if>
+      <if test="sex != null" >
+        Sex,
+      </if>
+      <if test="birth != null" >
+        Birth,
+      </if>
+      <if test="hkXz != null" >
+        HkXz,
+      </if>
+      <if test="hkLx != null" >
+        HkLx,
+      </if>
+      <if test="hjAddress != null" >
+        HjAddress,
+      </if>
+      <if test="bxQk != null" >
+        BxQk,
+      </if>
+      <if test="jzAddress != null" >
+        JzAddress,
+      </if>
+      <if test="lxTel != null" >
+        LxTel,
+      </if>
+      <if test="yb != null" >
+        Yb,
+      </if>
+      <if test="sfLb != null" >
+        SfLb,
+      </if>
+      <if test="yfLx != null" >
+        YfLx,
+      </if>
+      <if test="mz != null" >
+        Mz,
+      </if>
+      <if test="bxLx != null" >
+        BxLx,
+      </if>
+      <if test="bxCode != null" >
+        BxCode,
+      </if>
+      <if test="cbZzMoney != null" >
+        CbZzMoney,
+      </if>
+      <if test="whCd != null" >
+        WhCd,
+      </if>
+      <if test="ldNl != null" >
+        LdNl,
+      </if>
+      <if test="cj != null" >
+        Cj,
+      </if>
+      <if test="cjLx != null" >
+        CjLx,
+      </if>
+      <if test="cjDj != null" >
+        CjDj,
+      </if>
+      <if test="jkqk != null" >
+        Jkqk,
+      </if>
+      <if test="hbCd != null" >
+        HbCd,
+      </if>
+      <if test="hbLx != null" >
+        HbLx,
+      </if>
+      <if test="jbMc != null" >
+        JbMc,
+      </if>
+      <if test="jtLx != null" >
+        JtLx,
+      </if>
+      <if test="zpYy != null" >
+        ZpYy,
+      </if>
+      <if test="gzQk != null" >
+        GzQk,
+      </if>
+      <if test="gzDw != null" >
+        GzDw,
+      </if>
+      <if test="tel != null" >
+        Tel,
+      </if>
+      <if test="zyMc != null" >
+        ZyMc,
+      </if>
+      <if test="tdLb != null" >
+        TdLb,
+      </if>
+      <if test="llsf != null" >
+        Llsf,
+      </if>
+      <if test="sjgqqj != null" >
+        Sjgqqj,
+      </if>
+      <if test="zstxsj != null" >
+        Zstxsj,
+      </if>
+      <if test="flag != null" >
+        Flag,
+      </if>
+      <if test="jgbm != null" >
+        jgbm,
+      </if>
+      <if test="dc_date != null" >
+        Dc_date,
+      </if>
+      <if test="lr_date != null" >
+        Lr_date,
+      </if>
+      <if test="ry_Zt != null" >
+        Ry_Zt,
+      </if>
+      <if test="ry_Jtbh != null" >
+        Ry_Jtbh,
+      </if>
+      <if test="hz_Sfzh != null" >
+        Hz_Sfzh,
+      </if>
+      <if test="hz_Name != null" >
+        Hz_Name,
+      </if>
+      <if test="hz_Sex != null" >
+        Hz_Sex,
+      </if>
+      <if test="old_Sfzh != null" >
+        old_Sfzh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sfzh != null" >
+        #{sfzh,jdbcType=VARCHAR},
+      </if>
+      <if test="jtbh != null" >
+        #{jtbh,jdbcType=VARCHAR},
+      </if>
+      <if test="ry_Code != null" >
+        #{ry_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="yhzgx != null" >
+        #{yhzgx,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hyZk != null" >
+        #{hyZk,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null" >
+        #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hkXz != null" >
+        #{hkXz,jdbcType=VARCHAR},
+      </if>
+      <if test="hkLx != null" >
+        #{hkLx,jdbcType=VARCHAR},
+      </if>
+      <if test="hjAddress != null" >
+        #{hjAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bxQk != null" >
+        #{bxQk,jdbcType=VARCHAR},
+      </if>
+      <if test="jzAddress != null" >
+        #{jzAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="lxTel != null" >
+        #{lxTel,jdbcType=VARCHAR},
+      </if>
+      <if test="yb != null" >
+        #{yb,jdbcType=VARCHAR},
+      </if>
+      <if test="sfLb != null" >
+        #{sfLb,jdbcType=VARCHAR},
+      </if>
+      <if test="yfLx != null" >
+        #{yfLx,jdbcType=VARCHAR},
+      </if>
+      <if test="mz != null" >
+        #{mz,jdbcType=VARCHAR},
+      </if>
+      <if test="bxLx != null" >
+        #{bxLx,jdbcType=VARCHAR},
+      </if>
+      <if test="bxCode != null" >
+        #{bxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cbZzMoney != null" >
+        #{cbZzMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="whCd != null" >
+        #{whCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ldNl != null" >
+        #{ldNl,jdbcType=VARCHAR},
+      </if>
+      <if test="cj != null" >
+        #{cj,jdbcType=VARCHAR},
+      </if>
+      <if test="cjLx != null" >
+        #{cjLx,jdbcType=VARCHAR},
+      </if>
+      <if test="cjDj != null" >
+        #{cjDj,jdbcType=VARCHAR},
+      </if>
+      <if test="jkqk != null" >
+        #{jkqk,jdbcType=VARCHAR},
+      </if>
+      <if test="hbCd != null" >
+        #{hbCd,jdbcType=VARCHAR},
+      </if>
+      <if test="hbLx != null" >
+        #{hbLx,jdbcType=VARCHAR},
+      </if>
+      <if test="jbMc != null" >
+        #{jbMc,jdbcType=VARCHAR},
+      </if>
+      <if test="jtLx != null" >
+        #{jtLx,jdbcType=VARCHAR},
+      </if>
+      <if test="zpYy != null" >
+        #{zpYy,jdbcType=VARCHAR},
+      </if>
+      <if test="gzQk != null" >
+        #{gzQk,jdbcType=VARCHAR},
+      </if>
+      <if test="gzDw != null" >
+        #{gzDw,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="zyMc != null" >
+        #{zyMc,jdbcType=VARCHAR},
+      </if>
+      <if test="tdLb != null" >
+        #{tdLb,jdbcType=VARCHAR},
+      </if>
+      <if test="llsf != null" >
+        #{llsf,jdbcType=VARCHAR},
+      </if>
+      <if test="sjgqqj != null" >
+        #{sjgqqj,jdbcType=VARCHAR},
+      </if>
+      <if test="zstxsj != null" >
+        #{zstxsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="jgbm != null" >
+        #{jgbm,jdbcType=VARCHAR},
+      </if>
+      <if test="dc_date != null" >
+        #{dc_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lr_date != null" >
+        #{lr_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ry_Zt != null" >
+        #{ry_Zt,jdbcType=VARCHAR},
+      </if>
+      <if test="ry_Jtbh != null" >
+        #{ry_Jtbh,jdbcType=VARCHAR},
+      </if>
+      <if test="hz_Sfzh != null" >
+        #{hz_Sfzh,jdbcType=VARCHAR},
+      </if>
+      <if test="hz_Name != null" >
+        #{hz_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="hz_Sex != null" >
+        #{hz_Sex,jdbcType=VARCHAR},
+      </if>
+      <if test="old_Sfzh != null" >
+        #{old_Sfzh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixun.ccmz.domain.DictFamilymember" >
+    update dict_familymember1
+    <set >
+      <if test="jtbh != null" >
+        Jtbh = #{jtbh,jdbcType=VARCHAR},
+      </if>
+      <if test="ry_Code != null" >
+        Ry_Code = #{ry_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="yhzgx != null" >
+        Yhzgx = #{yhzgx,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        `Name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hyZk != null" >
+        HyZk = #{hyZk,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        Sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null" >
+        Birth = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hkXz != null" >
+        HkXz = #{hkXz,jdbcType=VARCHAR},
+      </if>
+      <if test="hkLx != null" >
+        HkLx = #{hkLx,jdbcType=VARCHAR},
+      </if>
+      <if test="hjAddress != null" >
+        HjAddress = #{hjAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bxQk != null" >
+        BxQk = #{bxQk,jdbcType=VARCHAR},
+      </if>
+      <if test="jzAddress != null" >
+        JzAddress = #{jzAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="lxTel != null" >
+        LxTel = #{lxTel,jdbcType=VARCHAR},
+      </if>
+      <if test="yb != null" >
+        Yb = #{yb,jdbcType=VARCHAR},
+      </if>
+      <if test="sfLb != null" >
+        SfLb = #{sfLb,jdbcType=VARCHAR},
+      </if>
+      <if test="yfLx != null" >
+        YfLx = #{yfLx,jdbcType=VARCHAR},
+      </if>
+      <if test="mz != null" >
+        Mz = #{mz,jdbcType=VARCHAR},
+      </if>
+      <if test="bxLx != null" >
+        BxLx = #{bxLx,jdbcType=VARCHAR},
+      </if>
+      <if test="bxCode != null" >
+        BxCode = #{bxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cbZzMoney != null" >
+        CbZzMoney = #{cbZzMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="whCd != null" >
+        WhCd = #{whCd,jdbcType=VARCHAR},
+      </if>
+      <if test="ldNl != null" >
+        LdNl = #{ldNl,jdbcType=VARCHAR},
+      </if>
+      <if test="cj != null" >
+        Cj = #{cj,jdbcType=VARCHAR},
+      </if>
+      <if test="cjLx != null" >
+        CjLx = #{cjLx,jdbcType=VARCHAR},
+      </if>
+      <if test="cjDj != null" >
+        CjDj = #{cjDj,jdbcType=VARCHAR},
+      </if>
+      <if test="jkqk != null" >
+        Jkqk = #{jkqk,jdbcType=VARCHAR},
+      </if>
+      <if test="hbCd != null" >
+        HbCd = #{hbCd,jdbcType=VARCHAR},
+      </if>
+      <if test="hbLx != null" >
+        HbLx = #{hbLx,jdbcType=VARCHAR},
+      </if>
+      <if test="jbMc != null" >
+        JbMc = #{jbMc,jdbcType=VARCHAR},
+      </if>
+      <if test="jtLx != null" >
+        JtLx = #{jtLx,jdbcType=VARCHAR},
+      </if>
+      <if test="zpYy != null" >
+        ZpYy = #{zpYy,jdbcType=VARCHAR},
+      </if>
+      <if test="gzQk != null" >
+        GzQk = #{gzQk,jdbcType=VARCHAR},
+      </if>
+      <if test="gzDw != null" >
+        GzDw = #{gzDw,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        Tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="zyMc != null" >
+        ZyMc = #{zyMc,jdbcType=VARCHAR},
+      </if>
+      <if test="tdLb != null" >
+        TdLb = #{tdLb,jdbcType=VARCHAR},
+      </if>
+      <if test="llsf != null" >
+        Llsf = #{llsf,jdbcType=VARCHAR},
+      </if>
+      <if test="sjgqqj != null" >
+        Sjgqqj = #{sjgqqj,jdbcType=VARCHAR},
+      </if>
+      <if test="zstxsj != null" >
+        Zstxsj = #{zstxsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null" >
+        Flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="jgbm != null" >
+        jgbm = #{jgbm,jdbcType=VARCHAR},
+      </if>
+      <if test="dc_date != null" >
+        Dc_date = #{dc_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lr_date != null" >
+        Lr_date = #{lr_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ry_Zt != null" >
+        Ry_Zt = #{ry_Zt,jdbcType=VARCHAR},
+      </if>
+      <if test="ry_Jtbh != null" >
+        Ry_Jtbh = #{ry_Jtbh,jdbcType=VARCHAR},
+      </if>
+      <if test="hz_Sfzh != null" >
+        Hz_Sfzh = #{hz_Sfzh,jdbcType=VARCHAR},
+      </if>
+      <if test="hz_Name != null" >
+        Hz_Name = #{hz_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="hz_Sex != null" >
+        Hz_Sex = #{hz_Sex,jdbcType=VARCHAR},
+      </if>
+      <if test="old_Sfzh != null" >
+        old_Sfzh = #{old_Sfzh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Sfzh = #{sfzh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixun.ccmz.domain.DictFamilymember" >
+    update dict_familymember1
+    set Jtbh = #{jtbh,jdbcType=VARCHAR},
+      Ry_Code = #{ry_Code,jdbcType=VARCHAR},
+      Yhzgx = #{yhzgx,jdbcType=VARCHAR},
+      `Name` = #{name,jdbcType=VARCHAR},
+      HyZk = #{hyZk,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=VARCHAR},
+      Birth = #{birth,jdbcType=TIMESTAMP},
+      HkXz = #{hkXz,jdbcType=VARCHAR},
+      HkLx = #{hkLx,jdbcType=VARCHAR},
+      HjAddress = #{hjAddress,jdbcType=VARCHAR},
+      BxQk = #{bxQk,jdbcType=VARCHAR},
+      JzAddress = #{jzAddress,jdbcType=VARCHAR},
+      LxTel = #{lxTel,jdbcType=VARCHAR},
+      Yb = #{yb,jdbcType=VARCHAR},
+      SfLb = #{sfLb,jdbcType=VARCHAR},
+      YfLx = #{yfLx,jdbcType=VARCHAR},
+      Mz = #{mz,jdbcType=VARCHAR},
+      BxLx = #{bxLx,jdbcType=VARCHAR},
+      BxCode = #{bxCode,jdbcType=VARCHAR},
+      CbZzMoney = #{cbZzMoney,jdbcType=DECIMAL},
+      WhCd = #{whCd,jdbcType=VARCHAR},
+      LdNl = #{ldNl,jdbcType=VARCHAR},
+      Cj = #{cj,jdbcType=VARCHAR},
+      CjLx = #{cjLx,jdbcType=VARCHAR},
+      CjDj = #{cjDj,jdbcType=VARCHAR},
+      Jkqk = #{jkqk,jdbcType=VARCHAR},
+      HbCd = #{hbCd,jdbcType=VARCHAR},
+      HbLx = #{hbLx,jdbcType=VARCHAR},
+      JbMc = #{jbMc,jdbcType=VARCHAR},
+      JtLx = #{jtLx,jdbcType=VARCHAR},
+      ZpYy = #{zpYy,jdbcType=VARCHAR},
+      GzQk = #{gzQk,jdbcType=VARCHAR},
+      GzDw = #{gzDw,jdbcType=VARCHAR},
+      Tel = #{tel,jdbcType=VARCHAR},
+      ZyMc = #{zyMc,jdbcType=VARCHAR},
+      TdLb = #{tdLb,jdbcType=VARCHAR},
+      Llsf = #{llsf,jdbcType=VARCHAR},
+      Sjgqqj = #{sjgqqj,jdbcType=VARCHAR},
+      Zstxsj = #{zstxsj,jdbcType=TIMESTAMP},
+      Flag = #{flag,jdbcType=INTEGER},
+      jgbm = #{jgbm,jdbcType=VARCHAR},
+      Dc_date = #{dc_date,jdbcType=TIMESTAMP},
+      Lr_date = #{lr_date,jdbcType=TIMESTAMP},
+      Ry_Zt = #{ry_Zt,jdbcType=VARCHAR},
+      Ry_Jtbh = #{ry_Jtbh,jdbcType=VARCHAR},
+      Hz_Sfzh = #{hz_Sfzh,jdbcType=VARCHAR},
+      Hz_Name = #{hz_Name,jdbcType=VARCHAR},
+      Hz_Sex = #{hz_Sex,jdbcType=VARCHAR},
+      old_Sfzh = #{old_Sfzh,jdbcType=VARCHAR}
+    where Sfzh = #{sfzh,jdbcType=VARCHAR}
+  </update>
+</mapper>

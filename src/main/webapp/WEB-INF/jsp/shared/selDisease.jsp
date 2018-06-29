@@ -18,7 +18,7 @@
            data-click-to-select="true" 
            data-single-select="true" 
            data-striped="true" 
-           data-sort-name="Code" 
+           data-sort-name="code" 
            data-sort-order="asc" 
            data-show-columns="true"
            data-select-item-name="myRadioName"
