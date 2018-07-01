@@ -1,10 +1,10 @@
 package com.yixun.ccmz.dao.mybatis;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.rosegun.plugin.Page;
 import com.yixun.ccmz.dao.DictStdDiseaseDao;
 import com.yixun.ccmz.dao.mybatis.mapper.DictStdDiseaseMapper;
@@ -32,7 +32,7 @@ public class DictStdDiseaseDaoImpl extends BaseDaoImpl<DictStdDisease> implement
 
 		Criteria ca = ex.createCriteria().andRT_IDEqualTo(rt_id);
 
-		if (search != null && !search.equals(""))
+		if (!Strings.isNullOrEmpty(search))
 		{
 			// 对%转义需要%%，其中，%1$表示的是第一个参数，后面的s表示输出字符串
 			String s = String.format("(Name like '%%%1$s%%' or ShortName like '%%%1$s%%' or Code like '%%%1$s%%')",

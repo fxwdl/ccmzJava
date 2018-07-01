@@ -582,14 +582,14 @@ public class DictStdDiseaseExample {
             return typeHandler;
         }
 
-        protected Criterion(String condition) {
+        public Criterion(String condition) {
             super();
             this.condition = condition;
             this.typeHandler = null;
             this.noValue = true;
         }
 
-        protected Criterion(String condition, Object value, String typeHandler) {
+        public Criterion(String condition, Object value, String typeHandler) {
             super();
             this.condition = condition;
             this.value = value;
@@ -601,11 +601,11 @@ public class DictStdDiseaseExample {
             }
         }
 
-        protected Criterion(String condition, Object value) {
+        public Criterion(String condition, Object value) {
             this(condition, value, null);
         }
 
-        protected Criterion(String condition, Object value, Object secondValue, String typeHandler) {
+        public Criterion(String condition, Object value, Object secondValue, String typeHandler) {
             super();
             this.condition = condition;
             this.value = value;
@@ -614,7 +614,7 @@ public class DictStdDiseaseExample {
             this.betweenValue = true;
         }
 
-        protected Criterion(String condition, Object value, Object secondValue) {
+        public Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
         }
     }

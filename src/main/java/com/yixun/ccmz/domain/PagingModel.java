@@ -4,15 +4,15 @@ import java.util.*;
 
 public class PagingModel<T>
 {
-	private int total;
+	private Long total;
 	private List<T> rows;
 
-	public int getTotal()
+	public Long getTotal()
 	{
 		return total;
 	}
 
-	public void setTotal(int total)
+	public void setTotal(Long total)
 	{
 		this.total = total;
 	}

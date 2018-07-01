@@ -131,13 +131,12 @@
          	 <property name="useActualColumnNames" value="true"/>         	 
          	 <property name="constructorBased" value="false"/>
         </table>
+         
+ -->  
         <table tableName="dict_stddisease" domainObjectName="DictStdDisease" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
          	 <property name="useActualColumnNames" value="true"/>         	 
          	 <property name="constructorBased" value="false"/>
-        </table>         
- -->  
-        
-             
+        </table>
                
     </context>
 </generatorConfiguration>
