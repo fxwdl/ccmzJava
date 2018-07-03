@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
 import com.yixun.ccmz.dao.*;
 
@@ -22,7 +23,7 @@ public class AccountService
 	@Autowired
 	private SystemFunctionDao systemFunctionDao;
 
-	public boolean ValidateUser(String username, String password)
+	public User ValidateUser(String username, String password)
 	{
 		/*
 		 * UserExample q1 = new UserExample(); q1.or().andUserNameEqualTo(username);
@@ -31,16 +32,22 @@ public class AccountService
 		 * if (l1.size() > 0) { User u = l1.get(0); }
 		 */
 		// AspnetUser user = aspnetUserDao.FindByName(username);
-		User u = userDao.getByUserName(username);
+		User u = this.getUserByUserName(username);
 
 		if (u != null && u.getMembership().getPassword().equals(password))
 		{
-			return true;
+			return u;
 		}
 		else
 		{
-			return false;
+			return null;
 		}
+	}
+
+	public User getUserByUserName(String username)
+	{
+		User u = userDao.getByUserName(username);
+		return u;
 	}
 
 	public List<SystemMenuModel> GetSystemMenu(String userName)

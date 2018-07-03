@@ -157,4 +157,28 @@ public class User extends BaseModel
 	{
 		this.membership = membership;
 	}
+
+	private DictHospital dictHospital;
+
+	public DictHospital getDictHospital()
+	{
+		return dictHospital;
+	}
+
+	public void setDictHospital(DictHospital dictHospital)
+	{
+		this.dictHospital = dictHospital;
+	}
+
+	private DictGovermentDept dictGovermentDept;
+
+	public DictGovermentDept getDictGovermentDept()
+	{
+		return this.dictGovermentDept;
+	}
+
+	public void setDictGovermentDept(DictGovermentDept dictGovermentDept)
+	{
+		this.dictGovermentDept = dictGovermentDept;
+	}
 }

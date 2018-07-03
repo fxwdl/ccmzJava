@@ -11,8 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yixun.ccmz.domain.User;
+import com.yixun.ccmz.dto.BnTreatmentreimburseModel;
+import com.yixun.ccmz.dto.ClientSingleObjectResult;
 import com.yixun.ccmz.dto.LoginModel;
 
 @Controller
@@ -31,10 +36,12 @@ public class AccountController extends BaseController
 			@ModelAttribute("user") LoginModel user)
 	{
 		ModelAndView m = new ModelAndView();
-		if (this.getAccountService().ValidateUser(user.getUserName(), user.getPassword()))
+		User u = this.getAccountService().ValidateUser(user.getUserName(), user.getPassword());
+		if (u != null)
 		{
+
 			HttpSession session = request.getSession(true);
-			session.setAttribute("user", user.getUserName());
+			session.setAttribute("user", u);
 			m.setViewName("redirect:/");
 		}
 		else
@@ -46,5 +53,25 @@ public class AccountController extends BaseController
 			m.setViewName("login");
 		}
 		return m;
+	}
+
+	@RequestMapping(value = "GetCurUserInfo", method = RequestMethod.GET)
+	@ResponseBody
+	public ClientSingleObjectResult<User> GetCurUserInfo()
+	{
+		ClientSingleObjectResult<User> r = new ClientSingleObjectResult<User>();
+		if (this.getCurrentUser() != null)
+		{
+			r.setSuccess(true);
+			r.setMsg("");
+			;
+			r.setData(this.getCurrentUser());
+		}
+		else
+		{
+			r.setSuccess(false);
+			r.setMsg("当前用户未登录");
+		}
+		return r;
 	}
 }

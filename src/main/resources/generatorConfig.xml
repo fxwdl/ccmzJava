@@ -131,12 +131,23 @@
          	 <property name="useActualColumnNames" value="true"/>         	 
          	 <property name="constructorBased" value="false"/>
         </table>
-         
- -->  
         <table tableName="dict_stddisease" domainObjectName="DictStdDisease" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
          	 <property name="useActualColumnNames" value="true"/>         	 
          	 <property name="constructorBased" value="false"/>
-        </table>
+        </table> 
+        <table tableName="bn_treatmentreimburse" domainObjectName="BnTreatmentreimburse" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
+         	 <property name="useActualColumnNames" value="true"/>         	 
+         	 <property name="constructorBased" value="false"/>
+        </table>   
+        <table tableName="dict_govermentdept" domainObjectName="DictGovermentDept" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
+         	 <property name="useActualColumnNames" value="true"/>         	 
+         	 <property name="constructorBased" value="false"/>
+        </table>  
+        <table tableName="dict_hospital" domainObjectName="DictHospital" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
+         	 <property name="useActualColumnNames" value="true"/>         	 
+         	 <property name="constructorBased" value="false"/>
+        </table> 
+ -->  
                
     </context>
 </generatorConfiguration>

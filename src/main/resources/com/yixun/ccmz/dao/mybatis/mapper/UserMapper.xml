@@ -294,40 +294,59 @@
   <!-- 以下为自定义 -->
 <cache></cache>
 <select id="getByUserName" parameterType="String" resultMap="UserWithMemberResultMap" flushCache="false" useCache="true">
-	SELECT
-		u.ApplicationId,
-		u.UserId,
-		u.UserName,
-		u.LoweredUserName,
-		u.MobileAlias,
-		u.IsAnonymous,
-		u.LastActivityDate,
-		u.GovDeptFullCode,
-		u.HospitalID,
-		u.CNName,
-		m.Password,
-		m.PasswordFormat,
-		m.PasswordSalt,
-		m.MobilePIN,
-		m.Email,
-		m.LoweredEmail,
-		m.PasswordQuestion,
-		m.PasswordAnswer,
-		m.IsApproved,
-		m.IsLockedOut,
-		m.CreateDate,
-		m.LastLoginDate,
-		m.LastPasswordChangedDate,
-		m.LastLockoutDate,
-		m.FailedPasswordAttemptCount,
-		m.FailedPasswordAttemptWindowStart,
-		m.FailedPasswordAnswerAttemptCount,
-		m.FailedPasswordAnswerAttemptWindowStart,
-		m.Comment
-	FROM
-		aspnet_users u
-		INNER JOIN aspnet_membership m
-		 ON u.UserId = m.UserId  	
+SELECT
+	u.ApplicationId,
+	u.UserId,
+	u.UserName,
+	u.LoweredUserName,
+	u.MobileAlias,
+	u.IsAnonymous,
+	u.LastActivityDate,
+	u.GovDeptFullCode,
+	u.HospitalID,
+	u.CNName,
+	m.Password,
+	m.PasswordFormat,
+	m.PasswordSalt,
+	m.MobilePIN,
+	m.Email,
+	m.LoweredEmail,
+	m.PasswordQuestion,
+	m.PasswordAnswer,
+	m.IsApproved,
+	m.IsLockedOut,
+	m.CreateDate,
+	m.LastLoginDate,
+	m.LastPasswordChangedDate,
+	m.LastLockoutDate,
+	m.FailedPasswordAttemptCount,
+	m.FailedPasswordAttemptWindowStart,
+	m.FailedPasswordAnswerAttemptCount,
+	m.FailedPasswordAnswerAttemptWindowStart,
+	m.Comment,
+	h.ID AS h_ID,
+	h.HospitalLevel_ID,
+	h.Name AS h_Name,
+	h.ShortName AS h_ShortName,
+	h.Code AS h_Code,
+	h.ContactName AS h_ContactName,
+	h.Tel AS h_Tel,
+	h.Address AS h_Address,
+	h.Memo AS h_Memo,
+	g.FullCode AS g_FullCode,
+	g.Code AS g_Code,
+	g.Name AS g_Name,
+	g.Level AS g_Level,
+	g.ParentFullCode AS g_ParentFullCode,
+	g.IsDeleted AS g_IsDeleted
+FROM
+	aspnet_users u
+	INNER JOIN aspnet_membership m
+	 ON u.UserId = m.UserId
+	LEFT OUTER JOIN dict_hospital h
+	 ON u.HospitalID = h.ID
+	LEFT OUTER JOIN dict_govermentdept g
+	 ON u.GovDeptFullCode = g.FullCode   	
 	where u.UserName = #{userName,jdbcType=VARCHAR}
   </select>
   
@@ -345,7 +364,25 @@
       <arg column="CNName" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
     <association property="membership" javaType="Membership" resultMap="com.yixun.ccmz.dao.mybatis.mapper.MembershipMapper.BaseResultMap">
-
     </association>  	
+    <association property="dictHospital" javaType="com.yixun.ccmz.domain.DictHospital">
+	    <id column="h_ID" jdbcType="VARCHAR" property="ID" />
+	    <result column="h_HospitalLevel_ID" jdbcType="INTEGER" property="hospitalLevel_ID" />
+	    <result column="h_Name" jdbcType="VARCHAR" property="name" />
+	    <result column="h_ShortName" jdbcType="VARCHAR" property="shortName" />
+	    <result column="h_Code" jdbcType="VARCHAR" property="code" />
+	    <result column="h_ContactName" jdbcType="VARCHAR" property="contactName" />
+	    <result column="h_Tel" jdbcType="VARCHAR" property="tel" />
+	    <result column="h_Address" jdbcType="VARCHAR" property="address" />
+	    <result column="h_Memo" jdbcType="VARCHAR" property="memo" />    	
+    </association>
+    <association property="dictGovermentDept" javaType="com.yixun.ccmz.domain.DictGovermentDept">
+	    <id column="g_FullCode" jdbcType="VARCHAR" property="fullCode" />
+	    <result column="g_Code" jdbcType="VARCHAR" property="code" />
+	    <result column="g_Name" jdbcType="VARCHAR" property="name" />
+	    <result column="g_Level" jdbcType="INTEGER" property="level" />
+	    <result column="g_ParentFullCode" jdbcType="VARCHAR" property="parentFullCode" />
+	    <result column="g_IsDeleted" jdbcType="BIT" property="isDeleted" />  	
+    </association>         
   </resultMap>  
 </mapper>

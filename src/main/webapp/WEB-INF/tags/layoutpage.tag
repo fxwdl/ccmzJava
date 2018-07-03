@@ -22,7 +22,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/fontAwesome/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/adminLTE/dist/css/AdminLTE.min.css">
 
@@ -73,7 +73,7 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="${pageContext.request.contextPath}/images/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">${user }</span>
+                                <span class="hidden-xs">${user.userName }</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->

@@ -1,3 +1,4 @@
+{
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 	
@@ -59,7 +60,10 @@
 		<script src="${pageContext.request.contextPath}/my_app/bootstrap-dialog-Ext.js"></script>        
       	<script src="${pageContext.request.contextPath}/bower_components/vue/dist/vue.js"></script>
       	<script src="${pageContext.request.contextPath}/bower_components/axios/dist/axios.js"></script>
+      	<!-- <script src="${pageContext.request.contextPath}/bower_components/q/q.js"></script> -->
+      	<script src="${pageContext.request.contextPath}/my_app/MyCommon.js"></script>
       	<script src="${pageContext.request.contextPath}/my_app/myApp.js"></script>
+      	
       	<script type="text/javascript">
       		
 	        $(function () {
@@ -88,23 +92,22 @@
       		var vm=new Vue({
       			el:'#app',
       			data:{
-                    d:{
-	                    ID: '', Apply_Hospital_ID: '', Reim_NO: '', Sfzh: '', Medicare_State: 1, Person_Code: '', Reim_Source: 2, TreatmentHosptial_Code: '', TreatmentHosptial: '',
-	                    Treatment_NO: '', Reim_Type_ID: 15, In_Date: '', Out_Date: '', Medicare_Date: '', TypeIn_Date: '', Medicare_Line: 0, StdDisease_Code: '', StdDisease_Name: '',
-	                    ZL_Money: 0, ZF_Money: 0, YLZ_Money: 0, GR_Money: 0, YBBX_Money: 0, XNH_Money: 0, Family_Code: '', Apply_Date: '', DBBX_Money: 0, Card_NO: '', Finish_Flag: 0,
-	                    SfLb: '', JGBM: '', PrintCount: 0, Operator_ID: '', Create_Time: '', Pay_Operator_ID: '', Finish_Date: '', SelfBaseMoney: 0, YLJZ_Money: '', Cancel_Date: '', Cancel_Operator_ID: '',
-	                    YBHG_Money: '', SelfBaseMoney_Total: '', YLJZ_Money_Total: '', Spec_BN: 0, CYDBBC_Money: 0, IdentityType_ID: '', SelBaseMoney_ZY_Total: 0, GR_Accout_Pay: 0, YB_Other_Pay: 0,
-	                    Name: '', Ry_Zt: '', Operator_Name: '', Pay_Operator_Name: '', Cancel_Operator_Name: '', IdentityType_Name: '', Apply_Hospital_Name: ''
-                    },
+                    d:[],
                     errArray:[],
-                    ReimSourceList:[{ id: 1, name: '本院' }, { id: 2, name: '外转' }],
-                    ReimTypeList : [{ id: 15, name: '大病门诊' }, { id: 21, name: '住院' }, { id: 99, name: '特殊疾病' }],
-                    SpecBNList : [{ id: 0, name: '无' }, { id: 1, name: '单次单报' }, { id: 2, name: '未参加基本医疗保险' }, { id: 3, name: '单病种定额付费/低自付大病补助' }, { id: 4, name: '医疗费用包干' }, { id: 5, name: '按床日付费' }]
+                    ReimSourceList:Bn_TreatmentReimburse.ReimSourceList,
+                    ReimTypeList : Bn_TreatmentReimburse.ReimTypeList,
+                    SpecBNList : Bn_TreatmentReimburse.SpecBNList
+      			},
+      			created:function(){
+
+      			},
+      			mounted:function(){
+      				//alert('mounted');
       			},
       			computed:{
       				calFinishiFlag:function(){
       		            var r = { css: '', str: '' };
-      		            switch (this.d.Finish_Flag) {
+      		            switch (this.d.finish_Flag) {
       		                case 0:
       		                    r.str = '未报销';
       		                    r.css = 'label bg-blue';
@@ -128,7 +131,7 @@
       					this.errArray=new Array();      					
       				},
       				loadPerson:function($event){
-      					axios.get("${pageContext.request.contextPath}/DictFamilyMember/GetData/" + this.d.Sfzh).
+      					axios.get("${pageContext.request.contextPath}/DictFamilyMember/GetData/" + this.d.sfzh).
                         then(
                         function (r) {
                             if (r.data === "") {
@@ -136,10 +139,10 @@
                                 vm.reset();
                             }
                             else {
-                            	vm.d.Name = r.data.name;
-                            	vm.d.SfLb = r.data.sfLb;
-                            	vm.d.Family_Code = r.data.ry_Jtbh;
-                                vm.d.Ry_Zt = r.data.ry_Zt;
+                            	vm.d.name = r.data.name;
+                            	vm.d.sfLb = r.data.sfLb;
+                            	vm.d.family_Code = r.data.ry_Jtbh;
+                                vm.d.ry_Zt = r.data.ry_Zt;
                                 $('#ds_bxlx').focus();
                             }
                         }, function (r) {
@@ -147,17 +150,29 @@
                         });
       				},
       				reimSourceChange:function($event){
-      					alert(this.d.Reim_Source);
+      		            if (vm.d.reim_Source == 2) {
+      		                vm.d.treatmentHosptial_Code = '';
+      		                vm.d.treatmentHosptial = '';
+      		            }
+      		            else {
+      		                UserService.getCurUser().then(function (u) {
+      		                    vm.d.treatmentHosptial_Code = u.dictHospital.code;
+      		                    vm.d.treatmentHosptial = u.dictHospital.name;
+      		                }, function (reson) {
+      		                    $.showErr(reson);
+      		                });
+
+      		            }
       				},
       				selDisease($event){      					
-      		            if (this.d.Finish_Flag > 0) {
+      		            if (this.d.finish_Flag > 0) {
       		                return;
       		            }
       		            var p = {
-      		                  rt_id: this.d.Reim_Type_ID,
+      		                  rt_id: this.d.reim_Type_ID,
       		                  callback: function (row) {
-  		                          vm.d.StdDisease_Code = row.code;
-  		                          vm.d.StdDisease_Name = row.name;
+  		                          vm.d.stdDisease_Code = row.code;
+  		                          vm.d.stdDisease_Name = row.name;
       		                  }
       		              };
       		              $.myApp.showSelDisease(p);      		            
@@ -166,9 +181,34 @@
       					alert('submit');
       				},
       				reset($event){
-      					alert('reset');
+      					$('#ds_sfzh').focus(); 
+          				Bn_TreatmentReimburse.load('')
+                        	.done(function (data) {
+                        		data.in_Date=new Date(data.in_Date).Format('yyyy/MM/dd');
+                        		data.out_Date=new Date(data.out_Date).Format('yyyy/MM/dd');
+                        		data.medicare_Date=new Date(data.medicare_Date).Format('yyyy/MM/dd');
+                        		data.apply_Date=new Date(data.apply_Date).Format('yyyy/MM/dd');
+                        		data.typeIn_Date=new Date(data.typeIn_Date).Format('yyyy/MM/dd');
+                        		
+                        		data.create_Time=new Date(data.create_Time).Format('yyyy/MM/dd hh:mm:ss');
+                        		data.finish_Date=new Date(data.finish_Date).Format('yyyy/MM/dd hh:mm:ss');
+                        		data.cancel_Date=new Date(data.cancel_Date).Format('yyyy/MM/dd hh:mm:ss');
+                        		vm.d = data;
+                            })
+                            .fail(function (msg) {
+                                $.showErr(msg);
+                            });						
       				}
       			}
+      		});
+      		
+      		vm.reset();
+      		//$watchAll是自定义的，参考：https://github.com/vuejs/vue/issues/844
+      		//field是固定通过bind时传入的；newValue,oldVal是Vue进行正常回调时传入的参数。因为callback.bind实际返回的是一个包装器，所以可以实现这样的功能
+      		//具体看文档https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+      		vm.$watchAll(["d.ylz_Money", "d.ybbx_Money","d.dbbx_Money","d.gr_Accout_Pay","d.yb_Other_Pay"], function(field, newVal, oldVal){
+      			console.log(newVal+','+oldVal);
+      			vm.d.gr_Money = vm.d.ylz_Money - vm.d.ybbx_Money - vm.d.dbbx_Money - vm.d.gr_Accout_Pay - vm.d.yb_Other_Pay;
       		});
       	</script>
     </jsp:attribute>
@@ -195,43 +235,43 @@
 		                    <div class="form-group">
 		                        <label class="col-sm-1 control-label myLabel" for="ds_sfzh">身份证号：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak class="form-control" required id="ds_sfzh" name="ds_sfzh" type="text" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.Sfzh" v-on:keyup.enter="loadPerson($event)" />
+		                            <input v-cloak class="form-control" required id="ds_sfzh" name="ds_sfzh" type="text" placeholder="" :disabled="d.finish_Flag>0" v-model="d.sfzh" v-on:keyup.enter="loadPerson($event)" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_name">姓名：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <label v-cloak class="form-control displayOnly" name="ds_name">{{d.Name}}</label>
+		                            <label v-cloak class="form-control displayOnly" name="ds_name">{{d.name}}</label>
 		                        </div>
 		                        <label class="col-sm-1 control-label myLabel" for="ds_sflb">身份类别：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <label v-cloak class="form-control displayOnly" name="ds_sflb">{{d.SfLb}}</label>
+		                            <label v-cloak class="form-control displayOnly" name="ds_sflb">{{d.sfLb}}</label>
 		                        </div>
 		                        <label class="col-sm-1 control-label myLabel" for="ds_ryzt">人员状态：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <label v-cloak class="form-control displayOnly" name="ds_ryzt">{{d.Ry_Zt}}</label>
+		                            <label v-cloak class="form-control displayOnly" name="ds_ryzt">{{d.ry_Zt}}</label>
 		                        </div>
 		                    </div>
 		
 		                    <div class="form-group">
 		                        <label class="col-sm-1 control-label myLabel" for="ds_bxlx">报销类型：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <select v-cloak v-enter2tab id="ds_bxlx" name="ds_bxlx" class="form-control" :disabled="d.Finish_Flag>0" v-model="d.Reim_Source" v-on:change="reimSourceChange($event)">
+		                            <select v-cloak v-enter2tab id="ds_bxlx" name="ds_bxlx" class="form-control" :disabled="d.finish_Flag>0" v-model="d.reim_Source" v-on:change="reimSourceChange($event)">
 		                            	<option v-for="item in ReimSourceList" :value="item.id">{{item.name}}</option>
 		                            </select>
 		                        </div>
 		                        <label class="col-sm-1 control-label myLabel" for="ds_djh">单据号：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab class="form-control" required name="ds_djh" type="text" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.BillNO" />
+		                            <input v-cloak v-enter2tab class="form-control" required name="ds_djh" type="text" placeholder="" :disabled="d.finish_Flag>0" v-model="d.BillNO" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_jzyy">就诊医院：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab class="form-control" required name="ds_jzyy" type="text" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.TreatmentHosptial" />
+		                            <input v-cloak v-enter2tab class="form-control" required name="ds_jzyy" type="text" placeholder="" :disabled="d.finish_Flag>0" v-model="d.treatmentHosptial" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_yllb">医疗类别：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <select v-cloak v-enter2tab name="ds_yllb" class="form-control" :disabled="d.Finish_Flag>0" v-model="d.Reim_Type_ID">
+		                            <select v-cloak v-enter2tab name="ds_yllb" class="form-control" :disabled="d.finish_Flag>0" v-model="d.reim_Type_ID">
 		                            	<option v-for="item in ReimTypeList" :value="item.id">{{item.name}}</option>
 		                            </select>
 		                        </div>
@@ -241,7 +281,7 @@
 		                        <label class="col-sm-1 control-label myLabel" for="ds_rysj">入院时间：</label>
 		                        <div class="col-sm-2 myForm">
 		                            <div class="input-group date">
-		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_rysj" :disabled="d.Finish_Flag>0" v-model="d.In_Date">
+		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_rysj" :disabled="d.finish_Flag>0" v-model="d.in_Date">
 		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		                            </div>
 		                        </div>
@@ -249,7 +289,7 @@
 		                        <label class="col-sm-1 control-label myLabel" for="ds_cysj">出院时间：</label>
 		                        <div class="col-sm-2 myForm">
 		                            <div class="input-group date">
-		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_cysj" :disabled="d.Finish_Flag>0" v-model="d.Out_Date">
+		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_cysj" :disabled="d.finish_Flag>0" v-model="d.out_Date">
 		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		                            </div>
 		                        </div>
@@ -257,7 +297,7 @@
 		                        <label class="col-sm-1 control-label myLabel" for="ds_jsrq">结算日期：</label>
 		                        <div class="col-sm-2 myForm">
 		                            <div class="input-group date">
-		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_jsrq" :disabled="d.Finish_Flag>0" v-model="d.Medicare_Date">
+		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_jsrq" :disabled="d.finish_Flag>0" v-model="d.medicare_Date">
 		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		                            </div>
 		                        </div>
@@ -265,7 +305,7 @@
 		                        <label class="col-sm-1 control-label myLabel" for="ds_lrrq">录入日期：</label>
 		                        <div class="col-sm-2 myForm">
 		                            <div class="input-group date">
-		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_lrrq" :disabled="d.Finish_Flag>0" v-model="d.TypeIn_Date">
+		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_lrrq" :disabled="d.finish_Flag>0" v-model="d.typeIn_Date">
 		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		                            </div>
 		                        </div>
@@ -274,91 +314,91 @@
 		                    <div class="form-group">
 		                        <label class="col-sm-1 control-label myLabel" for="ds_ylbzh">医疗保障号：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab class="form-control" name="ds_ylbzh" type="text" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.Card_NO" />
+		                            <input v-cloak v-enter2tab class="form-control" name="ds_ylbzh" type="text" placeholder="" :disabled="d.finish_Flag>0" v-model="d.card_NO" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_jbdm">疾病代码：</label>
 		                        <div class="col-sm-2 myForm">
 		                            <div class="input-group">
-		                                <input v-cloak v-enter2tab type="text" readonly="readonly" class="form-control" name="ds_jbdm" :disabled="d.Finish_Flag>0" v-model="d.StdDisease_Code">
+		                                <input v-cloak v-enter2tab type="text" readonly="readonly" class="form-control" name="ds_jbdm" :disabled="d.finish_Flag>0" v-model="d.stdDisease_Code">
 		                                <span class="input-group-addon"><i class="glyphicon glyphicon-search" v-on:click="selDisease()"></i></span>
 		                            </div>
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_jbmc">疾病名称：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab class="form-control" required name="ds_jbmc" type="text" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.StdDisease_Name" />
+		                            <input v-cloak v-enter2tab class="form-control" required name="ds_jbmc" type="text" placeholder="" :disabled="d.finish_Flag>0" v-model="d.stdDisease_Name" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_jtbm">家庭编码：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab class="form-control" name="ds_jtbm" type="text" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.Family_Code" />
+		                            <input v-cloak v-enter2tab class="form-control" name="ds_jtbm" type="text" placeholder="" :disabled="d.finish_Flag>0" v-model="d.family_Code" />
 		                        </div>
 		                    </div>
 		
 		                    <div class="form-group">
 		                        <label class="col-sm-1 control-label myLabel" for="ds_ylzfy">医疗总费用：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab type="number" min="0" step="0.01" required class="form-control numberic" name="ds_ylzfy" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.YLZ_Money" />
+		                            <input v-cloak v-enter2tab type="number" min="0" step="0.01" required class="form-control numberic" name="ds_ylzfy" placeholder="" :disabled="d.finish_Flag>0" v-model="d.ylz_Money" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_zlfy">自理费用：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab class="form-control numberic" required step="0.01" name="ds_zlfy" type="number" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.ZL_Money" />
+		                            <input v-cloak v-enter2tab class="form-control numberic" required step="0.01" name="ds_zlfy" type="number" placeholder="" :disabled="d.finish_Flag>0" v-model="d.zl_Money" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_zfje">自费金额：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab required class="form-control numberic" step="0.01" name="ds_zfje" type="number" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.ZF_Money" />
+		                            <input v-cloak v-enter2tab required class="form-control numberic" step="0.01" name="ds_zfje" type="number" placeholder="" :disabled="d.finish_Flag>0" v-model="d.zf_Money" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_qfx">起付线：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab required class="form-control numberic" step="0.01" name="ds_qfx" type="number" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.Medicare_Line" />
+		                            <input v-cloak v-enter2tab required class="form-control numberic" step="0.01" name="ds_qfx" type="number" placeholder="" :disabled="d.finish_Flag>0" v-model="d.medicare_Line" />
 		                        </div>
 		                    </div>
 		
 		                    <div class="form-group">
 		                        <label class="col-sm-1 control-label myLabel" for="ds_dbbx">大病保险补偿金额：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab required type="number" min="0" step="0.01" class="form-control numberic" name="ds_dbbx" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.DBBX_Money" />
+		                            <input v-cloak v-enter2tab required type="number" min="0" step="0.01" class="form-control numberic" name="ds_dbbx" placeholder="" :disabled="d.finish_Flag>0" v-model="d.dbbx_Money" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_ybbx">医保(农合)报销：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab type="number" min="0" step="0.01" required class="form-control numberic" name="ds_ybbx" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.YBBX_Money" />
+		                            <input v-cloak v-enter2tab type="number" min="0" step="0.01" required class="form-control numberic" name="ds_ybbx" placeholder="" :disabled="d.finish_Flag>0" v-model="d.ybbx_Money" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_xnhcybc">新农合参与补偿金额：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab required class="form-control numberic" step="0.01" name="ds_xnhcybc" type="number" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.XNH_Money" />
+		                            <input v-cloak v-enter2tab required class="form-control numberic" step="0.01" name="ds_xnhcybc" type="number" placeholder="" :disabled="d.finish_Flag>0" v-model="d.xnh_Money" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_xnhcydbbc">新农合参与大病补偿：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab required class="form-control numberic" step="0.01" name="ds_xnhcydbbc" type="number" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.CYDBBC_Money" />
+		                            <input v-cloak v-enter2tab required class="form-control numberic" step="0.01" name="ds_xnhcydbbc" type="number" placeholder="" :disabled="d.finish_Flag>0" v-model="d.cydbbc_Money" />
 		                        </div>
 		                    </div>
 		
 		                    <div class="form-group">
 		                        <label class="col-sm-1 control-label myLabel" for="ds_grzhzf">个人账户支付：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab type="number" min="0" step="0.01" required class="form-control numberic" name="ds_grzhzf" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.GR_Accout_Pay" />
+		                            <input v-cloak v-enter2tab type="number" min="0" step="0.01" required class="form-control numberic" name="ds_grzhzf" placeholder="" :disabled="d.finish_Flag>0" v-model="d.gr_Accout_Pay" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_ybqtzf">医保其它支付：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab required type="number" min="0" step="0.01" required class="form-control numberic" name="ds_ybqtzf" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.YB_Other_Pay" />
+		                            <input v-cloak v-enter2tab required type="number" min="0" step="0.01" required class="form-control numberic" name="ds_ybqtzf" placeholder="" :disabled="d.finish_Flag>0" v-model="d.yb_Other_Pay" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_grcd">个人承担：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab required class="form-control numberic" step="0.01" name="ds_grcd" type="number" placeholder="" :disabled="d.Finish_Flag>0" v-model="d.GR_Money" />
+		                            <input v-cloak v-enter2tab required class="form-control numberic" step="0.01" name="ds_grcd" type="number" placeholder="" :disabled="d.finish_Flag>0" v-model="d.gr_Money" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_tsqk">特殊情况：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <select v-cloak v-enter2tab name="ds_tsqk" class="form-control" :disabled="d.Finish_Flag>0" v-model="d.Spec_BN">
+		                            <select v-cloak v-enter2tab name="ds_tsqk" class="form-control" :disabled="d.finish_Flag>0" v-model="d.spec_BN">
 		                            	<option v-for="item in SpecBNList" :value="item.id">{{item.name}}</option>
 		                            </select>
 		                        </div>
@@ -368,7 +408,7 @@
 		                        <label class="col-sm-1 control-label myLabel" for="ds_bxsj">报销时间：</label>
 		                        <div class="col-sm-2 myForm">
 		                            <div class="input-group date">
-		                                <input v-cloak v-enter2tab type="text" class="form-control" name="ds_bxsj" :disabled="d.Finish_Flag>0" v-model="d.Apply_Date">
+		                                <input v-cloak v-enter2tab type="text" class="form-control" name="ds_bxsj" :disabled="d.finish_Flag>0" v-model="d.apply_Date">
 		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		                            </div>
 		                        </div>
@@ -377,49 +417,49 @@
 		                    <div class="form-group">
 		                        <label class="col-sm-1 control-label myLabel">录入操作员：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <label v-cloak  class="form-control displayOnly" name="ds_lrczy">{{d.Operator_Name}}</label>
+		                            <label v-cloak  class="form-control displayOnly" name="ds_lrczy">{{d.operator_Name}}</label>
 		                        </div>
 		                        <label class="col-sm-1 control-label myLabel">创建时间：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <label v-cloak class="form-control displayOnly" name="ds_cjsj">{{d.Create_Time}}</label>
+		                            <label v-cloak class="form-control displayOnly" name="ds_cjsj">{{d.create_Time}}</label>
 		                        </div>
 		                        <label class="col-sm-1 control-label myLabel">报销操作员：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <label v-cloak class="form-control displayOnly" name="ds_bxczy">{{d.Pay_Operator_Name}}</label>
+		                            <label v-cloak class="form-control displayOnly" name="ds_bxczy">{{d.pay_Operator_Name}}</label>
 		                        </div>
 		                        <label class="col-sm-1 control-label myLabel">报销时间：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <label v-cloak class="form-control displayOnly" name="ds_bxsj">{{d.Finish_Date}}</label>
+		                            <label v-cloak class="form-control displayOnly" name="ds_bxsj">{{d.finish_Date}}</label>
 		                        </div>
 		                    </div>
 		
 		                    <div class="form-group">
 		                        <label class="col-sm-1 control-label myLabel">报销基数：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <label v-cloak class="form-control displayOnly" name="ds_bxjs">{{d.SelfBaseMoney}}</label>
+		                            <label v-cloak class="form-control displayOnly" name="ds_bxjs">{{d.selfBaseMoney}}</label>
 		                        </div>
 		                        <label class="col-sm-1 control-label myLabel">救助金额：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <label v-cloak class="form-control displayOnly" name="ds_jzje">{{d.YLJZ_Money}}</label>
+		                            <label v-cloak class="form-control displayOnly" name="ds_jzje">{{d.yljz_Money}}</label>
 		                        </div>
 		                        <label class="col-sm-1 control-label myLabel">作废操作员：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <label v-cloak class="form-control displayOnly" name="ds_zfczy">{{d.Cancel_Operator_Name}}</label>
+		                            <label v-cloak class="form-control displayOnly" name="ds_zfczy">{{d.cancel_Operator_Name}}</label>
 		                        </div>
 		                        <label class="col-sm-1 control-label myLabel">作废日期：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <label v-cloak class="form-control displayOnly" name="ds_zfrq">{{d.Cancel_Date}}</label>
+		                            <label v-cloak class="form-control displayOnly" name="ds_zfrq">{{d.cancel_Date}}</label>
 		                        </div>
 		                    </div>
 		
 		                </div>
 		                <!-- /.box-body -->
 		                <div class="box-footer text-center">
-		                    <button type="button" class="btn btn-info" v-on:click="doSubmit()" :disabled="!(d.Finish_Flag==0)">提交</button>
-		                    <button type="button" class="btn btn-default" v-on:click="reset()" :disabled="!(d.Finish_Flag==0)">重置</button>
-		                    <button type="button" class="btn btn-success" :disabled="!(d.Finish_Flag==0 && d.ID!='')">报销</button>
-		                    <button type="button" class="btn bg-purple" :disabled="!(d.Finish_Flag==1)">打印凭证</button>
-		                    <button type="button" class="btn btn-danger" :disabled="!(d.Finish_Flag==1)">作废</button>
+		                    <button type="button" class="btn btn-info" v-on:click="doSubmit()" :disabled="!(d.finish_Flag==0)">提交</button>
+		                    <button type="button" class="btn btn-default" v-on:click="reset()" :disabled="!(d.finish_Flag==0)">重置</button>
+		                    <button type="button" class="btn btn-success" :disabled="!(d.finish_Flag==0 && d.ID!='')">报销</button>
+		                    <button type="button" class="btn bg-purple" :disabled="!(d.finish_Flag==1)">打印凭证</button>
+		                    <button type="button" class="btn btn-danger" :disabled="!(d.finish_Flag==1)">作废</button>
 		                </div>
 		                <!-- /.box-footer -->
 		            </form>		            

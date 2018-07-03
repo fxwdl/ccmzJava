@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.yixun.ccmz.domain.User;
 import com.yixun.ccmz.dto.SystemMenuModel;
 import com.yixun.ccmz.service.AccountService;
 
@@ -30,14 +31,23 @@ public abstract class BaseController
 
 	public void initSystemMenu()
 	{
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
-				.getRequest();
-		String userName = (String) request.getSession(true).getAttribute("user");
+		User u = getCurrentUser();
 		List<SystemMenuModel> m = new ArrayList<SystemMenuModel>();
-		if (userName != null)
+		if (u != null)
 		{
-			m = this.getAccountService().GetSystemMenu(userName);
+			m = this.getAccountService().GetSystemMenu(u.getUserName());
 		}
-		request.setAttribute("menu", m);
+		getHttpRequest().setAttribute("menu", m);
+	}
+
+	protected User getCurrentUser()
+	{
+		User u = (User) getHttpRequest().getSession(true).getAttribute("user");
+		return u;
+	}
+
+	protected HttpServletRequest getHttpRequest()
+	{
+		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 	}
 }
