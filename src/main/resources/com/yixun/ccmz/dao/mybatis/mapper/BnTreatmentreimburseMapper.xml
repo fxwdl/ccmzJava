@@ -1,0 +1,1181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yixun.ccmz.dao.mybatis.mapper.BnTreatmentreimburseMapper">
+  <resultMap id="BaseResultMap" type="com.yixun.ccmz.domain.BnTreatmentreimburse">
+    <id column="ID" jdbcType="VARCHAR" property="ID" />
+    <result column="Pay_Type" jdbcType="INTEGER" property="pay_Type" />
+    <result column="Apply_Hospital_ID" jdbcType="VARCHAR" property="apply_Hospital_ID" />
+    <result column="Reim_NO" jdbcType="VARCHAR" property="reim_NO" />
+    <result column="Sfzh" jdbcType="VARCHAR" property="sfzh" />
+    <result column="Medicare_State" jdbcType="INTEGER" property="medicare_State" />
+    <result column="Person_Code" jdbcType="VARCHAR" property="person_Code" />
+    <result column="Reim_Source" jdbcType="INTEGER" property="reim_Source" />
+    <result column="BillNO" jdbcType="VARCHAR" property="billNO" />
+    <result column="TreatmentHosptial_Code" jdbcType="VARCHAR" property="treatmentHosptial_Code" />
+    <result column="TreatmentHosptial" jdbcType="VARCHAR" property="treatmentHosptial" />
+    <result column="Treatment_NO" jdbcType="VARCHAR" property="treatment_NO" />
+    <result column="Reim_Type_ID" jdbcType="INTEGER" property="reim_Type_ID" />
+    <result column="In_Date" jdbcType="TIMESTAMP" property="in_Date" />
+    <result column="Out_Date" jdbcType="TIMESTAMP" property="out_Date" />
+    <result column="Medicare_Date" jdbcType="TIMESTAMP" property="medicare_Date" />
+    <result column="TypeIn_Date" jdbcType="TIMESTAMP" property="typeIn_Date" />
+    <result column="Medicare_Line" jdbcType="DECIMAL" property="medicare_Line" />
+    <result column="StdDisease_Code" jdbcType="VARCHAR" property="stdDisease_Code" />
+    <result column="StdDisease_Name" jdbcType="VARCHAR" property="stdDisease_Name" />
+    <result column="AMoney" jdbcType="DECIMAL" property="AMoney" />
+    <result column="BMoney" jdbcType="DECIMAL" property="BMoney" />
+    <result column="CMoney" jdbcType="DECIMAL" property="CMoney" />
+    <result column="ZL_Money" jdbcType="DECIMAL" property="ZL_Money" />
+    <result column="ZF_Money" jdbcType="DECIMAL" property="ZF_Money" />
+    <result column="YLZ_Money" jdbcType="DECIMAL" property="YLZ_Money" />
+    <result column="GR_Money" jdbcType="DECIMAL" property="GR_Money" />
+    <result column="YBBX_Money" jdbcType="DECIMAL" property="YBBX_Money" />
+    <result column="XNH_Money" jdbcType="DECIMAL" property="XNH_Money" />
+    <result column="Family_Code" jdbcType="VARCHAR" property="family_Code" />
+    <result column="Apply_Date" jdbcType="TIMESTAMP" property="apply_Date" />
+    <result column="DBBX_Money" jdbcType="DECIMAL" property="DBBX_Money" />
+    <result column="Card_NO" jdbcType="VARCHAR" property="card_NO" />
+    <result column="Finish_Flag" jdbcType="INTEGER" property="finish_Flag" />
+    <result column="SfLb" jdbcType="VARCHAR" property="sfLb" />
+    <result column="JGBM" jdbcType="VARCHAR" property="JGBM" />
+    <result column="PrintCount" jdbcType="INTEGER" property="printCount" />
+    <result column="Operator_ID" jdbcType="VARCHAR" property="operator_ID" />
+    <result column="Create_Time" jdbcType="TIMESTAMP" property="create_Time" />
+    <result column="Pay_Operator_ID" jdbcType="VARCHAR" property="pay_Operator_ID" />
+    <result column="Finish_Date" jdbcType="TIMESTAMP" property="finish_Date" />
+    <result column="SelfBaseMoney" jdbcType="DECIMAL" property="selfBaseMoney" />
+    <result column="YLJZ_Money" jdbcType="DECIMAL" property="YLJZ_Money" />
+    <result column="Cancel_Date" jdbcType="TIMESTAMP" property="cancel_Date" />
+    <result column="Cancel_Operator_ID" jdbcType="VARCHAR" property="cancel_Operator_ID" />
+    <result column="Memo" jdbcType="VARCHAR" property="memo" />
+    <result column="YB_Info" jdbcType="VARCHAR" property="YB_Info" />
+    <result column="YBHG_Money" jdbcType="DECIMAL" property="YBHG_Money" />
+    <result column="SelfBaseMoney_Total" jdbcType="DECIMAL" property="selfBaseMoney_Total" />
+    <result column="YLJZ_Money_Total" jdbcType="DECIMAL" property="YLJZ_Money_Total" />
+    <result column="Spec_BN" jdbcType="INTEGER" property="spec_BN" />
+    <result column="CYDBBC_Money" jdbcType="DECIMAL" property="CYDBBC_Money" />
+    <result column="IdentityType_ID" jdbcType="INTEGER" property="identityType_ID" />
+    <result column="SelBaseMoney_ZY_Total" jdbcType="DECIMAL" property="selBaseMoney_ZY_Total" />
+    <result column="GR_Accout_Pay" jdbcType="DECIMAL" property="GR_Accout_Pay" />
+    <result column="YB_Other_Pay" jdbcType="DECIMAL" property="YB_Other_Pay" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, Pay_Type, Apply_Hospital_ID, Reim_NO, Sfzh, Medicare_State, Person_Code, Reim_Source, 
+    BillNO, TreatmentHosptial_Code, TreatmentHosptial, Treatment_NO, Reim_Type_ID, In_Date, 
+    Out_Date, Medicare_Date, TypeIn_Date, Medicare_Line, StdDisease_Code, StdDisease_Name, 
+    AMoney, BMoney, CMoney, ZL_Money, ZF_Money, YLZ_Money, GR_Money, YBBX_Money, XNH_Money, 
+    Family_Code, Apply_Date, DBBX_Money, Card_NO, Finish_Flag, SfLb, JGBM, PrintCount, 
+    Operator_ID, Create_Time, Pay_Operator_ID, Finish_Date, SelfBaseMoney, YLJZ_Money, 
+    Cancel_Date, Cancel_Operator_ID, Memo, YB_Info, YBHG_Money, SelfBaseMoney_Total, 
+    YLJZ_Money_Total, Spec_BN, CYDBBC_Money, IdentityType_ID, SelBaseMoney_ZY_Total, 
+    GR_Accout_Pay, YB_Other_Pay
+  </sql>
+  <select id="selectByExample" parameterType="com.yixun.ccmz.domain.BnTreatmentreimburseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bn_treatmentreimburse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="page != null">
+      limit #{page.begin} , #{page.length}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bn_treatmentreimburse
+    where ID = #{ID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from bn_treatmentreimburse
+    where ID = #{ID,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yixun.ccmz.domain.BnTreatmentreimburseExample">
+    delete from bn_treatmentreimburse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yixun.ccmz.domain.BnTreatmentreimburse">
+    insert into bn_treatmentreimburse (ID, Pay_Type, Apply_Hospital_ID, 
+      Reim_NO, Sfzh, Medicare_State, 
+      Person_Code, Reim_Source, BillNO, 
+      TreatmentHosptial_Code, TreatmentHosptial, 
+      Treatment_NO, Reim_Type_ID, In_Date, 
+      Out_Date, Medicare_Date, TypeIn_Date, 
+      Medicare_Line, StdDisease_Code, StdDisease_Name, 
+      AMoney, BMoney, CMoney, 
+      ZL_Money, ZF_Money, YLZ_Money, 
+      GR_Money, YBBX_Money, XNH_Money, 
+      Family_Code, Apply_Date, DBBX_Money, 
+      Card_NO, Finish_Flag, SfLb, 
+      JGBM, PrintCount, Operator_ID, 
+      Create_Time, Pay_Operator_ID, Finish_Date, 
+      SelfBaseMoney, YLJZ_Money, Cancel_Date, 
+      Cancel_Operator_ID, Memo, YB_Info, 
+      YBHG_Money, SelfBaseMoney_Total, YLJZ_Money_Total, 
+      Spec_BN, CYDBBC_Money, IdentityType_ID, 
+      SelBaseMoney_ZY_Total, GR_Accout_Pay, YB_Other_Pay
+      )
+    values (#{ID,jdbcType=VARCHAR}, #{pay_Type,jdbcType=INTEGER}, #{apply_Hospital_ID,jdbcType=VARCHAR}, 
+      #{reim_NO,jdbcType=VARCHAR}, #{sfzh,jdbcType=VARCHAR}, #{medicare_State,jdbcType=INTEGER}, 
+      #{person_Code,jdbcType=VARCHAR}, #{reim_Source,jdbcType=INTEGER}, #{billNO,jdbcType=VARCHAR}, 
+      #{treatmentHosptial_Code,jdbcType=VARCHAR}, #{treatmentHosptial,jdbcType=VARCHAR}, 
+      #{treatment_NO,jdbcType=VARCHAR}, #{reim_Type_ID,jdbcType=INTEGER}, #{in_Date,jdbcType=TIMESTAMP}, 
+      #{out_Date,jdbcType=TIMESTAMP}, #{medicare_Date,jdbcType=TIMESTAMP}, #{typeIn_Date,jdbcType=TIMESTAMP}, 
+      #{medicare_Line,jdbcType=DECIMAL}, #{stdDisease_Code,jdbcType=VARCHAR}, #{stdDisease_Name,jdbcType=VARCHAR}, 
+      #{AMoney,jdbcType=DECIMAL}, #{BMoney,jdbcType=DECIMAL}, #{CMoney,jdbcType=DECIMAL}, 
+      #{ZL_Money,jdbcType=DECIMAL}, #{ZF_Money,jdbcType=DECIMAL}, #{YLZ_Money,jdbcType=DECIMAL}, 
+      #{GR_Money,jdbcType=DECIMAL}, #{YBBX_Money,jdbcType=DECIMAL}, #{XNH_Money,jdbcType=DECIMAL}, 
+      #{family_Code,jdbcType=VARCHAR}, #{apply_Date,jdbcType=TIMESTAMP}, #{DBBX_Money,jdbcType=DECIMAL}, 
+      #{card_NO,jdbcType=VARCHAR}, #{finish_Flag,jdbcType=INTEGER}, #{sfLb,jdbcType=VARCHAR}, 
+      #{JGBM,jdbcType=VARCHAR}, #{printCount,jdbcType=INTEGER}, #{operator_ID,jdbcType=VARCHAR}, 
+      #{create_Time,jdbcType=TIMESTAMP}, #{pay_Operator_ID,jdbcType=VARCHAR}, #{finish_Date,jdbcType=TIMESTAMP}, 
+      #{selfBaseMoney,jdbcType=DECIMAL}, #{YLJZ_Money,jdbcType=DECIMAL}, #{cancel_Date,jdbcType=TIMESTAMP}, 
+      #{cancel_Operator_ID,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{YB_Info,jdbcType=VARCHAR}, 
+      #{YBHG_Money,jdbcType=DECIMAL}, #{selfBaseMoney_Total,jdbcType=DECIMAL}, #{YLJZ_Money_Total,jdbcType=DECIMAL}, 
+      #{spec_BN,jdbcType=INTEGER}, #{CYDBBC_Money,jdbcType=DECIMAL}, #{identityType_ID,jdbcType=INTEGER}, 
+      #{selBaseMoney_ZY_Total,jdbcType=DECIMAL}, #{GR_Accout_Pay,jdbcType=DECIMAL}, #{YB_Other_Pay,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixun.ccmz.domain.BnTreatmentreimburse">
+    insert into bn_treatmentreimburse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        ID,
+      </if>
+      <if test="pay_Type != null">
+        Pay_Type,
+      </if>
+      <if test="apply_Hospital_ID != null">
+        Apply_Hospital_ID,
+      </if>
+      <if test="reim_NO != null">
+        Reim_NO,
+      </if>
+      <if test="sfzh != null">
+        Sfzh,
+      </if>
+      <if test="medicare_State != null">
+        Medicare_State,
+      </if>
+      <if test="person_Code != null">
+        Person_Code,
+      </if>
+      <if test="reim_Source != null">
+        Reim_Source,
+      </if>
+      <if test="billNO != null">
+        BillNO,
+      </if>
+      <if test="treatmentHosptial_Code != null">
+        TreatmentHosptial_Code,
+      </if>
+      <if test="treatmentHosptial != null">
+        TreatmentHosptial,
+      </if>
+      <if test="treatment_NO != null">
+        Treatment_NO,
+      </if>
+      <if test="reim_Type_ID != null">
+        Reim_Type_ID,
+      </if>
+      <if test="in_Date != null">
+        In_Date,
+      </if>
+      <if test="out_Date != null">
+        Out_Date,
+      </if>
+      <if test="medicare_Date != null">
+        Medicare_Date,
+      </if>
+      <if test="typeIn_Date != null">
+        TypeIn_Date,
+      </if>
+      <if test="medicare_Line != null">
+        Medicare_Line,
+      </if>
+      <if test="stdDisease_Code != null">
+        StdDisease_Code,
+      </if>
+      <if test="stdDisease_Name != null">
+        StdDisease_Name,
+      </if>
+      <if test="AMoney != null">
+        AMoney,
+      </if>
+      <if test="BMoney != null">
+        BMoney,
+      </if>
+      <if test="CMoney != null">
+        CMoney,
+      </if>
+      <if test="ZL_Money != null">
+        ZL_Money,
+      </if>
+      <if test="ZF_Money != null">
+        ZF_Money,
+      </if>
+      <if test="YLZ_Money != null">
+        YLZ_Money,
+      </if>
+      <if test="GR_Money != null">
+        GR_Money,
+      </if>
+      <if test="YBBX_Money != null">
+        YBBX_Money,
+      </if>
+      <if test="XNH_Money != null">
+        XNH_Money,
+      </if>
+      <if test="family_Code != null">
+        Family_Code,
+      </if>
+      <if test="apply_Date != null">
+        Apply_Date,
+      </if>
+      <if test="DBBX_Money != null">
+        DBBX_Money,
+      </if>
+      <if test="card_NO != null">
+        Card_NO,
+      </if>
+      <if test="finish_Flag != null">
+        Finish_Flag,
+      </if>
+      <if test="sfLb != null">
+        SfLb,
+      </if>
+      <if test="JGBM != null">
+        JGBM,
+      </if>
+      <if test="printCount != null">
+        PrintCount,
+      </if>
+      <if test="operator_ID != null">
+        Operator_ID,
+      </if>
+      <if test="create_Time != null">
+        Create_Time,
+      </if>
+      <if test="pay_Operator_ID != null">
+        Pay_Operator_ID,
+      </if>
+      <if test="finish_Date != null">
+        Finish_Date,
+      </if>
+      <if test="selfBaseMoney != null">
+        SelfBaseMoney,
+      </if>
+      <if test="YLJZ_Money != null">
+        YLJZ_Money,
+      </if>
+      <if test="cancel_Date != null">
+        Cancel_Date,
+      </if>
+      <if test="cancel_Operator_ID != null">
+        Cancel_Operator_ID,
+      </if>
+      <if test="memo != null">
+        Memo,
+      </if>
+      <if test="YB_Info != null">
+        YB_Info,
+      </if>
+      <if test="YBHG_Money != null">
+        YBHG_Money,
+      </if>
+      <if test="selfBaseMoney_Total != null">
+        SelfBaseMoney_Total,
+      </if>
+      <if test="YLJZ_Money_Total != null">
+        YLJZ_Money_Total,
+      </if>
+      <if test="spec_BN != null">
+        Spec_BN,
+      </if>
+      <if test="CYDBBC_Money != null">
+        CYDBBC_Money,
+      </if>
+      <if test="identityType_ID != null">
+        IdentityType_ID,
+      </if>
+      <if test="selBaseMoney_ZY_Total != null">
+        SelBaseMoney_ZY_Total,
+      </if>
+      <if test="GR_Accout_Pay != null">
+        GR_Accout_Pay,
+      </if>
+      <if test="YB_Other_Pay != null">
+        YB_Other_Pay,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        #{ID,jdbcType=VARCHAR},
+      </if>
+      <if test="pay_Type != null">
+        #{pay_Type,jdbcType=INTEGER},
+      </if>
+      <if test="apply_Hospital_ID != null">
+        #{apply_Hospital_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="reim_NO != null">
+        #{reim_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzh != null">
+        #{sfzh,jdbcType=VARCHAR},
+      </if>
+      <if test="medicare_State != null">
+        #{medicare_State,jdbcType=INTEGER},
+      </if>
+      <if test="person_Code != null">
+        #{person_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="reim_Source != null">
+        #{reim_Source,jdbcType=INTEGER},
+      </if>
+      <if test="billNO != null">
+        #{billNO,jdbcType=VARCHAR},
+      </if>
+      <if test="treatmentHosptial_Code != null">
+        #{treatmentHosptial_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="treatmentHosptial != null">
+        #{treatmentHosptial,jdbcType=VARCHAR},
+      </if>
+      <if test="treatment_NO != null">
+        #{treatment_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="reim_Type_ID != null">
+        #{reim_Type_ID,jdbcType=INTEGER},
+      </if>
+      <if test="in_Date != null">
+        #{in_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="out_Date != null">
+        #{out_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medicare_Date != null">
+        #{medicare_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeIn_Date != null">
+        #{typeIn_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medicare_Line != null">
+        #{medicare_Line,jdbcType=DECIMAL},
+      </if>
+      <if test="stdDisease_Code != null">
+        #{stdDisease_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="stdDisease_Name != null">
+        #{stdDisease_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="AMoney != null">
+        #{AMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="BMoney != null">
+        #{BMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="CMoney != null">
+        #{CMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="ZL_Money != null">
+        #{ZL_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="ZF_Money != null">
+        #{ZF_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="YLZ_Money != null">
+        #{YLZ_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="GR_Money != null">
+        #{GR_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="YBBX_Money != null">
+        #{YBBX_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="XNH_Money != null">
+        #{XNH_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="family_Code != null">
+        #{family_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="apply_Date != null">
+        #{apply_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="DBBX_Money != null">
+        #{DBBX_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="card_NO != null">
+        #{card_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="finish_Flag != null">
+        #{finish_Flag,jdbcType=INTEGER},
+      </if>
+      <if test="sfLb != null">
+        #{sfLb,jdbcType=VARCHAR},
+      </if>
+      <if test="JGBM != null">
+        #{JGBM,jdbcType=VARCHAR},
+      </if>
+      <if test="printCount != null">
+        #{printCount,jdbcType=INTEGER},
+      </if>
+      <if test="operator_ID != null">
+        #{operator_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="create_Time != null">
+        #{create_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pay_Operator_ID != null">
+        #{pay_Operator_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="finish_Date != null">
+        #{finish_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="selfBaseMoney != null">
+        #{selfBaseMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="YLJZ_Money != null">
+        #{YLJZ_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="cancel_Date != null">
+        #{cancel_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancel_Operator_ID != null">
+        #{cancel_Operator_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="YB_Info != null">
+        #{YB_Info,jdbcType=VARCHAR},
+      </if>
+      <if test="YBHG_Money != null">
+        #{YBHG_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="selfBaseMoney_Total != null">
+        #{selfBaseMoney_Total,jdbcType=DECIMAL},
+      </if>
+      <if test="YLJZ_Money_Total != null">
+        #{YLJZ_Money_Total,jdbcType=DECIMAL},
+      </if>
+      <if test="spec_BN != null">
+        #{spec_BN,jdbcType=INTEGER},
+      </if>
+      <if test="CYDBBC_Money != null">
+        #{CYDBBC_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="identityType_ID != null">
+        #{identityType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="selBaseMoney_ZY_Total != null">
+        #{selBaseMoney_ZY_Total,jdbcType=DECIMAL},
+      </if>
+      <if test="GR_Accout_Pay != null">
+        #{GR_Accout_Pay,jdbcType=DECIMAL},
+      </if>
+      <if test="YB_Other_Pay != null">
+        #{YB_Other_Pay,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yixun.ccmz.domain.BnTreatmentreimburseExample" resultType="java.lang.Long">
+    select count(*) from bn_treatmentreimburse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bn_treatmentreimburse
+    <set>
+      <if test="record.ID != null">
+        ID = #{record.ID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pay_Type != null">
+        Pay_Type = #{record.pay_Type,jdbcType=INTEGER},
+      </if>
+      <if test="record.apply_Hospital_ID != null">
+        Apply_Hospital_ID = #{record.apply_Hospital_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reim_NO != null">
+        Reim_NO = #{record.reim_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sfzh != null">
+        Sfzh = #{record.sfzh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medicare_State != null">
+        Medicare_State = #{record.medicare_State,jdbcType=INTEGER},
+      </if>
+      <if test="record.person_Code != null">
+        Person_Code = #{record.person_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reim_Source != null">
+        Reim_Source = #{record.reim_Source,jdbcType=INTEGER},
+      </if>
+      <if test="record.billNO != null">
+        BillNO = #{record.billNO,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treatmentHosptial_Code != null">
+        TreatmentHosptial_Code = #{record.treatmentHosptial_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treatmentHosptial != null">
+        TreatmentHosptial = #{record.treatmentHosptial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treatment_NO != null">
+        Treatment_NO = #{record.treatment_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reim_Type_ID != null">
+        Reim_Type_ID = #{record.reim_Type_ID,jdbcType=INTEGER},
+      </if>
+      <if test="record.in_Date != null">
+        In_Date = #{record.in_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.out_Date != null">
+        Out_Date = #{record.out_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.medicare_Date != null">
+        Medicare_Date = #{record.medicare_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.typeIn_Date != null">
+        TypeIn_Date = #{record.typeIn_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.medicare_Line != null">
+        Medicare_Line = #{record.medicare_Line,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stdDisease_Code != null">
+        StdDisease_Code = #{record.stdDisease_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stdDisease_Name != null">
+        StdDisease_Name = #{record.stdDisease_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.AMoney != null">
+        AMoney = #{record.AMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.BMoney != null">
+        BMoney = #{record.BMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.CMoney != null">
+        CMoney = #{record.CMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ZL_Money != null">
+        ZL_Money = #{record.ZL_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ZF_Money != null">
+        ZF_Money = #{record.ZF_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.YLZ_Money != null">
+        YLZ_Money = #{record.YLZ_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.GR_Money != null">
+        GR_Money = #{record.GR_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.YBBX_Money != null">
+        YBBX_Money = #{record.YBBX_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.XNH_Money != null">
+        XNH_Money = #{record.XNH_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.family_Code != null">
+        Family_Code = #{record.family_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apply_Date != null">
+        Apply_Date = #{record.apply_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.DBBX_Money != null">
+        DBBX_Money = #{record.DBBX_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.card_NO != null">
+        Card_NO = #{record.card_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finish_Flag != null">
+        Finish_Flag = #{record.finish_Flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.sfLb != null">
+        SfLb = #{record.sfLb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.JGBM != null">
+        JGBM = #{record.JGBM,jdbcType=VARCHAR},
+      </if>
+      <if test="record.printCount != null">
+        PrintCount = #{record.printCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.operator_ID != null">
+        Operator_ID = #{record.operator_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.create_Time != null">
+        Create_Time = #{record.create_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pay_Operator_ID != null">
+        Pay_Operator_ID = #{record.pay_Operator_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finish_Date != null">
+        Finish_Date = #{record.finish_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.selfBaseMoney != null">
+        SelfBaseMoney = #{record.selfBaseMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.YLJZ_Money != null">
+        YLJZ_Money = #{record.YLJZ_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cancel_Date != null">
+        Cancel_Date = #{record.cancel_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cancel_Operator_ID != null">
+        Cancel_Operator_ID = #{record.cancel_Operator_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null">
+        Memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.YB_Info != null">
+        YB_Info = #{record.YB_Info,jdbcType=VARCHAR},
+      </if>
+      <if test="record.YBHG_Money != null">
+        YBHG_Money = #{record.YBHG_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.selfBaseMoney_Total != null">
+        SelfBaseMoney_Total = #{record.selfBaseMoney_Total,jdbcType=DECIMAL},
+      </if>
+      <if test="record.YLJZ_Money_Total != null">
+        YLJZ_Money_Total = #{record.YLJZ_Money_Total,jdbcType=DECIMAL},
+      </if>
+      <if test="record.spec_BN != null">
+        Spec_BN = #{record.spec_BN,jdbcType=INTEGER},
+      </if>
+      <if test="record.CYDBBC_Money != null">
+        CYDBBC_Money = #{record.CYDBBC_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.identityType_ID != null">
+        IdentityType_ID = #{record.identityType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="record.selBaseMoney_ZY_Total != null">
+        SelBaseMoney_ZY_Total = #{record.selBaseMoney_ZY_Total,jdbcType=DECIMAL},
+      </if>
+      <if test="record.GR_Accout_Pay != null">
+        GR_Accout_Pay = #{record.GR_Accout_Pay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.YB_Other_Pay != null">
+        YB_Other_Pay = #{record.YB_Other_Pay,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bn_treatmentreimburse
+    set ID = #{record.ID,jdbcType=VARCHAR},
+      Pay_Type = #{record.pay_Type,jdbcType=INTEGER},
+      Apply_Hospital_ID = #{record.apply_Hospital_ID,jdbcType=VARCHAR},
+      Reim_NO = #{record.reim_NO,jdbcType=VARCHAR},
+      Sfzh = #{record.sfzh,jdbcType=VARCHAR},
+      Medicare_State = #{record.medicare_State,jdbcType=INTEGER},
+      Person_Code = #{record.person_Code,jdbcType=VARCHAR},
+      Reim_Source = #{record.reim_Source,jdbcType=INTEGER},
+      BillNO = #{record.billNO,jdbcType=VARCHAR},
+      TreatmentHosptial_Code = #{record.treatmentHosptial_Code,jdbcType=VARCHAR},
+      TreatmentHosptial = #{record.treatmentHosptial,jdbcType=VARCHAR},
+      Treatment_NO = #{record.treatment_NO,jdbcType=VARCHAR},
+      Reim_Type_ID = #{record.reim_Type_ID,jdbcType=INTEGER},
+      In_Date = #{record.in_Date,jdbcType=TIMESTAMP},
+      Out_Date = #{record.out_Date,jdbcType=TIMESTAMP},
+      Medicare_Date = #{record.medicare_Date,jdbcType=TIMESTAMP},
+      TypeIn_Date = #{record.typeIn_Date,jdbcType=TIMESTAMP},
+      Medicare_Line = #{record.medicare_Line,jdbcType=DECIMAL},
+      StdDisease_Code = #{record.stdDisease_Code,jdbcType=VARCHAR},
+      StdDisease_Name = #{record.stdDisease_Name,jdbcType=VARCHAR},
+      AMoney = #{record.AMoney,jdbcType=DECIMAL},
+      BMoney = #{record.BMoney,jdbcType=DECIMAL},
+      CMoney = #{record.CMoney,jdbcType=DECIMAL},
+      ZL_Money = #{record.ZL_Money,jdbcType=DECIMAL},
+      ZF_Money = #{record.ZF_Money,jdbcType=DECIMAL},
+      YLZ_Money = #{record.YLZ_Money,jdbcType=DECIMAL},
+      GR_Money = #{record.GR_Money,jdbcType=DECIMAL},
+      YBBX_Money = #{record.YBBX_Money,jdbcType=DECIMAL},
+      XNH_Money = #{record.XNH_Money,jdbcType=DECIMAL},
+      Family_Code = #{record.family_Code,jdbcType=VARCHAR},
+      Apply_Date = #{record.apply_Date,jdbcType=TIMESTAMP},
+      DBBX_Money = #{record.DBBX_Money,jdbcType=DECIMAL},
+      Card_NO = #{record.card_NO,jdbcType=VARCHAR},
+      Finish_Flag = #{record.finish_Flag,jdbcType=INTEGER},
+      SfLb = #{record.sfLb,jdbcType=VARCHAR},
+      JGBM = #{record.JGBM,jdbcType=VARCHAR},
+      PrintCount = #{record.printCount,jdbcType=INTEGER},
+      Operator_ID = #{record.operator_ID,jdbcType=VARCHAR},
+      Create_Time = #{record.create_Time,jdbcType=TIMESTAMP},
+      Pay_Operator_ID = #{record.pay_Operator_ID,jdbcType=VARCHAR},
+      Finish_Date = #{record.finish_Date,jdbcType=TIMESTAMP},
+      SelfBaseMoney = #{record.selfBaseMoney,jdbcType=DECIMAL},
+      YLJZ_Money = #{record.YLJZ_Money,jdbcType=DECIMAL},
+      Cancel_Date = #{record.cancel_Date,jdbcType=TIMESTAMP},
+      Cancel_Operator_ID = #{record.cancel_Operator_ID,jdbcType=VARCHAR},
+      Memo = #{record.memo,jdbcType=VARCHAR},
+      YB_Info = #{record.YB_Info,jdbcType=VARCHAR},
+      YBHG_Money = #{record.YBHG_Money,jdbcType=DECIMAL},
+      SelfBaseMoney_Total = #{record.selfBaseMoney_Total,jdbcType=DECIMAL},
+      YLJZ_Money_Total = #{record.YLJZ_Money_Total,jdbcType=DECIMAL},
+      Spec_BN = #{record.spec_BN,jdbcType=INTEGER},
+      CYDBBC_Money = #{record.CYDBBC_Money,jdbcType=DECIMAL},
+      IdentityType_ID = #{record.identityType_ID,jdbcType=INTEGER},
+      SelBaseMoney_ZY_Total = #{record.selBaseMoney_ZY_Total,jdbcType=DECIMAL},
+      GR_Accout_Pay = #{record.GR_Accout_Pay,jdbcType=DECIMAL},
+      YB_Other_Pay = #{record.YB_Other_Pay,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixun.ccmz.domain.BnTreatmentreimburse">
+    update bn_treatmentreimburse
+    <set>
+      <if test="pay_Type != null">
+        Pay_Type = #{pay_Type,jdbcType=INTEGER},
+      </if>
+      <if test="apply_Hospital_ID != null">
+        Apply_Hospital_ID = #{apply_Hospital_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="reim_NO != null">
+        Reim_NO = #{reim_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzh != null">
+        Sfzh = #{sfzh,jdbcType=VARCHAR},
+      </if>
+      <if test="medicare_State != null">
+        Medicare_State = #{medicare_State,jdbcType=INTEGER},
+      </if>
+      <if test="person_Code != null">
+        Person_Code = #{person_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="reim_Source != null">
+        Reim_Source = #{reim_Source,jdbcType=INTEGER},
+      </if>
+      <if test="billNO != null">
+        BillNO = #{billNO,jdbcType=VARCHAR},
+      </if>
+      <if test="treatmentHosptial_Code != null">
+        TreatmentHosptial_Code = #{treatmentHosptial_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="treatmentHosptial != null">
+        TreatmentHosptial = #{treatmentHosptial,jdbcType=VARCHAR},
+      </if>
+      <if test="treatment_NO != null">
+        Treatment_NO = #{treatment_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="reim_Type_ID != null">
+        Reim_Type_ID = #{reim_Type_ID,jdbcType=INTEGER},
+      </if>
+      <if test="in_Date != null">
+        In_Date = #{in_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="out_Date != null">
+        Out_Date = #{out_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medicare_Date != null">
+        Medicare_Date = #{medicare_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="typeIn_Date != null">
+        TypeIn_Date = #{typeIn_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="medicare_Line != null">
+        Medicare_Line = #{medicare_Line,jdbcType=DECIMAL},
+      </if>
+      <if test="stdDisease_Code != null">
+        StdDisease_Code = #{stdDisease_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="stdDisease_Name != null">
+        StdDisease_Name = #{stdDisease_Name,jdbcType=VARCHAR},
+      </if>
+      <if test="AMoney != null">
+        AMoney = #{AMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="BMoney != null">
+        BMoney = #{BMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="CMoney != null">
+        CMoney = #{CMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="ZL_Money != null">
+        ZL_Money = #{ZL_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="ZF_Money != null">
+        ZF_Money = #{ZF_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="YLZ_Money != null">
+        YLZ_Money = #{YLZ_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="GR_Money != null">
+        GR_Money = #{GR_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="YBBX_Money != null">
+        YBBX_Money = #{YBBX_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="XNH_Money != null">
+        XNH_Money = #{XNH_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="family_Code != null">
+        Family_Code = #{family_Code,jdbcType=VARCHAR},
+      </if>
+      <if test="apply_Date != null">
+        Apply_Date = #{apply_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="DBBX_Money != null">
+        DBBX_Money = #{DBBX_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="card_NO != null">
+        Card_NO = #{card_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="finish_Flag != null">
+        Finish_Flag = #{finish_Flag,jdbcType=INTEGER},
+      </if>
+      <if test="sfLb != null">
+        SfLb = #{sfLb,jdbcType=VARCHAR},
+      </if>
+      <if test="JGBM != null">
+        JGBM = #{JGBM,jdbcType=VARCHAR},
+      </if>
+      <if test="printCount != null">
+        PrintCount = #{printCount,jdbcType=INTEGER},
+      </if>
+      <if test="operator_ID != null">
+        Operator_ID = #{operator_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="create_Time != null">
+        Create_Time = #{create_Time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pay_Operator_ID != null">
+        Pay_Operator_ID = #{pay_Operator_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="finish_Date != null">
+        Finish_Date = #{finish_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="selfBaseMoney != null">
+        SelfBaseMoney = #{selfBaseMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="YLJZ_Money != null">
+        YLJZ_Money = #{YLJZ_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="cancel_Date != null">
+        Cancel_Date = #{cancel_Date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancel_Operator_ID != null">
+        Cancel_Operator_ID = #{cancel_Operator_ID,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        Memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="YB_Info != null">
+        YB_Info = #{YB_Info,jdbcType=VARCHAR},
+      </if>
+      <if test="YBHG_Money != null">
+        YBHG_Money = #{YBHG_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="selfBaseMoney_Total != null">
+        SelfBaseMoney_Total = #{selfBaseMoney_Total,jdbcType=DECIMAL},
+      </if>
+      <if test="YLJZ_Money_Total != null">
+        YLJZ_Money_Total = #{YLJZ_Money_Total,jdbcType=DECIMAL},
+      </if>
+      <if test="spec_BN != null">
+        Spec_BN = #{spec_BN,jdbcType=INTEGER},
+      </if>
+      <if test="CYDBBC_Money != null">
+        CYDBBC_Money = #{CYDBBC_Money,jdbcType=DECIMAL},
+      </if>
+      <if test="identityType_ID != null">
+        IdentityType_ID = #{identityType_ID,jdbcType=INTEGER},
+      </if>
+      <if test="selBaseMoney_ZY_Total != null">
+        SelBaseMoney_ZY_Total = #{selBaseMoney_ZY_Total,jdbcType=DECIMAL},
+      </if>
+      <if test="GR_Accout_Pay != null">
+        GR_Accout_Pay = #{GR_Accout_Pay,jdbcType=DECIMAL},
+      </if>
+      <if test="YB_Other_Pay != null">
+        YB_Other_Pay = #{YB_Other_Pay,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{ID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixun.ccmz.domain.BnTreatmentreimburse">
+    update bn_treatmentreimburse
+    set Pay_Type = #{pay_Type,jdbcType=INTEGER},
+      Apply_Hospital_ID = #{apply_Hospital_ID,jdbcType=VARCHAR},
+      Reim_NO = #{reim_NO,jdbcType=VARCHAR},
+      Sfzh = #{sfzh,jdbcType=VARCHAR},
+      Medicare_State = #{medicare_State,jdbcType=INTEGER},
+      Person_Code = #{person_Code,jdbcType=VARCHAR},
+      Reim_Source = #{reim_Source,jdbcType=INTEGER},
+      BillNO = #{billNO,jdbcType=VARCHAR},
+      TreatmentHosptial_Code = #{treatmentHosptial_Code,jdbcType=VARCHAR},
+      TreatmentHosptial = #{treatmentHosptial,jdbcType=VARCHAR},
+      Treatment_NO = #{treatment_NO,jdbcType=VARCHAR},
+      Reim_Type_ID = #{reim_Type_ID,jdbcType=INTEGER},
+      In_Date = #{in_Date,jdbcType=TIMESTAMP},
+      Out_Date = #{out_Date,jdbcType=TIMESTAMP},
+      Medicare_Date = #{medicare_Date,jdbcType=TIMESTAMP},
+      TypeIn_Date = #{typeIn_Date,jdbcType=TIMESTAMP},
+      Medicare_Line = #{medicare_Line,jdbcType=DECIMAL},
+      StdDisease_Code = #{stdDisease_Code,jdbcType=VARCHAR},
+      StdDisease_Name = #{stdDisease_Name,jdbcType=VARCHAR},
+      AMoney = #{AMoney,jdbcType=DECIMAL},
+      BMoney = #{BMoney,jdbcType=DECIMAL},
+      CMoney = #{CMoney,jdbcType=DECIMAL},
+      ZL_Money = #{ZL_Money,jdbcType=DECIMAL},
+      ZF_Money = #{ZF_Money,jdbcType=DECIMAL},
+      YLZ_Money = #{YLZ_Money,jdbcType=DECIMAL},
+      GR_Money = #{GR_Money,jdbcType=DECIMAL},
+      YBBX_Money = #{YBBX_Money,jdbcType=DECIMAL},
+      XNH_Money = #{XNH_Money,jdbcType=DECIMAL},
+      Family_Code = #{family_Code,jdbcType=VARCHAR},
+      Apply_Date = #{apply_Date,jdbcType=TIMESTAMP},
+      DBBX_Money = #{DBBX_Money,jdbcType=DECIMAL},
+      Card_NO = #{card_NO,jdbcType=VARCHAR},
+      Finish_Flag = #{finish_Flag,jdbcType=INTEGER},
+      SfLb = #{sfLb,jdbcType=VARCHAR},
+      JGBM = #{JGBM,jdbcType=VARCHAR},
+      PrintCount = #{printCount,jdbcType=INTEGER},
+      Operator_ID = #{operator_ID,jdbcType=VARCHAR},
+      Create_Time = #{create_Time,jdbcType=TIMESTAMP},
+      Pay_Operator_ID = #{pay_Operator_ID,jdbcType=VARCHAR},
+      Finish_Date = #{finish_Date,jdbcType=TIMESTAMP},
+      SelfBaseMoney = #{selfBaseMoney,jdbcType=DECIMAL},
+      YLJZ_Money = #{YLJZ_Money,jdbcType=DECIMAL},
+      Cancel_Date = #{cancel_Date,jdbcType=TIMESTAMP},
+      Cancel_Operator_ID = #{cancel_Operator_ID,jdbcType=VARCHAR},
+      Memo = #{memo,jdbcType=VARCHAR},
+      YB_Info = #{YB_Info,jdbcType=VARCHAR},
+      YBHG_Money = #{YBHG_Money,jdbcType=DECIMAL},
+      SelfBaseMoney_Total = #{selfBaseMoney_Total,jdbcType=DECIMAL},
+      YLJZ_Money_Total = #{YLJZ_Money_Total,jdbcType=DECIMAL},
+      Spec_BN = #{spec_BN,jdbcType=INTEGER},
+      CYDBBC_Money = #{CYDBBC_Money,jdbcType=DECIMAL},
+      IdentityType_ID = #{identityType_ID,jdbcType=INTEGER},
+      SelBaseMoney_ZY_Total = #{selBaseMoney_ZY_Total,jdbcType=DECIMAL},
+      GR_Accout_Pay = #{GR_Accout_Pay,jdbcType=DECIMAL},
+      YB_Other_Pay = #{YB_Other_Pay,jdbcType=DECIMAL}
+    where ID = #{ID,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- 以下自定义 -->
+  <resultMap id="FullInfoResultMap" type="com.yixun.ccmz.dto.BnTreatmentreimburseModel">
+    <id column="ID" jdbcType="VARCHAR" property="ID" />
+    <result column="Pay_Type" jdbcType="INTEGER" property="pay_Type" />
+    <result column="Apply_Hospital_ID" jdbcType="VARCHAR" property="apply_Hospital_ID" />
+    <result column="Reim_NO" jdbcType="VARCHAR" property="reim_NO" />
+    <result column="Sfzh" jdbcType="VARCHAR" property="sfzh" />
+    <result column="Medicare_State" jdbcType="INTEGER" property="medicare_State" />
+    <result column="Person_Code" jdbcType="VARCHAR" property="person_Code" />
+    <result column="Reim_Source" jdbcType="INTEGER" property="reim_Source" />
+    <result column="BillNO" jdbcType="VARCHAR" property="billNO" />
+    <result column="TreatmentHosptial_Code" jdbcType="VARCHAR" property="treatmentHosptial_Code" />
+    <result column="TreatmentHosptial" jdbcType="VARCHAR" property="treatmentHosptial" />
+    <result column="Treatment_NO" jdbcType="VARCHAR" property="treatment_NO" />
+    <result column="Reim_Type_ID" jdbcType="INTEGER" property="reim_Type_ID" />
+    <result column="In_Date" jdbcType="TIMESTAMP" property="in_Date" />
+    <result column="Out_Date" jdbcType="TIMESTAMP" property="out_Date" />
+    <result column="Medicare_Date" jdbcType="TIMESTAMP" property="medicare_Date" />
+    <result column="TypeIn_Date" jdbcType="TIMESTAMP" property="typeIn_Date" />
+    <result column="Medicare_Line" jdbcType="DECIMAL" property="medicare_Line" />
+    <result column="StdDisease_Code" jdbcType="VARCHAR" property="stdDisease_Code" />
+    <result column="StdDisease_Name" jdbcType="VARCHAR" property="stdDisease_Name" />
+    <result column="AMoney" jdbcType="DECIMAL" property="AMoney" />
+    <result column="BMoney" jdbcType="DECIMAL" property="BMoney" />
+    <result column="CMoney" jdbcType="DECIMAL" property="CMoney" />
+    <result column="ZL_Money" jdbcType="DECIMAL" property="ZL_Money" />
+    <result column="ZF_Money" jdbcType="DECIMAL" property="ZF_Money" />
+    <result column="YLZ_Money" jdbcType="DECIMAL" property="YLZ_Money" />
+    <result column="GR_Money" jdbcType="DECIMAL" property="GR_Money" />
+    <result column="YBBX_Money" jdbcType="DECIMAL" property="YBBX_Money" />
+    <result column="XNH_Money" jdbcType="DECIMAL" property="XNH_Money" />
+    <result column="Family_Code" jdbcType="VARCHAR" property="family_Code" />
+    <result column="Apply_Date" jdbcType="TIMESTAMP" property="apply_Date" />
+    <result column="DBBX_Money" jdbcType="DECIMAL" property="DBBX_Money" />
+    <result column="Card_NO" jdbcType="VARCHAR" property="card_NO" />
+    <result column="Finish_Flag" jdbcType="INTEGER" property="finish_Flag" />
+    <result column="SfLb" jdbcType="VARCHAR" property="sfLb" />
+    <result column="JGBM" jdbcType="VARCHAR" property="JGBM" />
+    <result column="PrintCount" jdbcType="INTEGER" property="printCount" />
+    <result column="Operator_ID" jdbcType="VARCHAR" property="operator_ID" />
+    <result column="Create_Time" jdbcType="TIMESTAMP" property="create_Time" />
+    <result column="Pay_Operator_ID" jdbcType="VARCHAR" property="pay_Operator_ID" />
+    <result column="Finish_Date" jdbcType="TIMESTAMP" property="finish_Date" />
+    <result column="SelfBaseMoney" jdbcType="DECIMAL" property="selfBaseMoney" />
+    <result column="YLJZ_Money" jdbcType="DECIMAL" property="YLJZ_Money" />
+    <result column="Cancel_Date" jdbcType="TIMESTAMP" property="cancel_Date" />
+    <result column="Cancel_Operator_ID" jdbcType="VARCHAR" property="cancel_Operator_ID" />
+    <result column="Memo" jdbcType="VARCHAR" property="memo" />
+    <result column="YB_Info" jdbcType="VARCHAR" property="YB_Info" />
+    <result column="YBHG_Money" jdbcType="DECIMAL" property="YBHG_Money" />
+    <result column="SelfBaseMoney_Total" jdbcType="DECIMAL" property="selfBaseMoney_Total" />
+    <result column="YLJZ_Money_Total" jdbcType="DECIMAL" property="YLJZ_Money_Total" />
+    <result column="Spec_BN" jdbcType="INTEGER" property="spec_BN" />
+    <result column="CYDBBC_Money" jdbcType="DECIMAL" property="CYDBBC_Money" />
+    <result column="IdentityType_ID" jdbcType="INTEGER" property="identityType_ID" />
+    <result column="SelBaseMoney_ZY_Total" jdbcType="DECIMAL" property="selBaseMoney_ZY_Total" />
+    <result column="GR_Accout_Pay" jdbcType="DECIMAL" property="GR_Accout_Pay" />
+    <result column="YB_Other_Pay" jdbcType="DECIMAL" property="YB_Other_Pay" />
+    
+    <result column="Name" jdbcType="VARCHAR" property="Name" />
+    <result column="Ry_Zt" jdbcType="VARCHAR" property="Ry_Zt" />
+    <result column="Operator_Name" jdbcType="VARCHAR" property="Operator_Name" />
+    <result column="Pay_Operator_Name" jdbcType="VARCHAR" property="Pay_Operator_Name" />
+    <result column="Cancel_Operator_Name" jdbcType="VARCHAR" property="Cancel_Operator_Name" />
+    <result column="IdentityType_Name" jdbcType="VARCHAR" property="IdentityType_Name" />
+    <result column="Apply_Hospital_Name" jdbcType="VARCHAR" property="Apply_Hospital_Name" />
+  </resultMap>  
+  
+  <sql id="FullInfoResultMap_List">
+	SELECT
+		bn_treatmentreimburse.ID,
+		bn_treatmentreimburse.Pay_Type,
+		bn_treatmentreimburse.Apply_Hospital_ID,
+		bn_treatmentreimburse.Reim_NO,
+		bn_treatmentreimburse.Sfzh,
+		bn_treatmentreimburse.Medicare_State,
+		bn_treatmentreimburse.Person_Code,
+		bn_treatmentreimburse.Reim_Source,
+		bn_treatmentreimburse.BillNO,
+		bn_treatmentreimburse.TreatmentHosptial_Code,
+		bn_treatmentreimburse.TreatmentHosptial,
+		bn_treatmentreimburse.Treatment_NO,
+		bn_treatmentreimburse.Reim_Type_ID,
+		bn_treatmentreimburse.In_Date,
+		bn_treatmentreimburse.Out_Date,
+		bn_treatmentreimburse.Medicare_Date,
+		bn_treatmentreimburse.TypeIn_Date,
+		bn_treatmentreimburse.Medicare_Line,
+		bn_treatmentreimburse.StdDisease_Code,
+		bn_treatmentreimburse.StdDisease_Name,
+		bn_treatmentreimburse.AMoney,
+		bn_treatmentreimburse.BMoney,
+		bn_treatmentreimburse.CMoney,
+		bn_treatmentreimburse.ZL_Money,
+		bn_treatmentreimburse.ZF_Money,
+		bn_treatmentreimburse.YLZ_Money,
+		bn_treatmentreimburse.GR_Money,
+		bn_treatmentreimburse.YBBX_Money,
+		bn_treatmentreimburse.XNH_Money,
+		bn_treatmentreimburse.Family_Code,
+		bn_treatmentreimburse.Apply_Date,
+		bn_treatmentreimburse.DBBX_Money,
+		bn_treatmentreimburse.Card_NO,
+		bn_treatmentreimburse.Finish_Flag,
+		bn_treatmentreimburse.SfLb,
+		bn_treatmentreimburse.JGBM,
+		bn_treatmentreimburse.PrintCount,
+		bn_treatmentreimburse.Operator_ID,
+		bn_treatmentreimburse.Create_Time,
+		bn_treatmentreimburse.Pay_Operator_ID,
+		bn_treatmentreimburse.Finish_Date,
+		bn_treatmentreimburse.SelfBaseMoney,
+		bn_treatmentreimburse.YLJZ_Money,
+		bn_treatmentreimburse.Cancel_Date,
+		bn_treatmentreimburse.Cancel_Operator_ID,
+		bn_treatmentreimburse.Memo,
+		bn_treatmentreimburse.YB_Info,
+		bn_treatmentreimburse.YBHG_Money,
+		bn_treatmentreimburse.SelfBaseMoney_Total,
+		bn_treatmentreimburse.YLJZ_Money_Total,
+		bn_treatmentreimburse.Spec_BN,
+		bn_treatmentreimburse.CYDBBC_Money,
+		bn_treatmentreimburse.IdentityType_ID,
+		bn_treatmentreimburse.SelBaseMoney_ZY_Total,
+		bn_treatmentreimburse.GR_Accout_Pay,
+		bn_treatmentreimburse.YB_Other_Pay,
+		dict_familymember1.Name,
+		dict_familymember1.Ry_Zt,
+		dict_identitytype.Name AS IdentityType_Name,
+		dict_hospital.Name AS Apply_Hospital_Name,
+		OperUser.CNName AS Operator_Name,
+		PayUser.UserName AS Pay_Operator_Name,
+		CancelUser.UserName AS Cancel_Operator_Name
+	FROM
+		dict_familymember1
+		INNER JOIN bn_treatmentreimburse
+		 ON dict_familymember1.Sfzh = bn_treatmentreimburse.Sfzh
+		INNER JOIN dict_identitytype
+		 ON bn_treatmentreimburse.IdentityType_ID = dict_identitytype.ID
+		INNER JOIN dict_hospital
+		 ON bn_treatmentreimburse.Apply_Hospital_ID = dict_hospital.ID
+		LEFT OUTER JOIN aspnet_users OperUser
+		 ON bn_treatmentreimburse.Operator_ID = OperUser.UserId
+		LEFT OUTER JOIN aspnet_users PayUser
+		 ON bn_treatmentreimburse.Pay_Operator_ID = PayUser.UserId
+		LEFT OUTER JOIN aspnet_users CancelUser
+		 ON bn_treatmentreimburse.Cancel_Operator_ID = CancelUser.UserId WHERE 1=1 
+  </sql>
+  
+  <select id="getFullInfoList" parameterType="map" resultMap="FullInfoResultMap" flushCache="false" useCache="false">
+  	<include refid="FullInfoResultMap_List" />
+  	<if test="id != null">
+        AND bn_treatmentreimburse.ID= #{id,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+</mapper>

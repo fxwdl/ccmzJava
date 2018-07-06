@@ -17,6 +17,28 @@
 	<context:component-scan base-package="com.yixun.ccmz.web"/>
 	<mvc:annotation-driven>
 		<mvc:path-matching path-matcher="pathMatcher"/>
+		<!-- 配置message转换
+             在这个类中实现的org.springframework.web.servlet.config.AnnotationDrivenBeanDefinitionParser 
+             将获取到的定义，最终放到org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter中（所以也不需要再声明一个RequestMappingHandlerAdapter的bean）。
+             在方法中，如果引用了json的库，则自动支持json(即在pom中定义好了josn相关的库)。这里又加了一条，会造成有2条MappingJackson2HttpMessageConverter，但是这里声明的会在上面，
+             所以会使用这个进行json处理，也许可以加入如何进行date格式转换相关的配置。
+             将register-defaults设置为false可以手工加入每种convert，这样可以保证MappingJackson2HttpMessageConverter唯一
+             -->
+		<mvc:message-converters register-defaults="false">
+	        <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+	        <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+	        <bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+	        <bean class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>	
+	        <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+	        <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>	     
+	        <!-- AnnotationDrivenBeanDefinitionParser源码中，如果引用了com.fasterxml.jackson.dataformat.xml.XmlMapper库，这里要修改为org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter -->
+	        <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>	    
+	          	
+	        <!-- 修改默认的objectMapper对象，将默认的将日期序列号成整数修改为输出日期时间 -->
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	        	<constructor-arg index="0" ref="objectMapper"></constructor-arg>
+	        </bean>		
+		</mvc:message-converters>
 	</mvc:annotation-driven>
 	
 	<!-- 使用Web容器处理静态资源(实际使用下面的mvc:resources也可以处理) -->
@@ -33,24 +55,16 @@
 		p:prefix="/WEB-INF/jsp/"
 		p:suffix=".jsp" />
 		
-	<!-- 配置Request请求解的Message转换成Controller入参 -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" p:messageConverters-ref="messageConverters">
-		
-    </bean>
-    <util:list id="messageConverters">
-    	<!-- 默认的4个 -->
-        <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
-        <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
-        <bean class="org.springframework.http.converter.StringHttpMessageConverter" />
-        <bean class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>
-        <!-- JSON 通过请求Http请求头的ContentType与Accept确定使用此转换器-->
-        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>    
-    </util:list>
-    
     <!--设置spring对url mapping忽略大小写，默认是大小写敏感的
     	https://stackoverflow.com/questions/4150039/how-can-i-have-case-insensitive-urls-in-spring-mvc-with-annotated-mappings/5438158
     -->
-	<bean id="pathMatcher" class="org.springframework.util.AntPathMatcher">
+	<bean id="pathMatcher" class="org.springframework.util.AntPathMatcher">	
 	  <property name="caseSensitive" value="false" />
+	</bean>
+	
+	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" p:dateFormat-ref="simpleDateFormat"/>
+	
+	<bean id="simpleDateFormat" class="java.text.SimpleDateFormat">
+		<constructor-arg index="0" value="yyyy/MM/dd HH:mm:ss"></constructor-arg>
 	</bean>
 </beans>

@@ -1,4 +1,3 @@
-{
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 	
@@ -182,17 +181,8 @@
       				},
       				reset($event){
       					$('#ds_sfzh').focus(); 
-          				Bn_TreatmentReimburse.load('')
+          				Bn_TreatmentReimburse.load('000256A1-0EF3-4645-B956-4D5A1DB7E77F')
                         	.done(function (data) {
-                        		data.in_Date=new Date(data.in_Date).Format('yyyy/MM/dd');
-                        		data.out_Date=new Date(data.out_Date).Format('yyyy/MM/dd');
-                        		data.medicare_Date=new Date(data.medicare_Date).Format('yyyy/MM/dd');
-                        		data.apply_Date=new Date(data.apply_Date).Format('yyyy/MM/dd');
-                        		data.typeIn_Date=new Date(data.typeIn_Date).Format('yyyy/MM/dd');
-                        		
-                        		data.create_Time=new Date(data.create_Time).Format('yyyy/MM/dd hh:mm:ss');
-                        		data.finish_Date=new Date(data.finish_Date).Format('yyyy/MM/dd hh:mm:ss');
-                        		data.cancel_Date=new Date(data.cancel_Date).Format('yyyy/MM/dd hh:mm:ss');
                         		vm.d = data;
                             })
                             .fail(function (msg) {

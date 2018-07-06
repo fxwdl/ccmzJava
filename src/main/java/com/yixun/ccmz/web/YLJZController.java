@@ -67,6 +67,7 @@ public class YLJZController extends BaseController
 			r.setCYDBBC_Money(new BigDecimal(0));
 			r.setGR_Money(new BigDecimal(0));
 
+			// 目前日期值被序列化成了整数，在前端做了转换，也可以在后面指定序列化的方式http://www.baeldung.com/jackson-serialize-dates
 			r.setTypeIn_Date(new Date());
 			r.setApply_Date(r.getTypeIn_Date());
 
@@ -80,6 +81,7 @@ public class YLJZController extends BaseController
 					r.setApply_Hospital_ID(u.getHospitalID());
 				}
 			}
+
 		}
 		else
 		{

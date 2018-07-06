@@ -88,4 +88,6 @@
 		</tx:attributes>
 	</tx:advice>
 	-->
+	
+	<bean id="springContextHolder" class="com.yixun.infrastructure.SpringContextHolder"></bean>
 </beans>
