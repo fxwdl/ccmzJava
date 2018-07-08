@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
  * @author fx__w
  *
  */
-public class DateSerializer extends StdSerializer<Date>
+public class MyDateSerializer extends StdSerializer<Date>
 {
 	/**
 	 * 
@@ -25,12 +25,12 @@ public class DateSerializer extends StdSerializer<Date>
 
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 
-	public DateSerializer()
+	public MyDateSerializer()
 	{
 		this(null);
 	}
 
-	public DateSerializer(Class t)
+	public MyDateSerializer(Class t)
 	{
 		super(t);
 	}

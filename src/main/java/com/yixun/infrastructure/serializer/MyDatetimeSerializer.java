@@ -9,7 +9,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-public class DatetimeSerializer extends StdSerializer<Date>
+public class MyDatetimeSerializer extends StdSerializer<Date>
 {
 	/**
 	 * 
@@ -18,12 +18,12 @@ public class DatetimeSerializer extends StdSerializer<Date>
 
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
-	public DatetimeSerializer()
+	public MyDatetimeSerializer()
 	{
 		this(null);
 	}
 
-	public DatetimeSerializer(Class t)
+	public MyDatetimeSerializer(Class t)
 	{
 		super(t);
 	}

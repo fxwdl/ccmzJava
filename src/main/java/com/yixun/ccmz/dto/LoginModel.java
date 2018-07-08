@@ -3,8 +3,8 @@ package com.yixun.ccmz.dto;
 import java.util.Date;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.yixun.infrastructure.serializer.DateSerializer;
-import com.yixun.infrastructure.serializer.DatetimeSerializer;
+import com.yixun.infrastructure.serializer.MyDateSerializer;
+import com.yixun.infrastructure.serializer.MyDatetimeSerializer;
 
 public class LoginModel
 {
@@ -12,7 +12,7 @@ public class LoginModel
 	private String password;
 	private boolean rememberMe;
 
-	@JsonSerialize(using = DateSerializer.class)
+	@JsonSerialize(using = MyDateSerializer.class)
 	private Date now;
 
 	public void setUserName(String userName)

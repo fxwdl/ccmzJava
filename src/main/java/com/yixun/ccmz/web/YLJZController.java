@@ -8,8 +8,10 @@ import java.util.Date;
 import javax.jws.WebParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,55 +41,76 @@ public class YLJZController extends BaseController
 		return "yljz/newItem";
 	}
 
-	@RequestMapping(value = "GetTRItemById", method = RequestMethod.GET)
+	@RequestMapping(value = "GetTRItemById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ClientSingleObjectResult<BnTreatmentreimburseModel> GetTRItemById(
 			@RequestParam(name = "id", required = false) String id)
 	{
-		BnTreatmentreimburseModel r;
-		if (Strings.isNullOrEmpty(id))
+		try
 		{
-			r = new BnTreatmentreimburseModel();
-			r.setReim_Source(ReimSourceType.外转.value());
-			r.setReim_Type_ID(ReimType.门诊大病.value());
-			r.setFinish_Flag(FinishFlag.未救助.value());
-			r.setSelfBaseMoney(new BigDecimal(0));
-			r.setSpec_BN(Spec_BN.无.value());
-			r.setCYDBBC_Money(new BigDecimal(0));
-			r.setSelBaseMoney_ZY_Total(new BigDecimal(0));
-			r.setGR_Accout_Pay(new BigDecimal(0));
-			r.setYB_Other_Pay(new BigDecimal(0));
-			r.setYLZ_Money(new BigDecimal(0));
-			r.setZL_Money(new BigDecimal(0));
-			r.setZF_Money(new BigDecimal(0));
-			r.setMedicare_Line(new BigDecimal(0));
-			r.setDBBX_Money(new BigDecimal(0));
-			r.setYBBX_Money(new BigDecimal(0));
-			r.setXNH_Money(new BigDecimal(0));
-			r.setCYDBBC_Money(new BigDecimal(0));
-			r.setGR_Money(new BigDecimal(0));
-
-			// 目前日期值被序列化成了整数，在前端做了转换，也可以在后面指定序列化的方式http://www.baeldung.com/jackson-serialize-dates
-			r.setTypeIn_Date(new Date());
-			r.setApply_Date(r.getTypeIn_Date());
-
-			User u = this.getCurrentUser();
-			if (u != null)
+			BnTreatmentreimburseModel r;
+			if (Strings.isNullOrEmpty(id))
 			{
-				r.setOperator_ID(u.getUserId());
-				r.setOperator_Name(u.getCNName());
-				if (!Strings.isNullOrEmpty(u.getHospitalID()))
+				r = new BnTreatmentreimburseModel();
+				r.setReim_Source(ReimSourceType.外转.value());
+				r.setReim_Type_ID(ReimType.门诊大病.value());
+				r.setFinish_Flag(FinishFlag.未救助.value());
+				r.setSelfBaseMoney(new BigDecimal(0));
+				r.setSpec_BN(Spec_BN.无.value());
+				r.setCYDBBC_Money(new BigDecimal(0));
+				r.setSelBaseMoney_ZY_Total(new BigDecimal(0));
+				r.setGR_Accout_Pay(new BigDecimal(0));
+				r.setYB_Other_Pay(new BigDecimal(0));
+				r.setYLZ_Money(new BigDecimal(0));
+				r.setZL_Money(new BigDecimal(0));
+				r.setZF_Money(new BigDecimal(0));
+				r.setMedicare_Line(new BigDecimal(0));
+				r.setDBBX_Money(new BigDecimal(0));
+				r.setYBBX_Money(new BigDecimal(0));
+				r.setXNH_Money(new BigDecimal(0));
+				r.setCYDBBC_Money(new BigDecimal(0));
+				r.setGR_Money(new BigDecimal(0));
+
+				// 目前日期值被序列化成了整数，在前端做了转换，也可以在后面指定序列化的方式http://www.baeldung.com/jackson-serialize-dates
+				r.setTypeIn_Date(new Date());
+				r.setApply_Date(r.getTypeIn_Date());
+
+				User u = this.getCurrentUser();
+				if (u != null)
 				{
-					r.setApply_Hospital_ID(u.getHospitalID());
+					r.setOperator_ID(u.getUserId());
+					r.setOperator_Name(u.getCNName());
+					if (!Strings.isNullOrEmpty(u.getHospitalID()))
+					{
+						r.setApply_Hospital_ID(u.getHospitalID());
+					}
 				}
+
+			}
+			else
+			{
+				r = medicalService.GetTRItemByKey(id);
 			}
 
+			return new ClientSingleObjectResult<BnTreatmentreimburseModel>(true, "", r);
 		}
-		else
+		catch (Exception e)
 		{
-			r = medicalService.GetTRItemByKey(id);
+			return new ClientSingleObjectResult<BnTreatmentreimburseModel>(false, e.getMessage(), null);
 		}
+	}
 
-		return new ClientSingleObjectResult<BnTreatmentreimburseModel>(true, "", r);
+	@RequestMapping(value = "SaveTRItem", method = RequestMethod.POST)
+	@ResponseBody
+	public ClientSingleObjectResult<BnTreatmentreimburseModel> SaveTRItem(@RequestBody BnTreatmentreimburseModel model)
+	{
+		try
+		{
+			return new ClientSingleObjectResult<BnTreatmentreimburseModel>(true, "", model);
+		}
+		catch (Exception e)
+		{
+			return new ClientSingleObjectResult<BnTreatmentreimburseModel>(false, e.getMessage(), null);
+		}
 	}
 }

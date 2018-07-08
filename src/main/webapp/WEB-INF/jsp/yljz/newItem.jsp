@@ -66,13 +66,6 @@
       	<script type="text/javascript">
       		
 	        $(function () {
-	            $('.input-group.date').datepicker({
-	                format: "yyyy/mm/dd",
-	                clearBtn: true,
-	                language: "zh-CN",
-	                autoclose: true,
-	                todayHighlight: true
-	            });
 	
 	            $('.form-control.numberic').inputmask('numeric', {
 	                groupSeparator: '',
@@ -101,8 +94,19 @@
 
       			},
       			mounted:function(){
-      				//alert('mounted');
-      			},
+      				var cfg={
+        	                format: "yyyy/mm/dd",
+        	                clearBtn: true,
+        	                language: "zh-CN",
+        	                autoclose: true,
+        	                todayHighlight: true
+        	            };
+    	            $('#div_rysj').datepicker(cfg).on("changeDate", () => {vm.d.in_Date = $('#ds_rysj').val();});
+    	            $('#div_cysj').datepicker(cfg).on("changeDate", () => {vm.d.out_Date = $('#ds_cysj').val();});
+    	            $('#div_jsrq').datepicker(cfg).on("changeDate", () => {vm.d.medicare_Date = $('#ds_jsrq').val();});
+    	            $('#div_lrrq').datepicker(cfg).on("changeDate", () => {vm.d.typeIn_Date = $('#ds_lrrq').val();});
+    	            $('#div_bxsj').datepicker(cfg).on("changeDate", () => {vm.d.apply_Date = $('#ds_bxsj').val();});
+      			},      			
       			computed:{
       				calFinishiFlag:function(){
       		            var r = { css: '', str: '' };
@@ -126,10 +130,10 @@
       				}
       			},
       			methods:{
-      				hideError:function($event){
+      				hideError:function(e){
       					this.errArray=new Array();      					
       				},
-      				loadPerson:function($event){
+      				loadPerson:function(e){
       					axios.get("${pageContext.request.contextPath}/DictFamilyMember/GetData/" + this.d.sfzh).
                         then(
                         function (r) {
@@ -148,22 +152,32 @@
                             $.showErr('获取信息发生错误');
                         });
       				},
-      				reimSourceChange:function($event){
+      				reimSourceChange:function(e){
       		            if (vm.d.reim_Source == 2) {
       		                vm.d.treatmentHosptial_Code = '';
       		                vm.d.treatmentHosptial = '';
       		            }
       		            else {
-      		                UserService.getCurUser().then(function (u) {
+      		            	var def=UserService.getCurUser();
+      		            	/*
+      		            	//这种使用then的方式也是可以的
+      		                def.then(function (u) {
       		                    vm.d.treatmentHosptial_Code = u.dictHospital.code;
       		                    vm.d.treatmentHosptial = u.dictHospital.name;
       		                }, function (reson) {
       		                    $.showErr(reson);
       		                });
-
+      		            	*/
+							def.done(function (u) {
+      		                    vm.d.treatmentHosptial_Code = u.dictHospital.code;
+      		                    vm.d.treatmentHosptial = u.dictHospital.name;
+      		                })
+							.fail(function (reson) {
+      		                    $.showErr(reson);
+      		                });
       		            }
       				},
-      				selDisease($event){      					
+      				selDisease(e){      					
       		            if (this.d.finish_Flag > 0) {
       		                return;
       		            }
@@ -176,12 +190,30 @@
       		              };
       		              $.myApp.showSelDisease(p);      		            
       				},
-      				doSubmit($event){
-      					alert('submit');
+      				checkForm:function(e){
+      					this.errArray=[];
+      					if (!this.d.sfzh) this.errArray.push('请输入身份证号');
+      					if (!this.d.billNO) this.errArray.push('请输入单据号');
       				},
-      				reset($event){
+      				doSubmit(e){
+      					/*
+      					this.checkForm(e);
+      					var ss=[];
+      					if(this.errArray.length>0){
+      						
+      					}*/
+          				Bn_TreatmentReimburse.save(vm.d)
+                    	.done(function (data) {
+                    		vm.d = data;
+                        })
+                        .fail(function (msg) {
+                            $.showErr(msg);
+                        });	
+      					e.preventDefault();
+      				},
+      				reset(e){
       					$('#ds_sfzh').focus(); 
-          				Bn_TreatmentReimburse.load('000256A1-0EF3-4645-B956-4D5A1DB7E77F')
+          				Bn_TreatmentReimburse.load('${param.id}')
                         	.done(function (data) {
                         		vm.d = data;
                             })
@@ -251,7 +283,7 @@
 		                        </div>
 		                        <label class="col-sm-1 control-label myLabel" for="ds_djh">单据号：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <input v-cloak v-enter2tab class="form-control" required name="ds_djh" type="text" placeholder="" :disabled="d.finish_Flag>0" v-model="d.BillNO" />
+		                            <input v-cloak v-enter2tab class="form-control" required name="ds_djh" type="text" placeholder="" :disabled="d.finish_Flag>0" v-model="d.billNO" />
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_jzyy">就诊医院：</label>
@@ -270,32 +302,32 @@
 		                    <div class="form-group">
 		                        <label class="col-sm-1 control-label myLabel" for="ds_rysj">入院时间：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <div class="input-group date">
-		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_rysj" :disabled="d.finish_Flag>0" v-model="d.in_Date">
+		                            <div class="input-group date" id="div_rysj">
+		                                <input v-cloak v-enter2tab type="text" required class="form-control" id="ds_rysj" name="ds_rysj" :disabled="d.finish_Flag>0" v-model="d.in_Date">
 		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		                            </div>
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_cysj">出院时间：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <div class="input-group date">
-		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_cysj" :disabled="d.finish_Flag>0" v-model="d.out_Date">
+		                            <div class="input-group date" id="div_cysj">
+		                                <input v-cloak v-enter2tab type="text" required class="form-control" id="ds_cysj" name="ds_cysj" :disabled="d.finish_Flag>0" v-model="d.out_Date">
 		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		                            </div>
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_jsrq">结算日期：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <div class="input-group date">
-		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_jsrq" :disabled="d.finish_Flag>0" v-model="d.medicare_Date">
+		                            <div class="input-group date" id="div_jsrq">
+		                                <input v-cloak v-enter2tab type="text" required class="form-control" id="ds_jsrq" name="ds_jsrq" :disabled="d.finish_Flag>0" v-model="d.medicare_Date">
 		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		                            </div>
 		                        </div>
 		
 		                        <label class="col-sm-1 control-label myLabel" for="ds_lrrq">录入日期：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <div class="input-group date">
-		                                <input v-cloak v-enter2tab type="text" required class="form-control" name="ds_lrrq" :disabled="d.finish_Flag>0" v-model="d.typeIn_Date">
+		                            <div class="input-group date" id="div_lrrq">
+		                                <input v-cloak v-enter2tab type="text" required class="form-control" id="ds_lrrq" name="ds_lrrq" :disabled="d.finish_Flag>0" v-model="d.typeIn_Date">
 		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		                            </div>
 		                        </div>
@@ -397,8 +429,8 @@
 		                    <div class="form-group">
 		                        <label class="col-sm-1 control-label myLabel" for="ds_bxsj">报销时间：</label>
 		                        <div class="col-sm-2 myForm">
-		                            <div class="input-group date">
-		                                <input v-cloak v-enter2tab type="text" class="form-control" name="ds_bxsj" :disabled="d.finish_Flag>0" v-model="d.apply_Date">
+		                            <div class="input-group date" id="div_bxsj">
+		                                <input v-cloak v-enter2tab type="text" class="form-control" id="ds_bxsj" name="ds_bxsj" :disabled="d.finish_Flag>0" v-model="d.apply_Date">
 		                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		                            </div>
 		                        </div>
@@ -445,8 +477,8 @@
 		                </div>
 		                <!-- /.box-body -->
 		                <div class="box-footer text-center">
-		                    <button type="button" class="btn btn-info" v-on:click="doSubmit()" :disabled="!(d.finish_Flag==0)">提交</button>
-		                    <button type="button" class="btn btn-default" v-on:click="reset()" :disabled="!(d.finish_Flag==0)">重置</button>
+		                    <button type="button" class="btn btn-info" v-on:click="doSubmit($event)" :disabled="!(d.finish_Flag==0)">提交</button>
+		                    <button type="button" class="btn btn-default" v-on:click="reset($event)" :disabled="!(d.finish_Flag==0)">重置</button>
 		                    <button type="button" class="btn btn-success" :disabled="!(d.finish_Flag==0 && d.ID!='')">报销</button>
 		                    <button type="button" class="btn bg-purple" :disabled="!(d.finish_Flag==1)">打印凭证</button>
 		                    <button type="button" class="btn btn-danger" :disabled="!(d.finish_Flag==1)">作废</button>

@@ -3,8 +3,12 @@ package com.yixun.ccmz.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.yixun.infrastructure.serializer.DateSerializer;
+import com.yixun.infrastructure.deserializer.MyDateDeserializer;
+import com.yixun.infrastructure.serializer.MyDateSerializer;
 
 public class BnTreatmentreimburseModel
 {
@@ -34,16 +38,20 @@ public class BnTreatmentreimburseModel
 
 	private Integer reim_Type_ID;
 
-	@JsonSerialize(using = DateSerializer.class)
+	@JsonSerialize(using = MyDateSerializer.class)
+	@JsonDeserialize(using = MyDateDeserializer.class)
 	private Date in_Date;
 
-	@JsonSerialize(using = DateSerializer.class)
+	@JsonSerialize(using = MyDateSerializer.class)
+	@JsonDeserialize(using = MyDateDeserializer.class)
 	private Date out_Date;
 
-	@JsonSerialize(using = DateSerializer.class)
+	@JsonSerialize(using = MyDateSerializer.class)
+	@JsonDeserialize(using = MyDateDeserializer.class)
 	private Date medicare_Date;
 
-	@JsonSerialize(using = DateSerializer.class)
+	@JsonSerialize(using = MyDateSerializer.class)
+	@JsonDeserialize(using = MyDateDeserializer.class)
 	private Date typeIn_Date;
 
 	private BigDecimal medicare_Line;
@@ -72,7 +80,8 @@ public class BnTreatmentreimburseModel
 
 	private String family_Code;
 
-	@JsonSerialize(using = DateSerializer.class)
+	@JsonSerialize(using = MyDateSerializer.class)
+	@JsonDeserialize(using = MyDateDeserializer.class)
 	private Date apply_Date;
 
 	private BigDecimal DBBX_Money;

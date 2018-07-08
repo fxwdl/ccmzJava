@@ -96,8 +96,24 @@ Bn_TreatmentReimburse.load=function(id){
     }), function (r) {
         defererd.notify('获取数据发生错误');
     };
-    //return defererd.promise;
-    return defererd;
+    return defererd.promise();
+}
+
+Bn_TreatmentReimburse.save=function(data){
+	var defererd = jQuery.Deferred();
+	
+    axios.post(ctx+'/YLJZ/SaveTRItem', data).then(
+    	function (r) {
+	        if (r.data.success === true) {
+	            defererd.resolve(r.data.data);
+	        }
+	        else {
+	            defererd.reject(r.data.msg);
+	        }
+    }), function (r) {
+        defererd.notify('提交表单发生错误');
+    };
+    return defererd.promise();
 }
 
 
@@ -122,5 +138,5 @@ UserService.getCurUser=function(){
         defererd.notify('获取数据发生错误');
     };
     //return defererd.promise;
-    return defererd;	
+    return defererd.promise();	
 }

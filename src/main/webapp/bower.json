@@ -17,6 +17,7 @@
     "axios":"",
     "bootstrap-table":"1.12.1",
     "bootstrap-dialog":"",
-    "q":""
+    "q":"",
+    "vuelidate":""
 	}
 }
