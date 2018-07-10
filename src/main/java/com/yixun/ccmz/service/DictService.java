@@ -18,7 +18,7 @@ import com.yixun.ccmz.domain.DictStdDiseaseExample.Criterion;
 
 @Service
 @Transactional
-public class DictService
+public class DictService extends BaseService
 {
 	@Autowired
 	private DictFamilymemberDao dictFamilymemberDao;

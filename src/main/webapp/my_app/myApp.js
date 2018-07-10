@@ -64,14 +64,15 @@ Vue.directive('enter2tab', function(el,binding){
             event.preventDefault();
             var fields = $(this).parents('form:eq(0),body').find('input, textarea, select');
             var index = fields.index(this);
-            if (index > -1 && (index + 1) < fields.length)
-                fields.eq(index + 1).focus();
+            if (index > -1 && (index + 1) < fields.length){            	
+            	fields.eq(index + 1).select();
+            }
+                
         }
     });	
 });
 
-function Bn_TreatmentReimburse(){
-	
+function Bn_TreatmentReimburse(){	
 }
 
 Bn_TreatmentReimburse.ReimSourceList=[{ id: 1, name: '本院' }, { id: 2, name: '外转' }];
@@ -80,7 +81,6 @@ Bn_TreatmentReimburse.SpecBNList=[{ id: 0, name: '无' }, { id: 1, name: '单次
 
 Bn_TreatmentReimburse.load=function(id){
 	var defererd = jQuery.Deferred();
-	//var deferred = Q.defer();
     axios.get(ctx+'/YLJZ/GetTRItemById', {
         params: {
             id: id,
@@ -137,6 +137,5 @@ UserService.getCurUser=function(){
     }), function (r) {
         defererd.notify('获取数据发生错误');
     };
-    //return defererd.promise;
     return defererd.promise();	
 }

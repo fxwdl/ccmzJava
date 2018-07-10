@@ -43,6 +43,22 @@ $.showConfirm = function (str, funcok, funcclose) {
     });
 };
 
+$.showSuccess = function (str, func) {
+    BootstrapDialog.show({
+        type: BootstrapDialog.TYPE_SUCCESS,
+        title: '成功 ',
+        message: str,
+        size: BootstrapDialog.SIZE_SMALL,
+        buttons: [{
+            label: '确定',
+            action: function (dialogItself) {
+                dialogItself.close();
+            }
+        }],
+        onhide: func
+    });
+};
+
 $.showSuccessTimeout = function (str, func) {
     BootstrapDialog.show({
         type: BootstrapDialog.TYPE_SUCCESS,

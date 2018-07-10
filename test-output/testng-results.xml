@@ -2,46 +2,46 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="2325" started-at="2018-04-27T09:51:41Z" finished-at="2018-04-27T09:51:43Z">
+  <suite name="Default suite" duration-ms="101990" started-at="2018-07-10T02:47:22Z" finished-at="2018-07-10T02:49:04Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="2325" started-at="2018-04-27T09:51:41Z" finished-at="2018-04-27T09:51:43Z">
+    <test name="Default test" duration-ms="101990" started-at="2018-07-10T02:47:22Z" finished-at="2018-07-10T02:49:04Z">
       <class name="com.yixun.ccmz.service.AccountServiceTest">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@3891771e]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="22" started-at="2018-04-27T17:51:41Z" finished-at="2018-04-27T17:51:41Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="18" started-at="2018-07-10T10:47:22Z" finished-at="2018-07-10T10:47:22Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@3891771e]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="1836" started-at="2018-04-27T17:51:41Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2018-04-27T17:51:43Z">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3483" started-at="2018-07-10T10:47:22Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2018-07-10T10:47:26Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@3891771e]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="376" started-at="2018-04-27T17:51:43Z" finished-at="2018-04-27T17:51:43Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="893" started-at="2018-07-10T10:47:26Z" finished-at="2018-07-10T10:47:27Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.yixun.ccmz.service.AccountServiceTest.testValidateUser()]]>
+                <![CDATA[public void com.yixun.ccmz.service.AccountServiceTest.testMapper()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="testValidateUser()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@3891771e]" name="testValidateUser" duration-ms="50" started-at="2018-04-27T17:51:43Z" finished-at="2018-04-27T17:51:43Z">
+        <test-method status="PASS" signature="testMapper()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="testMapper" duration-ms="97546" started-at="2018-07-10T10:47:27Z" finished-at="2018-07-10T10:49:04Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testValidateUser -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@3891771e]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="7" started-at="2018-04-27T17:51:43Z" finished-at="2018-04-27T17:51:43Z">
+        </test-method> <!-- testMapper -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="10" started-at="2018-07-10T10:49:04Z" finished-at="2018-07-10T10:49:04Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.yixun.ccmz.service.AccountServiceTest.testValidateUser()]]>
+                <![CDATA[public void com.yixun.ccmz.service.AccountServiceTest.testMapper()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@3891771e]" name="springTestContextAfterTestClass" is-config="true" duration-ms="4" started-at="2018-04-27T17:51:43Z" finished-at="2018-04-27T17:51:43Z">
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2018-07-10T10:49:04Z" finished-at="2018-07-10T10:49:04Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->

@@ -55,21 +55,24 @@ public class YLJZController extends BaseController
 				r.setReim_Source(ReimSourceType.外转.value());
 				r.setReim_Type_ID(ReimType.门诊大病.value());
 				r.setFinish_Flag(FinishFlag.未救助.value());
-				r.setSelfBaseMoney(new BigDecimal(0));
+				r.setSelfBaseMoney(BigDecimal.ZERO);
 				r.setSpec_BN(Spec_BN.无.value());
-				r.setCYDBBC_Money(new BigDecimal(0));
-				r.setSelBaseMoney_ZY_Total(new BigDecimal(0));
-				r.setGR_Accout_Pay(new BigDecimal(0));
-				r.setYB_Other_Pay(new BigDecimal(0));
-				r.setYLZ_Money(new BigDecimal(0));
-				r.setZL_Money(new BigDecimal(0));
-				r.setZF_Money(new BigDecimal(0));
-				r.setMedicare_Line(new BigDecimal(0));
-				r.setDBBX_Money(new BigDecimal(0));
-				r.setYBBX_Money(new BigDecimal(0));
-				r.setXNH_Money(new BigDecimal(0));
-				r.setCYDBBC_Money(new BigDecimal(0));
-				r.setGR_Money(new BigDecimal(0));
+				r.setCYDBBC_Money(BigDecimal.ZERO);
+				r.setSelBaseMoney_ZY_Total(BigDecimal.ZERO);
+				r.setGR_Accout_Pay(BigDecimal.ZERO);
+				r.setYB_Other_Pay(BigDecimal.ZERO);
+				r.setYLZ_Money(BigDecimal.ZERO);
+				r.setZL_Money(BigDecimal.ZERO);
+				r.setZF_Money(BigDecimal.ZERO);
+				r.setMedicare_Line(BigDecimal.ZERO);
+				r.setDBBX_Money(BigDecimal.ZERO);
+				r.setYBBX_Money(BigDecimal.ZERO);
+				r.setXNH_Money(BigDecimal.ZERO);
+				r.setCYDBBC_Money(BigDecimal.ZERO);
+				r.setGR_Money(BigDecimal.ZERO);
+				r.setPay_Type(0);
+				r.setTreatmentHosptial_Code("");
+				r.setYLJZ_Money(BigDecimal.ZERO);
 
 				// 目前日期值被序列化成了整数，在前端做了转换，也可以在后面指定序列化的方式http://www.baeldung.com/jackson-serialize-dates
 				r.setTypeIn_Date(new Date());
@@ -106,6 +109,7 @@ public class YLJZController extends BaseController
 	{
 		try
 		{
+			model = medicalService.SaveTRItem(model);
 			return new ClientSingleObjectResult<BnTreatmentreimburseModel>(true, "", model);
 		}
 		catch (Exception e)

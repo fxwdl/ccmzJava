@@ -41,7 +41,7 @@ public class BaseDaoImpl<T extends Serializable> implements BaseDao<T>
 	}
 
 	@Override
-	public int save(T t)
+	public int insert(T t)
 	{
 		return sessionTemplate.insert(getStatement("insert"), t);
 	}

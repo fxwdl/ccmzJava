@@ -202,7 +202,30 @@
 		  <version>25.1-jre</version>
 		  <!-- or, for Android: 
 		  <version>25.1-android</version>-->
-		</dependency>		
+		</dependency>	
+		<!-- DTO DomainObject映射 -->
+		<!-- https://github.com/arey/java-object-mapper-benchmark  性能较低 -->
+		<dependency>
+		  <groupId>org.modelmapper</groupId>
+		  <artifactId>modelmapper</artifactId>
+		  <version>2.1.0</version>
+		</dependency>	
+		
+		<!-- mapstruct 
+		http://mapstruct.org/documentation/ide-support/
+		-->
+	    <dependency>
+	        <groupId>org.mapstruct</groupId>
+	        <artifactId>mapstruct-jdk8</artifactId> <!-- use mapstruct for Java 7 or lower -->
+	        <version>${org.mapstruct.version}</version>
+	    </dependency>		
+	    
+		<!-- https://mvnrepository.com/artifact/com.googlecode.jmapper-framework/jmapper-core -->
+		<dependency>
+		    <groupId>com.googlecode.jmapper-framework</groupId>
+		    <artifactId>jmapper-core</artifactId>
+		    <version>1.6.1.CR2</version>
+		</dependency>	    	
 	</dependencies>
 	<build>
 		<finalName>ccmz</finalName>
@@ -215,6 +238,13 @@
 					<configuration>
 						<source>1.8</source>
 						<target>1.8</target>
+		                <annotationProcessorPaths>
+		                    <path>
+		                        <groupId>org.mapstruct</groupId>
+		                        <artifactId>mapstruct-processor</artifactId>
+		                        <version>${org.mapstruct.version}</version>
+		                    </path>
+		                </annotationProcessorPaths>						
 					</configuration>
 				</plugin>
 				<!-- jetty插件 -->
@@ -332,5 +362,9 @@
 		<aspectj.version>1.8.1</aspectj.version>
 		<aopalliance.version>1.0</aopalliance.version>
 		<commons-codec.version>1.9</commons-codec.version>
+		
+		<org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+		<!-- automatically run annotation processors within the incremental compilation -->
+		<m2e.apt.activation>jdt_apt</m2e.apt.activation>		
 	</properties>
 </project>

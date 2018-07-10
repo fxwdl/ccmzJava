@@ -203,8 +203,9 @@
       						
       					}*/
           				Bn_TreatmentReimburse.save(vm.d)
-                    	.done(function (data) {
+                    	.done(function (data) {                    		
                     		vm.d = data;
+                    		$.showSuccess('数据提交成功！');
                         })
                         .fail(function (msg) {
                             $.showErr(msg);

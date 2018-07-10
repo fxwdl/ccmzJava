@@ -1159,9 +1159,9 @@
 		dict_familymember1
 		INNER JOIN bn_treatmentreimburse
 		 ON dict_familymember1.Sfzh = bn_treatmentreimburse.Sfzh
-		INNER JOIN dict_identitytype
+		LEFT JOIN dict_identitytype
 		 ON bn_treatmentreimburse.IdentityType_ID = dict_identitytype.ID
-		INNER JOIN dict_hospital
+		LEFT JOIN dict_hospital
 		 ON bn_treatmentreimburse.Apply_Hospital_ID = dict_hospital.ID
 		LEFT OUTER JOIN aspnet_users OperUser
 		 ON bn_treatmentreimburse.Operator_ID = OperUser.UserId
@@ -1178,4 +1178,14 @@
       </if>
   </select>
   
+  <select id="" parameterType="map" resultType="java.lang.String">
+    select count(*) from bn_treatmentreimburse
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="getMaxReimNO" parameterType="java.lang.String" resultType="java.lang.String">
+	SELECT  MAX(Reim_NO) FROM bn_treatmentreimburse WHERE Reim_NO LIKE #{prefix,jdbcType=VARCHAR}
+  </select>  
 </mapper>

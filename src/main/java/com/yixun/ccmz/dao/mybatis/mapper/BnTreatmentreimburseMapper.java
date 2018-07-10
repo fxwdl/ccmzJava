@@ -36,4 +36,6 @@ public interface BnTreatmentreimburseMapper
 	// 以下自定义
 
 	List<BnTreatmentreimburseModel> getFullInfoList(@Param("id") String id);
+
+	public String getMaxReimNO(@Param("prefix") String prefix);
 }

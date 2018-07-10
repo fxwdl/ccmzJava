@@ -15,7 +15,7 @@ import com.yixun.ccmz.dto.SystemMenuModel;
 
 @Service
 @Transactional
-public class AccountService
+public class AccountService extends BaseService
 {
 	@Autowired
 	private UserDao userDao;
