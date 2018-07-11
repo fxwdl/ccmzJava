@@ -40,7 +40,7 @@ $.myApp = {
             },
             message: function (dialog) {
                 var $d = $('<div></div>');
-                var page = dialog.getData('pageToLoad');
+                var page = dialog.getData('pageToLoad');  
                 $d.load(page);
 
                 return $d;
