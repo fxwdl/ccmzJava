@@ -64,7 +64,8 @@ Vue.directive('enter2tab', function(el,binding){
             event.preventDefault();
             var fields = $(this).parents('form:eq(0),body').find('input, textarea, select');
             var index = fields.index(this);
-            if (index > -1 && (index + 1) < fields.length){            	
+            if (index > -1 && (index + 1) < fields.length){ 
+            	fields.eq(index + 1).focus();
             	fields.eq(index + 1).select();
             }
                 

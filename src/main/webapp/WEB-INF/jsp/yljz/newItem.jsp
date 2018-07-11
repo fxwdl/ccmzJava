@@ -60,6 +60,10 @@
       	<script src="${pageContext.request.contextPath}/bower_components/vue/dist/vue.js"></script>
       	<script src="${pageContext.request.contextPath}/bower_components/axios/dist/axios.js"></script>
       	<!-- <script src="${pageContext.request.contextPath}/bower_components/q/q.js"></script> -->
+      	
+      	<script src="${pageContext.request.contextPath}/bower_components/vuelidate/dist/vuelidate.min.js"></script>
+      	<script src="${pageContext.request.contextPath}/bower_components/vuelidate/dist/validators.min.js"></script>
+      	
       	<script src="${pageContext.request.contextPath}/my_app/MyCommon.js"></script>
       	<script src="${pageContext.request.contextPath}/my_app/myApp.js"></script>
       	
@@ -81,6 +85,7 @@
 	                $(this).removeData('modal');
 	            });
 	        });      	
+	        Vue.use(window.vuelidate.default);
       		var vm=new Vue({
       			el:'#app',
       			data:{
@@ -88,7 +93,8 @@
                     errArray:[],
                     ReimSourceList:Bn_TreatmentReimburse.ReimSourceList,
                     ReimTypeList : Bn_TreatmentReimburse.ReimTypeList,
-                    SpecBNList : Bn_TreatmentReimburse.SpecBNList
+                    SpecBNList : Bn_TreatmentReimburse.SpecBNList,
+                    status:'提交'
       			},
       			created:function(){
 
@@ -129,6 +135,78 @@
       		            return r; 
       				}
       			},
+				validations: {
+					  d:{
+					  	sfzh: {
+						  	required:validators.required,
+						    minLength: validators.minLength(18)
+						},
+						billNO:{
+							required:validators.required
+						},
+						treatmentHosptial:{
+							required:validators.required
+						},
+						in_Date:{
+							required:validators.required
+						},
+						out_Date:{
+							required:validators.required
+						},
+						medicare_Date:{
+							required:validators.required
+						},
+						typeIn_Date:{
+							required:validators.required
+						},		
+						stdDisease_Name:{
+							required:validators.required
+						},			
+						stdDisease_Code:{
+							required:function(value,$params){
+								if((value===null || value==='') && !($params.reim_Type_ID===21)){
+									return false;
+								}
+								else{
+									return true;
+								}
+							}
+						},
+						ylz_Money:{
+							required:validators.required
+						},	
+						zl_Money:{
+							required:validators.required
+						},	
+						zf_Money:{
+							required:validators.required
+						},	
+						medicare_Line:{
+							required:validators.required
+						},
+						dbbx_Money:{
+							required:validators.required
+						},
+						ybbx_Money:{
+							required:validators.required
+						},
+						xnh_Money:{
+							required:validators.required
+						},
+						cydbbc_Money:{
+							required:validators.required
+						},
+						gr_Accout_Pay:{
+							required:validators.required
+						},
+						yb_Other_Pay:{
+							required:validators.required
+						},	
+						gr_Money:{
+							required:validators.required
+						}				
+					  }
+				},      			
       			methods:{
       				hideError:function(e){
       					this.errArray=new Array();      					
@@ -191,17 +269,81 @@
       		              $.myApp.showSelDisease(p);      		            
       				},
       				checkForm:function(e){
+      					this.$v.d.$touch();
       					this.errArray=[];
-      					if (!this.d.sfzh) this.errArray.push('请输入身份证号');
-      					if (!this.d.billNO) this.errArray.push('请输入单据号');
+      					if(this.$v.$anyError){
+      						if(!this.$v.d.sfzh.required){
+      							this.errArray.push('请输入身份证号');
+      						}      						
+      						if(!this.$v.d.sfzh.minLength){
+      							this.errArray.push('身份证号必需'+this.$v.d.sfzh.$params.minLength.min+'位长');
+      						}
+      						if(!this.$v.d.billNO.required){
+      							this.errArray.push('请输入单据号');
+      						} 
+      						if(!this.$v.d.treatmentHosptial.required){
+      							this.errArray.push('请输入就诊医院');
+      						}
+      						if(!this.$v.d.in_Date.required){
+      							this.errArray.push('请输入入院时间');
+      						}     
+      						if(!this.$v.d.out_Date.required){
+      							this.errArray.push('请输入出院时间');
+      						}
+      						if(!this.$v.d.medicare_Date.required){
+      							this.errArray.push('请输入结算日期');
+      						}
+      						if(!this.$v.d.typeIn_Date.required){
+      							this.errArray.push('请输入录入日期');
+      						}    
+      						if(!this.$v.d.stdDisease_Code.required){
+      							this.errArray.push('请选择疾病代码');
+      						}  
+      						if(!this.$v.d.stdDisease_Name.required){
+      							this.errArray.push('请输入疾病名称');
+      						}  
+      						if(!this.$v.d.ylz_Money.required){
+      							this.errArray.push('请输入医疗总费用');
+      						}   
+      						if(!this.$v.d.zl_Money.required){
+      							this.errArray.push('请输入自理费用');
+      						}  
+      						if(!this.$v.d.zf_Money.required){
+      							this.errArray.push('请输入自费费用');
+      						}  
+      						if(!this.$v.d.medicare_Line.required){
+      							this.errArray.push('请输入起付线');
+      						}
+      						if(!this.$v.d.dbbx_Money.required){
+      							this.errArray.push('请输入大病保险补偿金额');
+      						}  
+      						if(!this.$v.d.ybbx_Money.required){
+      							this.errArray.push('请输入医保(农合)报销');
+      						} 
+      						if(!this.$v.d.xnh_Money.required){
+      							this.errArray.push('请输入新农合参与补偿金额');
+      						} 
+      						if(!this.$v.d.cydbbc_Money.required){
+      							this.errArray.push('请输入新农合参与大病补偿');
+      						} 
+      						if(!this.$v.d.gr_Accout_Pay.required){
+      							this.errArray.push('请输入个人账户支付');
+      						} 
+      						if(!this.$v.d.yb_Other_Pay.required){
+      							this.errArray.push('请输入医保其它支付');
+      						}   
+      						if(!this.$v.d.gr_Money.required){
+      							this.errArray.push('请输入个人承担');
+      						}      						
+      					}      					
       				},
-      				doSubmit(e){
-      					/*
+      				doSubmit(e){      					
       					this.checkForm(e);
-      					var ss=[];
       					if(this.errArray.length>0){
-      						
-      					}*/
+      						e.preventDefault();
+      						return;
+      					}
+      					vm.status='正在提交';
           				Bn_TreatmentReimburse.save(vm.d)
                     	.done(function (data) {                    		
                     		vm.d = data;
@@ -209,7 +351,10 @@
                         })
                         .fail(function (msg) {
                             $.showErr(msg);
-                        });	
+                        })
+                        .always(function(){
+          					vm.status='提交';
+          				});	
       					e.preventDefault();
       				},
       				reset(e){
@@ -478,9 +623,9 @@
 		                </div>
 		                <!-- /.box-body -->
 		                <div class="box-footer text-center">
-		                    <button type="button" class="btn btn-info" v-on:click="doSubmit($event)" :disabled="!(d.finish_Flag==0)">提交</button>
+		                    <button v-cloak type="button" class="btn btn-info" v-on:click="doSubmit($event)" :disabled="!(d.finish_Flag==0) || status==='正在提交'">{{status}}</button>
 		                    <button type="button" class="btn btn-default" v-on:click="reset($event)" :disabled="!(d.finish_Flag==0)">重置</button>
-		                    <button type="button" class="btn btn-success" :disabled="!(d.finish_Flag==0 && d.ID!='')">报销</button>
+		                    <button type="button" class="btn btn-success" :disabled="!(d.finish_Flag==0 && d.ID!='' && d.ID!=null)">报销</button>
 		                    <button type="button" class="btn bg-purple" :disabled="!(d.finish_Flag==1)">打印凭证</button>
 		                    <button type="button" class="btn btn-danger" :disabled="!(d.finish_Flag==1)">作废</button>
 		                </div>
