@@ -152,6 +152,18 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- thymeleaf 前端库 -->
+		<dependency>
+		    <groupId>org.thymeleaf</groupId>
+		    <artifactId>thymeleaf</artifactId>
+		    <version>${thymeleaf.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.thymeleaf</groupId>
+		    <artifactId>thymeleaf-spring4</artifactId>
+		    <version>${thymeleaf.version}</version>
+		</dependency>
+		
 		<!-- json请求依赖 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -347,6 +359,7 @@
 
 		<file.encoding>UTF-8</file.encoding>
 		<spring.version>4.2.9.RELEASE</spring.version>
+		<thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
 		<mysql.version>5.1.29</mysql.version>
 		<servlet.version>3.1.0</servlet.version>
 		<commons-codec.version>1.9</commons-codec.version>

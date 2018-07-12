@@ -47,13 +47,6 @@
 	<bean id="rpe" class="com.yixun.ccmz.web.ResourcePathExposer" init-method="init"/>
 	<mvc:resources mapping="#{rpe.resourceRoot}/**" location="/" cache-period="31536000"></mvc:resources>
 	<mvc:resources mapping="/bower_components/**" location="/bower_components/" cache-period="31536000"></mvc:resources>
-	
-	<!-- 配置视图解析器，将ModelAndView及字符串解析为具体的页面 -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:viewClass="org.springframework.web.servlet.view.JstlView" 
-		p:prefix="/WEB-INF/jsp/"
-		p:suffix=".jsp" />
 		
     <!--设置spring对url mapping忽略大小写，默认是大小写敏感的
     	https://stackoverflow.com/questions/4150039/how-can-i-have-case-insensitive-urls-in-spring-mvc-with-annotated-mappings/5438158
@@ -67,4 +60,54 @@
 	<bean id="simpleDateFormat" class="java.text.SimpleDateFormat">
 		<constructor-arg index="0" value="yyyy/MM/dd HH:mm:ss"></constructor-arg>
 	</bean>
+	
+	<!-- ViewResolver是解析物理视图，是在Controller返回的View的名称以后，才通过order来决定应用哪个ViewResolver的顺序.
+		所以，viewNames如果要匹配扩展名，那么在Controller必需return带扩展名的字符串。如果下面的配置中未指定viewNames则会在拦截后不向后续的ViewResolver传递。
+		由于目前实现的是Rest风格的url，所以在controller的返回值都没有扩展名，所以会被下面配置的InternalResourceViewResolver拦截到。
+		如果要实现混合多个ViewResolver，那么最好的方式是将InternalResourceViewResolver的viewNames设置成*.jsp，然后在controller也返回带.jsp的结果。
+		
+		另外，似乎request请求，比如/login焉/login.html，会优先被配置了/login的controller方法匹配到，即扩展名被忽略掉了
+	 -->
+	
+	<!-- 配置jsp视图解析器，将ModelAndView及字符串解析为具体的页面 -->	
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:viewClass="org.springframework.web.servlet.view.JstlView" 
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" p:order="2" />	
+		
+	<!-- 配置thmeleaf视图解析器 -->
+	<!-- SpringResourceTemplateResolver automatically integrates with Spring's own -->
+	<!-- resource resolution infrastructure, which is highly recommended.          -->
+	<bean id="templateResolver"
+	       class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+	  <property name="prefix" value="/WEB-INF/thymeleaf/" />
+	  <property name="suffix" value=".html" />
+	  <!-- HTML is the default value, added here for the sake of clarity.          -->
+	  <property name="templateMode" value="HTML" />
+	  <!-- Template cache is true by default. Set to false if you want             -->
+	  <!-- templates to be automatically updated when modified.                    -->
+	  <property name="cacheable" value="false" />
+	  
+	</bean>
+	    
+	<!-- SpringTemplateEngine automatically applies SpringStandardDialect and      -->
+	<!-- enables Spring's own MessageSource message resolution mechanisms.         -->
+	<bean id="templateEngine"
+	      class="org.thymeleaf.spring4.SpringTemplateEngine">
+	  <property name="templateResolver" ref="templateResolver" />
+	  <!-- Enabling the SpringEL compiler with Spring 4.2.4 or newer can speed up  -->
+	  <!-- execution in most scenarios, but might be incompatible with specific    -->
+	  <!-- cases when expressions in one template are reused across different data -->
+	  <!-- ypes, so this flag is "false" by default for safer backwards            -->
+	  <!-- compatibility.                                                          -->
+	  <property name="enableSpringELCompiler" value="true" />
+	  
+	</bean>		
+	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+	  <property name="templateEngine" ref="templateEngine" />
+	  <!-- NOTE 'order' and 'viewNames' are optional -->
+	  <property name="order" value="1" />
+	  <property name="viewNames" value="*.html" />
+	  <property name="characterEncoding" value="UTF-8"/>
+	</bean>	
 </beans>

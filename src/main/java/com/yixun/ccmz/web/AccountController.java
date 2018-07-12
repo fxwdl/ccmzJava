@@ -25,10 +25,11 @@ import com.yixun.ccmz.dto.LoginModel;
 public class AccountController extends BaseController
 {
 	@RequestMapping(value = "login", method = RequestMethod.GET)
-	public String login(Model model)
+	public String login(HttpServletRequest request, Model model)
 	{
+		model.addAttribute("title", "长春市医疗救助管理系统");
 		model.addAttribute("user", new LoginModel());
-		return "login";
+		return getViewName("login");
 	}
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
@@ -49,8 +50,9 @@ public class AccountController extends BaseController
 			java.util.HashSet<String> modelState = new HashSet<String>();
 			modelState.add("用户名或密码错误!");
 			m.addObject("modelState", modelState);
-			m.addObject("user", user);
-			m.setViewName("login");
+			// m.addObject("user", user);
+			m.addObject("title", "长春市医疗救助管理系统");
+			m.setViewName(getViewName("login"));
 		}
 		return m;
 	}

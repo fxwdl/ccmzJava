@@ -50,4 +50,22 @@ public abstract class BaseController
 	{
 		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 	}
+
+	/**
+	 * 决定是否加载thymeleaf模板的页面
+	 * 
+	 * @param viewName
+	 * @return
+	 */
+	protected String getViewName(String viewName)
+	{
+		if (getHttpRequest().getServletPath().contains(".html"))
+		{
+			return viewName + ".html";
+		}
+		else
+		{
+			return viewName;
+		}
+	}
 }
