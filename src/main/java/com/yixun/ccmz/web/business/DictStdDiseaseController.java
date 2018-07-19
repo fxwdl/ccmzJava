@@ -1,4 +1,4 @@
-package com.yixun.ccmz.web;
+package com.yixun.ccmz.web.business;
 
 import java.util.*;
 
@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yixun.ccmz.domain.DictStdDisease;
 import com.yixun.ccmz.domain.PagingModel;
 import com.yixun.ccmz.service.DictService;
-import com.yixun.infrastructure.annotation.AuthenticatedController;
+import com.yixun.ccmz.web.BaseController;
+import com.yixun.infrastructure.annotation.Authenticated;
 
-@AuthenticatedController
+@Controller
 @RequestMapping(value = "/DictStdDisease")
 public class DictStdDiseaseController extends BaseController
 {

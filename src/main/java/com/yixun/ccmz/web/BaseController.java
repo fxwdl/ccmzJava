@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -18,12 +19,13 @@ import com.yixun.ccmz.domain.User;
 import com.yixun.ccmz.dto.SystemMenuModel;
 import com.yixun.ccmz.service.AccountService;
 import com.yixun.ccmz.service.fba.MyUser;
-import com.yixun.infrastructure.annotation.AuthenticatedController;
+import com.yixun.infrastructure.annotation.Authenticated;
 
 import bsh.This;
 
 //使用@ControllerAdvice确保每次在调用Controller的Method之前都先调行使用了@ModelAttribute标注的方法
-@ControllerAdvice(annotations = AuthenticatedController.class)
+//不过不知道为什么后面的参数想限定只有特定的类或者包才执行，始终不好使
+@ControllerAdvice(basePackages = "com.yixun.ccmz.web.business")
 public class BaseController
 {
 	private AccountService accountService;
@@ -40,16 +42,16 @@ public class BaseController
 	}
 
 	@ModelAttribute
-	public void initSystemMenu()
+	public void initSystemMenu(Model model)
 	{
-		Authentication u = getAuthentication();
-		List<SystemMenuModel> m = new ArrayList<SystemMenuModel>();
+		MyUser u = this.getMyUser();
 		if (u != null)
 		{
-			m = this.getAccountService().GetSystemMenu(u.getName());
+			List<SystemMenuModel> m = new ArrayList<SystemMenuModel>();
+			m = this.getAccountService().GetSystemMenu(u.getUsername());
+			model.addAttribute("menu", m);
+			model.addAttribute("user", this.getUser());
 		}
-		getHttpRequest().setAttribute("menu", m);
-		getHttpRequest().setAttribute("user", this.getUser());
 	}
 
 	protected Authentication getAuthentication()
@@ -62,7 +64,7 @@ public class BaseController
 		MyUser result = null;
 		Authentication au = getAuthentication();
 
-		if (au.getPrincipal() instanceof MyUser) // 不清楚为什么AbstractUserDetailsAuthenticationProvider的实现，并不是将userDetails放到Details上，而是放到了Principal上
+		if (au.getDetails() instanceof MyUser) // 不清楚为什么AbstractUserDetailsAuthenticationProvider的实现，并不是将userDetails放到Details上，而是放到了Principal上
 		{
 			result = (MyUser) au.getDetails();
 		}

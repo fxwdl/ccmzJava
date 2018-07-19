@@ -1,4 +1,4 @@
-package com.yixun.ccmz.web;
+package com.yixun.ccmz.web.business;
 
 import java.math.BigDecimal;
 import java.security.interfaces.RSAKey;
@@ -27,9 +27,10 @@ import com.yixun.ccmz.dto.BnTreatmentreimburseModel;
 import com.yixun.ccmz.dto.ClientSingleObjectResult;
 import com.yixun.ccmz.service.MedicalService;
 import com.yixun.ccmz.service.fba.MyUser;
-import com.yixun.infrastructure.annotation.AuthenticatedController;
+import com.yixun.ccmz.web.BaseController;
+import com.yixun.infrastructure.annotation.Authenticated;
 
-@AuthenticatedController
+@Controller
 @RequestMapping(value = "/yljz")
 public class YLJZController extends BaseController
 {

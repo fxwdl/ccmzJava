@@ -17,8 +17,8 @@ import org.springframework.stereotype.Controller;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Controller
-public @interface AuthenticatedController
+// @Controller
+public @interface Authenticated
 {
 
 	/**

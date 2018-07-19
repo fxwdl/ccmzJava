@@ -1,4 +1,4 @@
-package com.yixun.ccmz.web;
+package com.yixun.ccmz.web.business;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -32,12 +32,13 @@ import com.yixun.ccmz.dto.BnTreatmentreimburseModel;
 import com.yixun.ccmz.dto.ClientSingleObjectResult;
 import com.yixun.ccmz.dto.LoginModel;
 import com.yixun.ccmz.service.MedicalService;
+import com.yixun.ccmz.web.BaseController;
 import com.yixun.infrastructure.SpringContextHolder;
-import com.yixun.infrastructure.annotation.AuthenticatedController;
+import com.yixun.infrastructure.annotation.Authenticated;
 
 import bsh.Console;
 
-@AuthenticatedController
+@Controller
 public class HomeController extends BaseController
 {
 	@Autowired

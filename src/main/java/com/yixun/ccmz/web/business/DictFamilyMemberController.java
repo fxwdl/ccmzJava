@@ -1,4 +1,4 @@
-package com.yixun.ccmz.web;
+package com.yixun.ccmz.web.business;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yixun.ccmz.domain.DictFamilymember;
 import com.yixun.ccmz.service.DictService;
-import com.yixun.infrastructure.annotation.AuthenticatedController;
+import com.yixun.ccmz.web.BaseController;
+import com.yixun.infrastructure.annotation.Authenticated;
 
-@AuthenticatedController
+@Controller
 @RequestMapping(value = "/DictFamilyMember")
 public class DictFamilyMemberController extends BaseController
 {
