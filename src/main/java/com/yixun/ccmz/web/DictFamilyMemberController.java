@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yixun.ccmz.domain.DictFamilymember;
 import com.yixun.ccmz.service.DictService;
+import com.yixun.infrastructure.annotation.AuthenticatedController;
 
-@Controller
+@AuthenticatedController
 @RequestMapping(value = "/DictFamilyMember")
 public class DictFamilyMemberController extends BaseController
 {

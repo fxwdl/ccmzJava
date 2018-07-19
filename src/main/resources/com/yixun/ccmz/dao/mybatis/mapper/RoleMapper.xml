@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yixun.ccmz.dao.mybatis.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.yixun.ccmz.domain.Role">
+    <id column="RoleId" jdbcType="VARCHAR" property="roleId" />
+    <result column="ApplicationId" jdbcType="VARCHAR" property="applicationId" />
+    <result column="RoleName" jdbcType="VARCHAR" property="roleName" />
+    <result column="LoweredRoleName" jdbcType="VARCHAR" property="loweredRoleName" />
+    <result column="Description" jdbcType="VARCHAR" property="description" />
+    <result column="Level1" jdbcType="BIT" property="level1" />
+    <result column="Level2" jdbcType="BIT" property="level2" />
+    <result column="Level3" jdbcType="BIT" property="level3" />
+    <result column="Level4" jdbcType="BIT" property="level4" />
+    <result column="Hosiptal_Flag" jdbcType="BIT" property="hosiptal_Flag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    RoleId, ApplicationId, RoleName, LoweredRoleName, Description, Level1, Level2, Level3, 
+    Level4, Hosiptal_Flag
+  </sql>
+  <select id="selectByExample" parameterType="com.yixun.ccmz.domain.RoleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aspnet_roles
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="page != null">
+      limit #{page.begin} , #{page.length}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from aspnet_roles
+    where RoleId = #{roleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from aspnet_roles
+    where RoleId = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yixun.ccmz.domain.RoleExample">
+    delete from aspnet_roles
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yixun.ccmz.domain.Role">
+    insert into aspnet_roles (RoleId, ApplicationId, RoleName, 
+      LoweredRoleName, Description, Level1, 
+      Level2, Level3, Level4, Hosiptal_Flag
+      )
+    values (#{roleId,jdbcType=VARCHAR}, #{applicationId,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, 
+      #{loweredRoleName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{level1,jdbcType=BIT}, 
+      #{level2,jdbcType=BIT}, #{level3,jdbcType=BIT}, #{level4,jdbcType=BIT}, #{hosiptal_Flag,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixun.ccmz.domain.Role">
+    insert into aspnet_roles
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        RoleId,
+      </if>
+      <if test="applicationId != null">
+        ApplicationId,
+      </if>
+      <if test="roleName != null">
+        RoleName,
+      </if>
+      <if test="loweredRoleName != null">
+        LoweredRoleName,
+      </if>
+      <if test="description != null">
+        Description,
+      </if>
+      <if test="level1 != null">
+        Level1,
+      </if>
+      <if test="level2 != null">
+        Level2,
+      </if>
+      <if test="level3 != null">
+        Level3,
+      </if>
+      <if test="level4 != null">
+        Level4,
+      </if>
+      <if test="hosiptal_Flag != null">
+        Hosiptal_Flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationId != null">
+        #{applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="loweredRoleName != null">
+        #{loweredRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="level1 != null">
+        #{level1,jdbcType=BIT},
+      </if>
+      <if test="level2 != null">
+        #{level2,jdbcType=BIT},
+      </if>
+      <if test="level3 != null">
+        #{level3,jdbcType=BIT},
+      </if>
+      <if test="level4 != null">
+        #{level4,jdbcType=BIT},
+      </if>
+      <if test="hosiptal_Flag != null">
+        #{hosiptal_Flag,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yixun.ccmz.domain.RoleExample" resultType="java.lang.Long">
+    select count(*) from aspnet_roles
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update aspnet_roles
+    <set>
+      <if test="record.roleId != null">
+        RoleId = #{record.roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicationId != null">
+        ApplicationId = #{record.applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleName != null">
+        RoleName = #{record.roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loweredRoleName != null">
+        LoweredRoleName = #{record.loweredRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        Description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level1 != null">
+        Level1 = #{record.level1,jdbcType=BIT},
+      </if>
+      <if test="record.level2 != null">
+        Level2 = #{record.level2,jdbcType=BIT},
+      </if>
+      <if test="record.level3 != null">
+        Level3 = #{record.level3,jdbcType=BIT},
+      </if>
+      <if test="record.level4 != null">
+        Level4 = #{record.level4,jdbcType=BIT},
+      </if>
+      <if test="record.hosiptal_Flag != null">
+        Hosiptal_Flag = #{record.hosiptal_Flag,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update aspnet_roles
+    set RoleId = #{record.roleId,jdbcType=VARCHAR},
+      ApplicationId = #{record.applicationId,jdbcType=VARCHAR},
+      RoleName = #{record.roleName,jdbcType=VARCHAR},
+      LoweredRoleName = #{record.loweredRoleName,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=VARCHAR},
+      Level1 = #{record.level1,jdbcType=BIT},
+      Level2 = #{record.level2,jdbcType=BIT},
+      Level3 = #{record.level3,jdbcType=BIT},
+      Level4 = #{record.level4,jdbcType=BIT},
+      Hosiptal_Flag = #{record.hosiptal_Flag,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixun.ccmz.domain.Role">
+    update aspnet_roles
+    <set>
+      <if test="applicationId != null">
+        ApplicationId = #{applicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        RoleName = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="loweredRoleName != null">
+        LoweredRoleName = #{loweredRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="level1 != null">
+        Level1 = #{level1,jdbcType=BIT},
+      </if>
+      <if test="level2 != null">
+        Level2 = #{level2,jdbcType=BIT},
+      </if>
+      <if test="level3 != null">
+        Level3 = #{level3,jdbcType=BIT},
+      </if>
+      <if test="level4 != null">
+        Level4 = #{level4,jdbcType=BIT},
+      </if>
+      <if test="hosiptal_Flag != null">
+        Hosiptal_Flag = #{hosiptal_Flag,jdbcType=BIT},
+      </if>
+    </set>
+    where RoleId = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixun.ccmz.domain.Role">
+    update aspnet_roles
+    set ApplicationId = #{applicationId,jdbcType=VARCHAR},
+      RoleName = #{roleName,jdbcType=VARCHAR},
+      LoweredRoleName = #{loweredRoleName,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      Level1 = #{level1,jdbcType=BIT},
+      Level2 = #{level2,jdbcType=BIT},
+      Level3 = #{level3,jdbcType=BIT},
+      Level4 = #{level4,jdbcType=BIT},
+      Hosiptal_Flag = #{hosiptal_Flag,jdbcType=BIT}
+    where RoleId = #{roleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

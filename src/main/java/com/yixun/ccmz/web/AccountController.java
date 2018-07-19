@@ -37,23 +37,20 @@ public class AccountController extends BaseController
 			@ModelAttribute("user") LoginModel user)
 	{
 		ModelAndView m = new ModelAndView();
-		User u = this.getAccountService().ValidateUser(user.getUserName(), user.getPassword());
-		if (u != null)
+		try
 		{
-
-			HttpSession session = request.getSession(true);
-			session.setAttribute("user", u);
-			m.setViewName("redirect:/");
+			this.getAccountService().ValidateUser(user.getUserName(), user.getPassword());
+			// m.setViewName("redirect:/");
 		}
-		else
+		catch (Exception ex)
 		{
-			java.util.HashSet<String> modelState = new HashSet<String>();
+			HashSet<String> modelState = new HashSet<String>();
 			modelState.add("用户名或密码错误!");
 			m.addObject("modelState", modelState);
-			// m.addObject("user", user);
-			m.addObject("title", "长春市医疗救助管理系统");
 			m.setViewName(getViewName("login"));
+			m.addObject("title", "长春市医疗救助管理系统");
 		}
+
 		return m;
 	}
 
@@ -62,12 +59,12 @@ public class AccountController extends BaseController
 	public ClientSingleObjectResult<User> GetCurUserInfo()
 	{
 		ClientSingleObjectResult<User> r = new ClientSingleObjectResult<User>();
-		if (this.getCurrentUser() != null)
+		if (this.getUser() != null)
 		{
 			r.setSuccess(true);
 			r.setMsg("");
 			;
-			r.setData(this.getCurrentUser());
+			r.setData(this.getUser());
 		}
 		else
 		{

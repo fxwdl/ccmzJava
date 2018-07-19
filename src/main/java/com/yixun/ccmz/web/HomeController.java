@@ -33,31 +33,20 @@ import com.yixun.ccmz.dto.ClientSingleObjectResult;
 import com.yixun.ccmz.dto.LoginModel;
 import com.yixun.ccmz.service.MedicalService;
 import com.yixun.infrastructure.SpringContextHolder;
+import com.yixun.infrastructure.annotation.AuthenticatedController;
 
 import bsh.Console;
 
-@Controller
+@AuthenticatedController
 public class HomeController extends BaseController
 {
-	@Autowired
-	private MedicalService medicalService;
-
 	@Autowired
 	private ApplicationContext applicationContext;
 
 	@RequestMapping(value = { "/", "/index.html" })
 	public String Index(HttpServletRequest request, HttpServletResponse response)
 	{
-		HttpSession session = request.getSession(true);
-		if (session.getAttribute("user") == null)
-		{
-			return "redirect:/account/login";
-		}
-		else
-		{
-			this.initSystemMenu();
-			return "index";
-		}
+		return "index";
 	}
 
 	@RequestMapping(value = { "/aa" })

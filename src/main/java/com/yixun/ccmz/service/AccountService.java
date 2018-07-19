@@ -4,6 +4,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
@@ -23,25 +28,31 @@ public class AccountService extends BaseService
 	@Autowired
 	private SystemFunctionDao systemFunctionDao;
 
-	public User ValidateUser(String username, String password)
+	// 默认的实现是org.springframework.security.authentication.ProviderManager
+	// 内部实现是循环所有的AuthenticationProvider进行验证
+	@Autowired
+	@Qualifier("authenticationManager")
+	protected AuthenticationManager authenticationManager;
+
+	public /* User */ void ValidateUser(String username, String password)
 	{
 		/*
 		 * UserExample q1 = new UserExample(); q1.or().andUserNameEqualTo(username);
 		 * List<User> l1 = userMapper.selectByExample(q1);
 		 * 
 		 * if (l1.size() > 0) { User u = l1.get(0); }
+		 * 
+		 * // AspnetUser user = aspnetUserDao.FindByName(username); User u =
+		 * this.getUserByUserName(username);
+		 * 
+		 * if (u != null && u.getMembership().getPassword().equals(password)) { return
+		 * u; } else { return null; }
 		 */
-		// AspnetUser user = aspnetUserDao.FindByName(username);
-		User u = this.getUserByUserName(username);
+		Authentication request = new UsernamePasswordAuthenticationToken(username, password);
 
-		if (u != null && u.getMembership().getPassword().equals(password))
-		{
-			return u;
-		}
-		else
-		{
-			return null;
-		}
+		Authentication result = authenticationManager.authenticate(request);
+		SecurityContextHolder.getContext().setAuthentication(result);
+
 	}
 
 	public User getUserByUserName(String username)

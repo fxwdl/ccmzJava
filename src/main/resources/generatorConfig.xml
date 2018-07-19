@@ -146,7 +146,11 @@
         <table tableName="dict_hospital" domainObjectName="DictHospital" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
          	 <property name="useActualColumnNames" value="true"/>         	 
          	 <property name="constructorBased" value="false"/>
-        </table> 
+        </table>
+        <table tableName="aspnet_roles" domainObjectName="Role" schema="public" delimitIdentifiers="false" delimitAllColumns="false">
+         	 <property name="useActualColumnNames" value="true"/>         	 
+         	 <property name="constructorBased" value="false"/>
+        </table>         
  -->  
                
     </context>

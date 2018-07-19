@@ -1,6 +1,7 @@
 package com.yixun.ccmz.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class User extends BaseModel
 {
@@ -180,5 +181,17 @@ public class User extends BaseModel
 	public void setDictGovermentDept(DictGovermentDept dictGovermentDept)
 	{
 		this.dictGovermentDept = dictGovermentDept;
+	}
+
+	private List<Role> roles;
+
+	public List<Role> getRoles()
+	{
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles)
+	{
+		this.roles = roles;
 	}
 }

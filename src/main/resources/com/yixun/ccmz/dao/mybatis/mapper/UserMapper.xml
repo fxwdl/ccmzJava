@@ -350,6 +350,25 @@ FROM
 	where u.UserName = #{userName,jdbcType=VARCHAR}
   </select>
   
+  <select id="selectRolesForUser" resultType="com.yixun.ccmz.domain.Role">
+	SELECT
+		aspnet_roles.ApplicationId,
+		aspnet_roles.RoleId,
+		aspnet_roles.RoleName,
+		aspnet_roles.LoweredRoleName,
+		aspnet_roles.Description,
+		aspnet_roles.Level1,
+		aspnet_roles.Level2,
+		aspnet_roles.Level3,
+		aspnet_roles.Level4,
+		aspnet_roles.Hosiptal_Flag
+	FROM
+		aspnet_roles
+		INNER JOIN aspnet_usersinroles
+		 ON aspnet_roles.RoleId = aspnet_usersinroles.RoleId 
+	WHERE aspnet_usersinroles.UserId=#{UserId,jdbcType=VARCHAR}
+  </select>
+  
   <resultMap type="User" id="UserWithMemberResultMap">
     <constructor>
       <idArg column="UserId" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -382,7 +401,9 @@ FROM
 	    <result column="g_Name" jdbcType="VARCHAR" property="name" />
 	    <result column="g_Level" jdbcType="INTEGER" property="level" />
 	    <result column="g_ParentFullCode" jdbcType="VARCHAR" property="parentFullCode" />
-	    <result column="g_IsDeleted" jdbcType="BIT" property="isDeleted" />  	
-    </association>         
+	    <result column="g_IsDeleted" jdbcType="BIT" property="isDeleted"  />  	
+    </association>
+    <collection property="roles" ofType="com.yixun.ccmz.domain.Role" javaType="ArrayList" column="UserId" select="selectRolesForUser">      
+    </collection>   
   </resultMap>  
 </mapper>

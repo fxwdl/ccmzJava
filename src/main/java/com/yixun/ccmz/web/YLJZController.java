@@ -26,8 +26,10 @@ import com.yixun.ccmz.domain.enums.Spec_BN;
 import com.yixun.ccmz.dto.BnTreatmentreimburseModel;
 import com.yixun.ccmz.dto.ClientSingleObjectResult;
 import com.yixun.ccmz.service.MedicalService;
+import com.yixun.ccmz.service.fba.MyUser;
+import com.yixun.infrastructure.annotation.AuthenticatedController;
 
-@Controller
+@AuthenticatedController
 @RequestMapping(value = "/yljz")
 public class YLJZController extends BaseController
 {
@@ -37,7 +39,6 @@ public class YLJZController extends BaseController
 	@RequestMapping(value = "newItem", method = RequestMethod.GET)
 	public String newItem()
 	{
-		this.initSystemMenu();
 		return "yljz/newItem";
 	}
 
@@ -78,7 +79,7 @@ public class YLJZController extends BaseController
 				r.setTypeIn_Date(new Date());
 				r.setApply_Date(r.getTypeIn_Date());
 
-				User u = this.getCurrentUser();
+				User u = this.getUser();
 				if (u != null)
 				{
 					r.setOperator_ID(u.getUserId());
