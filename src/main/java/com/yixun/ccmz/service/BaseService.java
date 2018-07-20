@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.cache.annotation.CacheEvict;
 
 import com.googlecode.jmapper.JMapper;
 import com.googlecode.jmapper.api.JMapperAPI;

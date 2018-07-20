@@ -56,7 +56,6 @@ public class AccountController extends BaseController
 		{
 			r.setSuccess(true);
 			r.setMsg("");
-			;
 			r.setData(this.getUser());
 		}
 		else

@@ -4,6 +4,7 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:cache="http://www.springframework.org/schema/cache"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
        http://www.springframework.org/schema/context 
@@ -13,17 +14,23 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
        http://www.springframework.org/schema/security
-	   http://www.springframework.org/schema/security/spring-security.xsd"
+	   http://www.springframework.org/schema/security/spring-security.xsd
+	   http://www.springframework.org/schema/cache 
+	   http://www.springframework.org/schema/cache/spring-cache.xsd"	   
        >
     
     <!-- 扫描类包，将标注Spring注解的类自动转化Bean，同时完成Bean的注入 -->
     <context:component-scan base-package="com.yixun.ccmz.dao,com.yixun.ccmz.service"/>
+    
+    <!-- 启用缓存注解 -->
+    <cache:annotation-driven />
     
 	<!-- 基于@AspectJ切面的驱动器 -->
     <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
     <!-- 指定配置文件的位置，貌似不指定也好使 -->
     <context:property-placeholder location="classpath:jdbc.properties"/> 
+    
     
     <!-- 配置数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
@@ -75,10 +82,20 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
 		
+
+    
+	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+		<property name="caches"> 
+			<set> 
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="default" /> 
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="accountCache" /> 
+			</set> 
+		</property> 
+	</bean>     
+		
     <!-- 对标识@Transactional注解的Bean进行加工处理，以织入事务管理切面 proxy-target-class="true" 使用CGLib动态代理  false是接口代理-->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
-    
-		
+					
 	<!-- 通过XML AOP配置提供事务增强，让service包下所有Bean的所有方法拥有事务 （基于schema的AOP配置方式 如果声明了tx:annotation-driven,则这段应该也可以省略了
 	<aop:config proxy-target-class="true">
 		<aop:pointcut id="serviceMethod"
@@ -99,7 +116,10 @@
 	<bean id="myAuthenticationSuccessHandler" class="com.yixun.ccmz.service.fba.MyAuthenticationSuccessHandler"></bean>	
 	<bean id="myAuthenticationFailureHandler" class="com.yixun.ccmz.service.fba.MyAuthenticationFailureHandler"></bean>
 	
-	<!-- 开始Method级支持@Secured注解 -->
+	<!-- 开始Method级支持@Secured注解 方法级注解使用的AOP的方式（而不是像url使用的是filter），默认spring使用的是接口代理，所以默认情况下应该将
+		Service层分成接口与实现，然后将@Secured标识在Service接口的方法上。或者将Controller分成接口与实现类，然后将@Secured放到Controller的接口上。
+		显示在Service上更合理。但是应该研究如何让Spring用CGLib的类代理实现AOP，这样就可以直接在Controller的方法上进行注解了。
+	-->
 	<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"></security:global-method-security>
 	
 	<security:http pattern="/bower_components/**" security="none"/>
@@ -112,7 +132,7 @@
 		 26.2.1 Referring to Beans in Web Security Expressions
 		 
 		-->
-	<security:http use-expressions="true" >		
+	<security:http use-expressions="true">		
 		<!-- 
 		<security:intercept-url pattern="/account/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<security:intercept-url pattern="/YLJZ/**" access="ROLE_医院结算员" />
@@ -126,8 +146,7 @@
 			login-page="/account/login" username-parameter="userName" password-parameter="password" 
 			login-processing-url="/logincheck" default-target-url="/" always-use-default-target="true" 
 			authentication-failure-url="/account/login?error=true" 
-			authentication-success-handler-ref="myAuthenticationSuccessHandler" 
-			authentication-failure-handler-ref="myAuthenticationFailureHandler"/>
+			authentication-success-handler-ref="myAuthenticationSuccessHandler" />
 		<security:session-management invalid-session-url="/account/login"></security:session-management>
 		<security:logout delete-cookies="JSESSIONID"/>	
 		<security:csrf disabled="true"/>	
@@ -136,8 +155,19 @@
 		
 	</security:http>
 	
+	
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider ref="myAuthenticationProvider">
 		</security:authentication-provider>
 	</security:authentication-manager>	
+	
+	 <!-- 
+	<security:authentication-manager  alias="authenticationManager">
+		<security:authentication-provider>
+			<security:user-service id="userDetailsService">
+				<security:user name="绿园区" password="1234567" authorities="ROLE_医院结算员" />
+				<security:user name="SystemUser" password="1" authorities="ROLE_管理员" />		
+			</security:user-service>	
+		</security:authentication-provider>
+	</security:authentication-manager>	 -->	 
 </beans>

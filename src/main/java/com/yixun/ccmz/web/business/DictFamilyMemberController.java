@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yixun.ccmz.domain.DictFamilymember;
 import com.yixun.ccmz.service.DictService;
 import com.yixun.ccmz.web.BaseController;
-import com.yixun.infrastructure.annotation.Authenticated;
 
 @Controller
 @RequestMapping(value = "/DictFamilyMember")
