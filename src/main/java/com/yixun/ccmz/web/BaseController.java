@@ -1,16 +1,22 @@
 package com.yixun.ccmz.web;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -54,6 +60,21 @@ public class BaseController
 		}
 	}
 
+	/*
+	 * // @ExceptionHandler用来处理异常
+	 * 
+	 * @ExceptionHandler public void HandleError(Exception ex) {
+	 * System.out.println(ex.getMessage()); }
+	 */
+	// @InitBinder初始化绑定器，暂时没弄明白用法
+	@InitBinder
+	public void dataBinding(WebDataBinder binder)
+	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, "dob", new CustomDateEditor(dateFormat, true));
+	}
+
 	protected Authentication getAuthentication()
 	{
 		return SecurityContextHolder.getContext().getAuthentication();
@@ -64,7 +85,7 @@ public class BaseController
 		MyUser result = null;
 		Authentication au = getAuthentication();
 
-		if (au.getDetails() instanceof MyUser) // 不清楚为什么AbstractUserDetailsAuthenticationProvider的实现，并不是将userDetails放到Details上，而是放到了Principal上
+		if (au != null && au.getDetails() instanceof MyUser) // 不清楚为什么AbstractUserDetailsAuthenticationProvider的实现，并不是将userDetails放到Details上，而是放到了Principal上
 		{
 			result = (MyUser) au.getDetails();
 		}

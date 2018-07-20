@@ -19,7 +19,7 @@
 <title>${title}</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/fontAwesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/Ionicons/css/ionicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/ionicons/css/ionicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/adminLTE/dist/css/AdminLTE.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/adminLTE/plugins/iCheck/square/blue.css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -32,18 +32,16 @@
 <body class="hold-transition login-page">
     <div class="login-box" style="width:400px;">
         <div class="login-logo">
-            <b>${title}</b>
+            <b>长春市医疗救助管理系统</b>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">请输入用户名和密码登录系统</p>
-            <form:form action="" method="post" class="form-horizontal" role="form" onsubmit="onSubmit()" modelAttribute="user">
-            	<c:if test="${not empty modelState }">            	
+            <form:form action="${pageContext.request.contextPath}/logincheck" method="post" class="form-horizontal" role="form" onsubmit="onSubmit()" modelAttribute="user">
+            	<c:if test="${not empty param.error }">            	
                     <div class="alert alert-danger" role="alert">
                         <a class="close" data-dismiss="alert">×</a>
-	            		<c:forEach items="${modelState}" var="state">
-	            			<p>${state}</p>
-	            		</c:forEach>
+	            		<p>用户名或密码错误</p>
                     </div>                                
             	</c:if>
                 <div class="form-group has-feedback">

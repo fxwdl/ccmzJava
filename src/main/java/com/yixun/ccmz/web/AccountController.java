@@ -27,32 +27,25 @@ public class AccountController extends BaseController
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login(HttpServletRequest request, Model model)
 	{
-		model.addAttribute("title", "长春市医疗救助管理系统");
 		model.addAttribute("user", new LoginModel());
+		model.addAttribute("title", "长春市医疗救助管理系统");
 		return getViewName("login");
 	}
-
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public ModelAndView login(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("user") LoginModel user)
-	{
-		ModelAndView m = new ModelAndView();
-		try
-		{
-			this.getAccountService().ValidateUser(user.getUserName(), user.getPassword());
-			// m.setViewName("redirect:/");
-		}
-		catch (Exception ex)
-		{
-			HashSet<String> modelState = new HashSet<String>();
-			modelState.add("用户名或密码错误!");
-			m.addObject("modelState", modelState);
-			m.setViewName(getViewName("login"));
-			m.addObject("title", "长春市医疗救助管理系统");
-		}
-
-		return m;
-	}
+	/*
+	 * @RequestMapping(value = "login", method = RequestMethod.POST) public
+	 * ModelAndView login(HttpServletRequest request, HttpServletResponse response,
+	 * 
+	 * @ModelAttribute("user") LoginModel user) {
+	 * 
+	 * try { this.getAccountService().ValidateUser(user.getUserName(),
+	 * user.getPassword()); // return null; m.setViewName("redirect:/"); } catch
+	 * (Exception ex) { ModelAndView m = new ModelAndView(); HashSet<String>
+	 * modelState = new HashSet<String>(); modelState.add("用户名或密码错误!");
+	 * m.addObject("modelState", modelState); m.setViewName(getViewName("login"));
+	 * m.addObject("title", "长春市医疗救助管理系统"); return m; }
+	 * 
+	 * }
+	 */
 
 	@RequestMapping(value = "GetCurUserInfo", method = RequestMethod.GET)
 	@ResponseBody

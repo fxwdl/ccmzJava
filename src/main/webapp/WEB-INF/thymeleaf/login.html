@@ -28,7 +28,7 @@
 <!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">请输入用户名和密码登录系统</p>
-            <form action="#" th:action="@{/account/login.html}" method="post" class="form-horizontal" role="form" onsubmit="onSubmit()" th:object="${user}">
+            <form action="#" th:action="@{/logincheck}" method="post" class="form-horizontal" role="form" onsubmit="onSubmit()" th:object="${user}">
          	
                 <div th:if="${modelState}!=null" class="alert alert-danger" role="alert">
                     <a class="close" data-dismiss="alert">×</a>

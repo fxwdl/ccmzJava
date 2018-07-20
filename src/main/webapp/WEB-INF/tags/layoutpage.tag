@@ -22,7 +22,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/fontAwesome/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/ionicons/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bower_components/adminLTE/dist/css/AdminLTE.min.css">
 
@@ -79,7 +79,7 @@
                                 <!-- User image -->
                                 <li class="user-header">
                                     <img id="user-header" src="${pageContext.request.contextPath}/images/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                    <p>${user }</p>
+                                    <p>${user.userName }</p>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
@@ -87,7 +87,7 @@
                                         <a id="systemsettingBtn" href="javascript:void(0)" class="btn btn-default btn-flat">修改密码</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="/Account/Logout" class="btn btn-default btn-flat">注销</a>
+                                        <a href="${pageContext.request.contextPath}/logout" class="btn btn-default btn-flat">注销</a>
                                     </div>
                                 </li>
                             </ul>

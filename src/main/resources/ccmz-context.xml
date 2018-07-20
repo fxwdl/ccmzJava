@@ -94,19 +94,40 @@
 	
 	<bean id="springContextHolder" class="com.yixun.infrastructure.SpringContextHolder"></bean>
 	<bean id="myAuthenticationProvider" class="com.yixun.ccmz.service.fba.MyAuthenticationProvider" p:userDetailsService-ref="myUserDetailsService"></bean>
-	<bean id="myUserDetailsService" class="com.yixun.ccmz.service.fba.MyUserDetailsService"></bean>
+	<bean id="myUserDetailsService" class="com.yixun.ccmz.service.fba.MyUserDetailsService" p:rolePrefix="ROLE_"></bean>
+	<!-- 自定义AuthenticationSuccessHandler，可以覆盖默认的SavedRequestAwareAuthenticationSuccessHandler -->
+	<bean id="myAuthenticationSuccessHandler" class="com.yixun.ccmz.service.fba.MyAuthenticationSuccessHandler"></bean>	
+	<bean id="myAuthenticationFailureHandler" class="com.yixun.ccmz.service.fba.MyAuthenticationFailureHandler"></bean>
 	
 	<!-- 开始Method级支持@Secured注解 -->
 	<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"></security:global-method-security>
 	
+	<security:http pattern="/bower_components/**" security="none"/>
 	<!-- access:使用access指定访问的角色，但有3个特殊值： 
 		IS_AUTHENTICATED_ANONYMOUSLY表示用户不需要登录就可以访问
 		IS_AUTHENTICATED_REMEMBERED表示用户需要是通过Remember-Me功能进行自动登录的才能访问；
-		IS_AUTHENTICATED_FULLY表示用户的认证类型应该是除前两者以外的，也就是用户需要是通过登录入口进行登录认证的才能访问-->
-	<security:http use-expressions="false">
+		IS_AUTHENTICATED_FULLY表示用户的认证类型应该是除前两者以外的，也就是用户需要是通过登录入口进行登录认证的才能访问
+		 
+		 扩展表达式
+		 26.2.1 Referring to Beans in Web Security Expressions
+		 
+		-->
+	<security:http use-expressions="true" >		
+		<!-- 
 		<security:intercept-url pattern="/account/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY,IS_AUTHENTICATED_REMEMBERED" />
-		<security:form-login login-page="/account/login" default-target-url="/ccmz" always-use-default-target="true"/>
+		<security:intercept-url pattern="/YLJZ/**" access="ROLE_医院结算员" />
+		<security:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY,IS_AUTHENTICATED_REMEMBERED" />  -->
+		
+		<security:intercept-url pattern="/account/login*" access="isAnonymous()" />
+		<security:intercept-url pattern="/YLJZ/**" access="hasRole('ROLE_医院结算员')" />
+		<security:intercept-url pattern="/**" access="isAuthenticated()" />
+		
+		<security:form-login 
+			login-page="/account/login" username-parameter="userName" password-parameter="password" 
+			login-processing-url="/logincheck" default-target-url="/" always-use-default-target="true" 
+			authentication-failure-url="/account/login?error=true" 
+			authentication-success-handler-ref="myAuthenticationSuccessHandler" 
+			authentication-failure-handler-ref="myAuthenticationFailureHandler"/>
 		<security:session-management invalid-session-url="/account/login"></security:session-management>
 		<security:logout delete-cookies="JSESSIONID"/>	
 		<security:csrf disabled="true"/>	
@@ -114,7 +135,7 @@
 		<security:http-basic /> -->
 		
 	</security:http>
-
+	
 	<security:authentication-manager alias="authenticationManager">
 		<security:authentication-provider ref="myAuthenticationProvider">
 		</security:authentication-provider>
