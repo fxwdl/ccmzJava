@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.yixun.ccmz.domain.User;
 import com.yixun.ccmz.dto.ClientSingleObjectResult;
@@ -29,21 +30,20 @@ public class SystemController
 	@ResponseBody
 	@Secured(value = "ROLE_管理员")
 	// @PreAuthorize("hasRole('ROLE_管理员')")
-	public ClientSingleObjectResult<String> reloadAllCache()
+	public ModelAndView reloadAllCache()
 	{
-		ClientSingleObjectResult<String> r = new ClientSingleObjectResult<String>();
+		ModelAndView m = new ModelAndView();
 		try
 		{
 			systemService.reloadAllCache();
-			r.setSuccess(true);
-			r.setMsg("成功清除所有缓存");
+			m.addObject("msg", "成功清除所有缓存");
+			m.setViewName("success");
 		}
-		catch (Exception ex)
+		catch (Exception e)
 		{
-			r.setSuccess(false);
-			r.setMsg(ex.getMessage());
+			m.addObject("msg", e.getMessage());
+			m.setViewName("error");
 		}
-
-		return r;
+		return m;
 	}
 }

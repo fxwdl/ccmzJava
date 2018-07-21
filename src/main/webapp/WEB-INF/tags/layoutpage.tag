@@ -50,7 +50,7 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="index" class="logo" style="height:52px;">
+            <a href="${pageContext.request.contextPath}/" class="logo" style="height:52px;">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>LT</span>
                 <!-- logo for regular state and mobile devices -->
