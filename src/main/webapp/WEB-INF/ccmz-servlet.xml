@@ -5,16 +5,24 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc" 
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
     http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.2.xsd
     http://www.springframework.org/schema/aop   http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd    
     ">
        
 	<!-- 扫描web包，应用Spring的注解 -->
 	<context:component-scan base-package="com.yixun.ccmz.web"/>
+	
+	<!--http://www.javatronic.fr/articles/2014/03/15/method_level_security_with_spring_security_and_spring_mvc.html 
+		在Controller层面支持方法级授权注解。这个声明很重要，因为Spring分为2个Application Context。
+		如果只把这个声到application-context(ccmz-application)时将忽略DispatcherServlet配置文件中的Controller扫描（即此配置文件） -->
+	<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled" proxy-target-class="true"></security:global-method-security>
+	
 	<mvc:annotation-driven>
 		<mvc:path-matching path-matcher="pathMatcher"/>
 		<!-- 配置message转换

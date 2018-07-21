@@ -81,9 +81,7 @@
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
-		
-
-    
+		   
 	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
 		<property name="caches"> 
 			<set> 
@@ -108,6 +106,14 @@
 		</tx:attributes>
 	</tx:advice>
 	-->
+		<!-- 开始Method级支持@Secured注解 方法级注解使用的AOP的方式（而不是像url使用的是filter），默认spring使用的是接口代理，所以默认情况下应该将
+		Service层分成接口与实现，然后将@Secured标识在Service接口的方法上。或者将Controller分成接口与实现类，然后将@Secured放到Controller的接口上。
+		显示在Service上更合理。配置proxy-target-class="true" 让Spring用CGLib的类代理实现AOP，这样就可以直接在Controller的方法上进行注解了。
+		注：这个配置只对在这个文件配置的（即Service层、Dao层有效），对于Controller需要在Servlet的配置文件中（即ccmz-servlet.xml）配置。所以，就是看要将方法级授权限制在Controller层还是Service层。
+		如果按照.net的习惯，是配置在Controller层。但是如何将Service作为API使用的话，那么也可以放在Service层。
+	-->
+	<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled" proxy-target-class="true"></security:global-method-security>
+	
 	
 	<bean id="springContextHolder" class="com.yixun.infrastructure.SpringContextHolder"></bean>
 	<bean id="myAuthenticationProvider" class="com.yixun.ccmz.service.fba.MyAuthenticationProvider" p:userDetailsService-ref="myUserDetailsService"></bean>
@@ -116,13 +122,8 @@
 	<bean id="myAuthenticationSuccessHandler" class="com.yixun.ccmz.service.fba.MyAuthenticationSuccessHandler"></bean>	
 	<bean id="myAuthenticationFailureHandler" class="com.yixun.ccmz.service.fba.MyAuthenticationFailureHandler"></bean>
 	
-	<!-- 开始Method级支持@Secured注解 方法级注解使用的AOP的方式（而不是像url使用的是filter），默认spring使用的是接口代理，所以默认情况下应该将
-		Service层分成接口与实现，然后将@Secured标识在Service接口的方法上。或者将Controller分成接口与实现类，然后将@Secured放到Controller的接口上。
-		显示在Service上更合理。但是应该研究如何让Spring用CGLib的类代理实现AOP，这样就可以直接在Controller的方法上进行注解了。
-	-->
-	<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"></security:global-method-security>
-	
 	<security:http pattern="/bower_components/**" security="none"/>
+	<security:http pattern="/403.html" security="none"/>
 	<!-- access:使用access指定访问的角色，但有3个特殊值： 
 		IS_AUTHENTICATED_ANONYMOUSLY表示用户不需要登录就可以访问
 		IS_AUTHENTICATED_REMEMBERED表示用户需要是通过Remember-Me功能进行自动登录的才能访问；
@@ -153,6 +154,8 @@
 		<!-- 基本验证就是使用浏览器的模态登录界面
 		<security:http-basic /> -->
 		
+		<!-- 配置拒绝授权后的403页 -->
+		<security:access-denied-handler error-page="/403.html"/>
 	</security:http>
 	
 	

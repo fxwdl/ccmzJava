@@ -19,6 +19,12 @@ public class SystemController
 	@Autowired
 	private SystemService systemService;
 
+	// 启用CGLib代理，必需要有构造函数
+	public SystemController()
+	{
+
+	}
+
 	@RequestMapping(value = "reloadAllCache", method = RequestMethod.GET)
 	@ResponseBody
 	@Secured(value = "ROLE_管理员")

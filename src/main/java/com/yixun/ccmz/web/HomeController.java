@@ -1,4 +1,4 @@
-package com.yixun.ccmz.web.business;
+package com.yixun.ccmz.web;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -32,7 +32,6 @@ import com.yixun.ccmz.dto.BnTreatmentreimburseModel;
 import com.yixun.ccmz.dto.ClientSingleObjectResult;
 import com.yixun.ccmz.dto.LoginModel;
 import com.yixun.ccmz.service.MedicalService;
-import com.yixun.ccmz.web.BaseController;
 import com.yixun.infrastructure.SpringContextHolder;
 import com.yixun.infrastructure.annotation.Authenticated;
 
@@ -48,6 +47,12 @@ public class HomeController extends BaseController
 	public String Index(HttpServletRequest request, HttpServletResponse response)
 	{
 		return "index";
+	}
+
+	@RequestMapping(value = "/403.html")
+	public String Show403(HttpServletRequest request, HttpServletResponse response)
+	{
+		return "403";
 	}
 
 	@RequestMapping(value = { "/aa" })
