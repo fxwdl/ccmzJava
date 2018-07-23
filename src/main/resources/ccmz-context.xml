@@ -147,6 +147,7 @@
 		
 		<!-- 没有什么用default-target-url="/" always-use-default-target="true"  因为与在ccmz-servlet.xml中配置的
 			com.yixun.ccmz.web.ResourcePathExposer有问题，会跳转到引用了{rpe.resourceRoot}的文件（IE下）。所以使用myAuthenticationSuccessHandler进行跳转
+			https://stackoverflow.com/questions/33205236/spring-security-added-prefix-role-to-all-roles-name
 		 -->
 		<security:form-login 
 			login-page="/account/login" username-parameter="userName" password-parameter="password" 
