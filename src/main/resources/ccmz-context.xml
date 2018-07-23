@@ -118,9 +118,14 @@
 	<bean id="springContextHolder" class="com.yixun.infrastructure.SpringContextHolder"></bean>
 	<bean id="myAuthenticationProvider" class="com.yixun.ccmz.service.fba.MyAuthenticationProvider" p:userDetailsService-ref="myUserDetailsService"></bean>
 	<bean id="myUserDetailsService" class="com.yixun.ccmz.service.fba.MyUserDetailsService" p:rolePrefix=""></bean>
-	<!-- 自定义AuthenticationSuccessHandler，可以覆盖默认的SavedRequestAwareAuthenticationSuccessHandler -->
-	<bean id="myAuthenticationSuccessHandler" class="com.yixun.ccmz.service.fba.MyAuthenticationSuccessHandler"></bean>	
+	<!-- 自定义AuthenticationSuccessHandler，可以覆盖默认的SavedRequestAwareAuthenticationSuccessHandler，并开启Referer使其支持从Referer获取跳转前的页面，登录后直接跳转到访问前的页面 -->
+	<bean id="myAuthenticationSuccessHandler" class="com.yixun.ccmz.service.fba.MyAuthenticationSuccessHandler" p:useReferer="false"></bean>	
 	<bean id="myAuthenticationFailureHandler" class="com.yixun.ccmz.service.fba.MyAuthenticationFailureHandler"></bean>
+	
+	<bean id="savedRequestAwareAuthenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+	     <property name="targetUrlParameter" value="redirect"/>
+	     <property name="useReferer" value="true"/>
+	</bean>	
 	
 	<security:http pattern="/bower_components/**" security="none"/>
 	<security:http pattern="/403.html" security="none"/>
@@ -141,19 +146,21 @@
 		
 		<security:intercept-url pattern="/account/login*" access="isAnonymous()" />
 		<!-- 完成去掉ROLE_前缀需要配置accessDecisionManager，具体有些复杂，参考 http://www.baeldung.com/spring-security-custom-voter -->
-		<!-- 不过Spring 4 可以使用hasAuthority来代替hasRole，hasAuthority不检查ROLE_前缀 -->
+		<!-- 不过Spring 4 可以使用hasAuthority来代替hasRole，hasAuthority不检查ROLE_前缀 https://stackoverflow.com/questions/33205236/spring-security-added-prefix-role-to-all-roles-name-->
 		<security:intercept-url pattern="/YLJZ/**" access="hasAuthority('医院结算员')" />
 		<security:intercept-url pattern="/**" access="isAuthenticated()" />
 		
-		<!-- 没有什么用default-target-url="/" always-use-default-target="true"  因为与在ccmz-servlet.xml中配置的
-			com.yixun.ccmz.web.ResourcePathExposer有问题，会跳转到引用了{rpe.resourceRoot}的文件（IE下）。所以使用myAuthenticationSuccessHandler进行跳转
-			https://stackoverflow.com/questions/33205236/spring-security-added-prefix-role-to-all-roles-name
+		<!--  可能会com.yixun.ccmz.web.ResourcePathExposer有问题，会跳转到引用了{rpe.resourceRoot}的文件,原因是onAuthenticationSuccess中取出来的request.getRequestURI是js文件。
+			可以使用配置 authentication-success-handler-ref myAuthenticationSuccessHandler进行跳转
+			默认使用的是SavedRequestAwareAuthenticationSuccessHandler这个类，配合default-target-url="/index" always-use-default-target="true"实现的跳转
+			另外SavedRequestAwareAuthenticationSuccessHandler还支持从Refered还有url中配置的targetUrlParameter来确定跳转的地址，但不知道为什么自己测试时refered总是login页面，导致登录后又跳到login页
+			另外，也不确定上面配置的SavedRequestAwareAuthenticationSuccessHandler的bean是否生效
 		 -->
 		<security:form-login 
 			login-page="/account/login" username-parameter="userName" password-parameter="password" 
 			login-processing-url="/logincheck" 
-			authentication-failure-url="/account/login?error=true" 
-			authentication-success-handler-ref="myAuthenticationSuccessHandler" />
+			authentication-failure-url="/account/login?error=true"
+			default-target-url="/index" always-use-default-target="true"/>
 		<security:session-management invalid-session-url="/account/login"></security:session-management>
 		<security:logout delete-cookies="JSESSIONID"/>	
 		<security:csrf disabled="true"/>	
