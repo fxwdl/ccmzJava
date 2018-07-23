@@ -28,8 +28,8 @@ public class SystemController
 
 	@RequestMapping(value = "reloadAllCache", method = RequestMethod.GET)
 	@ResponseBody
-	@Secured(value = "ROLE_管理员")
-	// @PreAuthorize("hasRole('ROLE_管理员')")
+	// @Secured(value = "ROLE_管理员")
+	@PreAuthorize("hasAuthority('管理员')")
 	public ModelAndView reloadAllCache()
 	{
 		ModelAndView m = new ModelAndView();

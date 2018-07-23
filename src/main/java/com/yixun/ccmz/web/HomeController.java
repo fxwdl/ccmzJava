@@ -43,7 +43,7 @@ public class HomeController extends BaseController
 	@Autowired
 	private ApplicationContext applicationContext;
 
-	@RequestMapping(value = { "/", "/index.html" })
+	@RequestMapping(value = { "/", "/index", "/index.html" })
 	public String Index(HttpServletRequest request, HttpServletResponse response)
 	{
 		return "index";

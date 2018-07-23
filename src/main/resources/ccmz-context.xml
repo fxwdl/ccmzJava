@@ -117,7 +117,7 @@
 	
 	<bean id="springContextHolder" class="com.yixun.infrastructure.SpringContextHolder"></bean>
 	<bean id="myAuthenticationProvider" class="com.yixun.ccmz.service.fba.MyAuthenticationProvider" p:userDetailsService-ref="myUserDetailsService"></bean>
-	<bean id="myUserDetailsService" class="com.yixun.ccmz.service.fba.MyUserDetailsService" p:rolePrefix="ROLE_"></bean>
+	<bean id="myUserDetailsService" class="com.yixun.ccmz.service.fba.MyUserDetailsService" p:rolePrefix=""></bean>
 	<!-- 自定义AuthenticationSuccessHandler，可以覆盖默认的SavedRequestAwareAuthenticationSuccessHandler -->
 	<bean id="myAuthenticationSuccessHandler" class="com.yixun.ccmz.service.fba.MyAuthenticationSuccessHandler"></bean>	
 	<bean id="myAuthenticationFailureHandler" class="com.yixun.ccmz.service.fba.MyAuthenticationFailureHandler"></bean>
@@ -133,19 +133,24 @@
 		 26.2.1 Referring to Beans in Web Security Expressions
 		 
 		-->
-	<security:http use-expressions="true">		
+	<security:http use-expressions="true" access-decision-manager-ref="">		
 		<!-- 
 		<security:intercept-url pattern="/account/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<security:intercept-url pattern="/YLJZ/**" access="ROLE_医院结算员" />
 		<security:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY,IS_AUTHENTICATED_REMEMBERED" />  -->
 		
 		<security:intercept-url pattern="/account/login*" access="isAnonymous()" />
-		<security:intercept-url pattern="/YLJZ/**" access="hasRole('ROLE_医院结算员')" />
+		<!-- 完成去掉ROLE_前缀需要配置accessDecisionManager，具体有些复杂，参考 http://www.baeldung.com/spring-security-custom-voter -->
+		<!-- 不过Spring 4 可以使用hasAuthority来代替hasRole，hasAuthority不检查ROLE_前缀 -->
+		<security:intercept-url pattern="/YLJZ/**" access="hasAuthority('医院结算员')" />
 		<security:intercept-url pattern="/**" access="isAuthenticated()" />
 		
+		<!-- 没有什么用default-target-url="/" always-use-default-target="true"  因为与在ccmz-servlet.xml中配置的
+			com.yixun.ccmz.web.ResourcePathExposer有问题，会跳转到引用了{rpe.resourceRoot}的文件（IE下）。所以使用myAuthenticationSuccessHandler进行跳转
+		 -->
 		<security:form-login 
 			login-page="/account/login" username-parameter="userName" password-parameter="password" 
-			login-processing-url="/logincheck" default-target-url="/" always-use-default-target="true" 
+			login-processing-url="/logincheck" 
 			authentication-failure-url="/account/login?error=true" 
 			authentication-success-handler-ref="myAuthenticationSuccessHandler" />
 		<security:session-management invalid-session-url="/account/login"></security:session-management>
@@ -172,5 +177,5 @@
 				<security:user name="SystemUser" password="1" authorities="ROLE_管理员" />		
 			</security:user-service>	
 		</security:authentication-provider>
-	</security:authentication-manager>	 -->	 
+	</security:authentication-manager>	 -->	
 </beans>

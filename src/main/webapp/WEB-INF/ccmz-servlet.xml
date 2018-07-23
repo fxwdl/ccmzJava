@@ -53,7 +53,7 @@
 	<mvc:default-servlet-handler/>
 	<!-- 使用版本号升级自己的js文件 -->
 	<bean id="rpe" class="com.yixun.ccmz.web.ResourcePathExposer" init-method="init"/>
-	<mvc:resources mapping="#{rpe.resourceRoot}/**" location="/" cache-period="31536000"></mvc:resources>
+	<mvc:resources mapping="#{rpe.resourceRoot}/**" location="/my_app/" cache-period="31536000"></mvc:resources>
 	<mvc:resources mapping="/bower_components/**" location="/bower_components/" cache-period="31536000"></mvc:resources>
 		
     <!--设置spring对url mapping忽略大小写，默认是大小写敏感的

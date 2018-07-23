@@ -77,7 +77,7 @@
     <script src="${pageContext.request.contextPath}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/bower_components/adminLTE/plugins/iCheck/icheck.min.js"></script>
     
-    <script src="${resourceRoot}/my_app/test.js"></script>
+    <script src="${resourceRoot}/test.js"></script>
     
     <script>
           $(function () {
