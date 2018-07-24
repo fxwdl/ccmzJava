@@ -58,6 +58,8 @@
 		<script src="${pageContext.request.contextPath}/my_app/bootstrap-dialog-zh-CN.js"></script>
 		<script src="${pageContext.request.contextPath}/my_app/bootstrap-dialog-Ext.js"></script>        
       	<script src="${pageContext.request.contextPath}/bower_components/vue/dist/vue.js"></script>
+      	<script src="${pageContext.request.contextPath}/bower_components/es6-promise/es6-promise.min.js"></script>
+      	<script src="${pageContext.request.contextPath}/bower_components/es6-promise/es6-promise.auto.min.js"></script>
       	<script src="${pageContext.request.contextPath}/bower_components/axios/dist/axios.js"></script>
       	<!-- <script src="${pageContext.request.contextPath}/bower_components/q/q.js"></script> -->
       	
@@ -107,11 +109,11 @@
         	                autoclose: true,
         	                todayHighlight: true
         	            };
-    	            $('#div_rysj').datepicker(cfg).on("changeDate", () => {vm.d.in_Date = $('#ds_rysj').val();});
-    	            $('#div_cysj').datepicker(cfg).on("changeDate", () => {vm.d.out_Date = $('#ds_cysj').val();});
-    	            $('#div_jsrq').datepicker(cfg).on("changeDate", () => {vm.d.medicare_Date = $('#ds_jsrq').val();});
-    	            $('#div_lrrq').datepicker(cfg).on("changeDate", () => {vm.d.typeIn_Date = $('#ds_lrrq').val();});
-    	            $('#div_bxsj').datepicker(cfg).on("changeDate", () => {vm.d.apply_Date = $('#ds_bxsj').val();});
+    	            $('#div_rysj').datepicker(cfg).on("changeDate", function() {vm.d.in_Date = $('#ds_rysj').val();});
+    	            $('#div_cysj').datepicker(cfg).on("changeDate", function() {vm.d.out_Date = $('#ds_cysj').val();});
+    	            $('#div_jsrq').datepicker(cfg).on("changeDate", function() {vm.d.medicare_Date = $('#ds_jsrq').val();});
+    	            $('#div_lrrq').datepicker(cfg).on("changeDate", function() {vm.d.typeIn_Date = $('#ds_lrrq').val();});
+    	            $('#div_bxsj').datepicker(cfg).on("changeDate", function() {vm.d.apply_Date = $('#ds_bxsj').val();});
       			},      			
       			computed:{
       				calFinishiFlag:function(){
@@ -255,7 +257,7 @@
       		                });
       		            }
       				},
-      				selDisease(e){      					
+      				selDisease:function(e){      					
       		            if (this.d.finish_Flag > 0) {
       		                return;
       		            }
@@ -337,7 +339,7 @@
       						}      						
       					}      					
       				},
-      				doSubmit(e){      					
+      				doSubmit:function(e){      					
       					this.checkForm(e);
       					if(this.errArray.length>0){
       						e.preventDefault();
@@ -357,7 +359,7 @@
           				});	
       					e.preventDefault();
       				},
-      				reset(e){
+      				reset:function(e){
       					$('#ds_sfzh').focus(); 
           				Bn_TreatmentReimburse.load('${param.id}')
                         	.done(function (data) {
@@ -375,7 +377,7 @@
       		//field是固定通过bind时传入的；newValue,oldVal是Vue进行正常回调时传入的参数。因为callback.bind实际返回的是一个包装器，所以可以实现这样的功能
       		//具体看文档https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
       		vm.$watchAll(["d.ylz_Money", "d.ybbx_Money","d.dbbx_Money","d.gr_Accout_Pay","d.yb_Other_Pay"], function(field, newVal, oldVal){
-      			console.log(newVal+','+oldVal);
+      			//console.log(newVal+','+oldVal);
       			vm.d.gr_Money = vm.d.ylz_Money - vm.d.ybbx_Money - vm.d.dbbx_Money - vm.d.gr_Accout_Pay - vm.d.yb_Other_Pay;
       		});
       	</script>

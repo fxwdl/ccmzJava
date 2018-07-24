@@ -2,50 +2,20 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="101990" started-at="2018-07-10T02:47:22Z" finished-at="2018-07-10T02:49:04Z">
+  <suite name="Default suite" duration-ms="40973" started-at="2018-07-24T07:56:48Z" finished-at="2018-07-24T07:57:29Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="101990" started-at="2018-07-10T02:47:22Z" finished-at="2018-07-10T02:49:04Z">
-      <class name="com.yixun.ccmz.service.AccountServiceTest">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="18" started-at="2018-07-10T10:47:22Z" finished-at="2018-07-10T10:47:22Z">
+    <test name="Default test" duration-ms="40973" started-at="2018-07-24T07:56:48Z" finished-at="2018-07-24T07:57:29Z">
+      <class name="com.yixun.ccmz.dao.LimitAndOffsetTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.yixun.ccmz.dao.LimitAndOffsetTest@694abbdc]" name="setup" is-config="true" duration-ms="1899" started-at="2018-07-24T15:56:48Z" finished-at="2018-07-24T15:56:50Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3483" started-at="2018-07-10T10:47:22Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2018-07-10T10:47:26Z">
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="testLimitandOffset()[pri:0, instance:com.yixun.ccmz.dao.LimitAndOffsetTest@694abbdc]" name="testLimitandOffset" duration-ms="39025" started-at="2018-07-24T15:56:50Z" finished-at="2018-07-24T15:57:29Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="893" started-at="2018-07-10T10:47:26Z" finished-at="2018-07-10T10:47:27Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void com.yixun.ccmz.service.AccountServiceTest.testMapper()]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="testMapper()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="testMapper" duration-ms="97546" started-at="2018-07-10T10:47:27Z" finished-at="2018-07-10T10:49:04Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testMapper -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="10" started-at="2018-07-10T10:49:04Z" finished-at="2018-07-10T10:49:04Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void com.yixun.ccmz.service.AccountServiceTest.testMapper()]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.yixun.ccmz.service.AccountServiceTest@44821a96]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2018-07-10T10:49:04Z" finished-at="2018-07-10T10:49:04Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestClass -->
-      </class> <!-- com.yixun.ccmz.service.AccountServiceTest -->
+        </test-method> <!-- testLimitandOffset -->
+      </class> <!-- com.yixun.ccmz.dao.LimitAndOffsetTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

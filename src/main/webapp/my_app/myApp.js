@@ -1,11 +1,16 @@
 'use strict';
 Vue.prototype.$watchAll = function(props, callback) {
-	  props.forEach(prop => {
-	    // Pass the prop as the first argument to our callback
-		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
-		// 这种用法可以固定传送prop到回调函数的参数上，上面的文档也说明了这是bind的一个用法之一
-	    this.$watch(prop, callback.bind(null, prop));  
-	  });
+//ES6语法
+//	  props.forEach(prop => {
+//	    // Pass the prop as the first argument to our callback
+//		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+//		// 这种用法可以固定传送prop到回调函数的参数上，上面的文档也说明了这是bind的一个用法之一
+//	    this.$watch(prop, callback.bind(null, prop));  
+//	  });
+		var v=this;
+		props.forEach(function(prop){
+			v.$watch(prop, callback.bind(null, prop));  
+		})
 	};
 	
 $.myApp = {
