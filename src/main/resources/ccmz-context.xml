@@ -144,7 +144,7 @@
 		<security:intercept-url pattern="/YLJZ/**" access="ROLE_医院结算员" />
 		<security:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY,IS_AUTHENTICATED_REMEMBERED" />  -->
 		
-		<security:intercept-url pattern="/account/login*" access="isAnonymous()" />
+		<security:intercept-url pattern="/account/login*" access="isAnonymous()" />		
 		<!-- 完成去掉ROLE_前缀需要配置accessDecisionManager，具体有些复杂，参考 http://www.baeldung.com/spring-security-custom-voter -->
 		<!-- 不过Spring 4 可以使用hasAuthority来代替hasRole，hasAuthority不检查ROLE_前缀 https://stackoverflow.com/questions/33205236/spring-security-added-prefix-role-to-all-roles-name-->
 		<security:intercept-url pattern="/YLJZ/**" access="hasAuthority('医院结算员')" />
@@ -159,10 +159,13 @@
 		<security:form-login 
 			login-page="/account/login" username-parameter="userName" password-parameter="password" 
 			login-processing-url="/logincheck" 
-			authentication-failure-url="/account/login?error=true"
+			authentication-failure-url="/account/login?error"
 			default-target-url="/index" always-use-default-target="true"/>
-		<security:session-management invalid-session-url="/account/login"></security:session-management>
-		<security:logout delete-cookies="JSESSIONID"/>	
+		<!-- 默认的session过期就会跳到login页。但是如何这里手工配置了，那么session的filter就会忽略之前的redirect，造成logout传递的参数就没有了
+		<security:session-management invalid-session-url="/account/login"></security:session-management> -->
+		
+		<!-- 不配置logout，自己在代码里进行处理，为了能够在登录页显示成功登出的消息
+		<security:logout delete-cookies="JSESSIONID" logout-url="/account/logout"/> --> 	
 		<security:csrf disabled="true"/>	
 		<!-- 基本验证就是使用浏览器的模态登录界面
 		<security:http-basic /> -->

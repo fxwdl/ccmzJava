@@ -38,12 +38,18 @@
         <div class="login-box-body">
             <p class="login-box-msg">请输入用户名和密码登录系统</p>
             <form:form action="${pageContext.request.contextPath}/logincheck" method="post" class="form-horizontal" role="form" onsubmit="onSubmit()" modelAttribute="user">
-            	<c:if test="${not empty param.error }">            	
+            	<c:if test="${param.error!=null }">            	
                     <div class="alert alert-danger" role="alert">
                         <a class="close" data-dismiss="alert">×</a>
 	            		<p>用户名或密码错误</p>
                     </div>                                
             	</c:if>
+            	<c:if test="${param.logout!=null }">            	
+                    <div class="alert alert-success" role="alert">
+                        <a class="close" data-dismiss="alert">×</a>
+	            		<p>已成功注销当前登录，请重新登录系统</p>
+                    </div>                                
+            	</c:if>            	
                 <div class="form-group has-feedback">
                 	<form:input path="userName" class="form-control" placeholder="用户名"/>               
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>

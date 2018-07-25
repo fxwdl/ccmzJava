@@ -87,7 +87,7 @@
                                         <a id="systemsettingBtn" href="javascript:void(0)" class="btn btn-default btn-flat">修改密码</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="${pageContext.request.contextPath}/logout" class="btn btn-default btn-flat">注销</a>
+                                        <a href="${pageContext.request.contextPath}/account/logout" class="btn btn-default btn-flat">注销</a>
                                     </div>
                                 </li>
                             </ul>
