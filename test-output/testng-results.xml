@@ -2,20 +2,20 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="40973" started-at="2018-07-24T07:56:48Z" finished-at="2018-07-24T07:57:29Z">
+  <suite name="Default suite" duration-ms="6233" started-at="2018-07-25T07:42:44Z" finished-at="2018-07-25T07:42:50Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="40973" started-at="2018-07-24T07:56:48Z" finished-at="2018-07-24T07:57:29Z">
-      <class name="com.yixun.ccmz.dao.LimitAndOffsetTest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:com.yixun.ccmz.dao.LimitAndOffsetTest@694abbdc]" name="setup" is-config="true" duration-ms="1899" started-at="2018-07-24T15:56:48Z" finished-at="2018-07-24T15:56:50Z">
+    <test name="Default test" duration-ms="6233" started-at="2018-07-25T07:42:44Z" finished-at="2018-07-25T07:42:50Z">
+      <class name="com.yixun.ccmz.dao.MyBatisDynamicSQLTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.yixun.ccmz.dao.MyBatisDynamicSQLTest@3e58a80e]" name="setup" is-config="true" duration-ms="478" started-at="2018-07-25T15:42:44Z" finished-at="2018-07-25T15:42:44Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="testLimitandOffset()[pri:0, instance:com.yixun.ccmz.dao.LimitAndOffsetTest@694abbdc]" name="testLimitandOffset" duration-ms="39025" started-at="2018-07-24T15:56:50Z" finished-at="2018-07-24T15:57:29Z">
+        <test-method status="PASS" signature="testJoin()[pri:0, instance:com.yixun.ccmz.dao.MyBatisDynamicSQLTest@3e58a80e]" name="testJoin" duration-ms="5724" started-at="2018-07-25T15:42:44Z" finished-at="2018-07-25T15:42:50Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testLimitandOffset -->
-      </class> <!-- com.yixun.ccmz.dao.LimitAndOffsetTest -->
+        </test-method> <!-- testJoin -->
+      </class> <!-- com.yixun.ccmz.dao.MyBatisDynamicSQLTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

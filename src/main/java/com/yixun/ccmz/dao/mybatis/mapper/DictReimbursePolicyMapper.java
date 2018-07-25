@@ -3,17 +3,20 @@ package com.yixun.ccmz.dao.mybatis.mapper;
 import static com.yixun.ccmz.dao.mybatis.mapper.DictReimbursePolicyDynamicSqlSupport.*;
 import static org.mybatis.dynamic.sql.SqlBuilder.*;
 
+import com.yixun.ccmz.dao.mybatis.mapper.DictReimbursePolicyTargetDynamicSqlSupport.DictReimbursePolicyTarget;
 import com.yixun.ccmz.domain.DictReimbursePolicy;
 import java.util.List;
 import javax.annotation.Generated;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.mapping.FetchType;
 import org.apache.ibatis.type.JdbcType;
 import org.mybatis.dynamic.sql.SqlBuilder;
 import org.mybatis.dynamic.sql.delete.DeleteDSL;
@@ -60,6 +63,7 @@ public interface DictReimbursePolicyMapper
 			@Result(column = "ChildrenAge", property = "childrenAge", jdbcType = JdbcType.INTEGER),
 			@Result(column = "OutpatientQuota", property = "outpatientQuota", jdbcType = JdbcType.DECIMAL),
 			@Result(column = "Memo", property = "memo", jdbcType = JdbcType.VARCHAR) })
+
 	List<DictReimbursePolicy> selectMany(SelectStatementProvider selectStatement);
 
 	@Generated("org.mybatis.generator.api.MyBatisGenerator")
@@ -177,4 +181,17 @@ public interface DictReimbursePolicyMapper
 			return LimitAndOffsetAdapter.of(selectModel, this::selectMany, limit, offset);
 		}, ID, fromDate, endDate, VOD, childrenAge, outpatientQuota, memo).from(dictReimbursePolicy);
 	}
+
+	/**
+	 * 通过join获取数据
+	 * 有点局限性，需要定义DictReimbursePolicyMapper.xml，然后从里面编写collection的ResultMap，通过注解的方式没办法声明。只通声明N+1那种查询的（通过@Result(mary=@Many()）
+	 * 不过也同时证明了，myBatis会将使用Java代码声明的ResultMap与XML定义的ResultMap进行合并。实际上也就说明了2者可以混用。如果注解解决不了的问题，还是可以用XML的方式解决
+	 * https://github.com/mybatis/mybatis-dynamic-sql/tree/master/src/test/java/examples/joins
+	 * 
+	 * @param selectStatement
+	 * @return
+	 */
+	@SelectProvider(type = SqlProviderAdapter.class, method = "select")
+	@ResultMap("JoinResultMap")
+	List<DictReimbursePolicy> selectManyWithTargets(SelectStatementProvider selectStatement);
 }

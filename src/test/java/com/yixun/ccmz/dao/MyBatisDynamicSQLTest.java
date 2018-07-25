@@ -2,6 +2,7 @@ package com.yixun.ccmz.dao;
 
 //import static com.yixun.ccmz.dao.mybatis.mapper.DictReimbursePolicyDynamicSqlSupport.DictReimbursePolicy.fromDate;
 import static com.yixun.ccmz.dao.mybatis.mapper.DictReimbursePolicyDynamicSqlSupport.*;
+import static com.yixun.ccmz.dao.mybatis.mapper.DictReimbursePolicyTargetDynamicSqlSupport.*;
 import static org.testng.Assert.assertEquals;
 import static org.mybatis.dynamic.sql.SqlBuilder.*;
 import org.mybatis.dynamic.sql.render.RenderingStrategy;
@@ -39,7 +40,7 @@ import afu.org.checkerframework.checker.regex.qual.Var;
  * @author fx__w
  *
  */
-public class LimitAndOffsetTest
+public class MyBatisDynamicSQLTest
 {
 	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/yixunccmz";
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -73,13 +74,13 @@ public class LimitAndOffsetTest
 	}
 
 	@Test
-	public void testLimitandOffset()
+	public void testPaging()
 	{
 		try (SqlSession sqlSession = sqlSessionFactory.openSession())
 		{
 			DictReimbursePolicyMapper mapper = sqlSession.getMapper(DictReimbursePolicyMapper.class);
-			SelectStatementProvider s1 = select(ID, fromDate, endDate).from(dictReimbursePolicy).build()
-					.render(RenderingStrategy.MYBATIS3);
+			SelectStatementProvider s1 = select(dictReimbursePolicy.ID, fromDate, endDate).from(dictReimbursePolicy)
+					.build().render(RenderingStrategy.MYBATIS3);
 			List<DictReimbursePolicy> rows3 = mapper.selectMany(s1);
 			assertEquals(rows3.size(), 1);
 
@@ -91,6 +92,37 @@ public class LimitAndOffsetTest
 
 			List<DictReimbursePolicy> rows1 = mapper.selectMany(limit);
 			assertEquals(rows1.size(), 1);
+		}
+	}
+
+	@Test
+	public void testJoin()
+	{
+		try (SqlSession sqlSession = sqlSessionFactory.openSession())
+		{
+			DictReimbursePolicyMapper mapper = sqlSession.getMapper(DictReimbursePolicyMapper.class);
+
+			SelectStatementProvider s1 = select(dictReimbursePolicy.ID, dictReimbursePolicy.fromDate,
+					dictReimbursePolicy.endDate, dictReimbursePolicy.childrenAge, dictReimbursePolicy.memo,
+					dictReimbursePolicy.outpatientQuota, dictReimbursePolicy.VOD,
+					dictReimbursePolicyTarget.ID.as("t_ID"), dictReimbursePolicyTarget.RP_ID.as("t_RP_ID"),
+					dictReimbursePolicyTarget.IC_ID.as("t_IC_ID"), dictReimbursePolicyTarget.maxQuota.as("t_MaxQuota"),
+					dictReimbursePolicyTarget.memo.as("t_Memo")).from(dictReimbursePolicy, "p")
+							.join(dictReimbursePolicyTarget, "t")
+							.on(dictReimbursePolicy.ID, equalTo(dictReimbursePolicyTarget.RP_ID)).build()
+							.render(RenderingStrategy.MYBATIS3);
+
+			System.out.println(s1.getSelectStatement());
+
+			List<DictReimbursePolicy> rows = mapper.selectManyWithTargets(s1);
+
+			for (DictReimbursePolicy item : rows)
+			{
+				System.out.println(item.getTargets().size());
+			}
+			assertEquals(rows.size(), 1);
+
+			assertEquals(rows.get(0).getTargets().size(), 4);
 		}
 	}
 }
