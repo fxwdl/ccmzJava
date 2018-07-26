@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yixun.ccmz.dao.mybatis.mapper.DictReimbursePolicyMapper" >
+  <resultMap id="JoinResultMap" type="com.yixun.ccmz.domain.DictReimbursePolicy" >
+    <id column="ID" property="ID" jdbcType="VARCHAR" />
+    <result column="FromDate" property="fromDate" jdbcType="TIMESTAMP" />
+    <result column="EndDate" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="VOD" property="VOD" jdbcType="DECIMAL" />    
+    <result column="ChildrenAge" property="childrenAge" jdbcType="INTEGER" />
+    <result column="OutpatientQuota" property="outpatientQuota" jdbcType="DECIMAL" />
+    <result column="Memo" property="memo" jdbcType="VARCHAR" />
+    
+    <collection property="targets" javaType="ArrayList" ofType="com.yixun.ccmz.domain.DictReimbursePolicyTarget">
+		<id column="t_ID" property="ID" jdbcType="VARCHAR" />
+		<result column="t_RP_ID" property="RP_ID" jdbcType="VARCHAR" />
+		<result column="t_IC_ID" property="IC_ID" jdbcType="INTEGER" />
+		<result column="t_MaxQuota" property="maxQuota" jdbcType="DECIMAL" />
+		<result column="t_Memo" property="memo" jdbcType="VARCHAR" />        
+    </collection>	
+  </resultMap>
+</mapper>
